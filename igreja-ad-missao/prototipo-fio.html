@@ -1,1 +1,806 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Protótipo do Fio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Conceito: um fio de terra vermelha nasce na cruz, desce por Palmas, cruza até Framingham
+   e vira o varal de onde as igrejas "penduram" no carrossel diagonal. Mundo único: noite. */
+:root {
+  --noite: #0f1214;
+  --noite-2: #171c1f;
+  --noite-3: #222a2e;
+  --cal: #efe9df;
+  --cal-2: #a8a39a;
+  --terra: #c8592f;
+  --terra-luz: #e5865c;
+  --display: "Young Serif", Georgia, serif;
+  --texto: "Public Sans", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--noite); color: var(--cal); font: 400 1.0625rem/1.65 var(--texto); }
 
+.aviso {
+  font: 500 .75rem/1.4 var(--mono); letter-spacing: .04em;
+  color: var(--noite); background: var(--terra-luz);
+  padding: 8px 16px; text-align: center;
+}
+
+/* ---------- Percurso (fio desenhado ao rolar) ---------- */
+/* Videira: folhas nascem atrás da linha conforme ela desce; no fim a bolinha brilha */
+.broto { transform-box: fill-box; transform-origin: 0 50%; transform: scale(0); opacity: 0;
+  transition: transform .9s cubic-bezier(.2,.8,.2,1), opacity .6s ease; }
+.broto.on { transform: scale(1); opacity: .9; }
+/* 1. a história da linha: espinhos (perto da cruz) → folhas → uvas no fim */
+.espinho { fill: #8d7b70; }
+.folha .lamina { fill: rgba(229,134,92,.16); stroke: var(--terra-luz); stroke-width: 1; stroke-linejoin: round; }
+.folha .nerv { fill: none; stroke: var(--terra-luz); stroke-width: .7; opacity: .6; }
+/* 3. travessia do oceano: trecho sem folhas, com rótulo */
+.oceano { font: 500 10px var(--mono); letter-spacing: .14em; fill: var(--cal-2); opacity: 0; transition: opacity 1.2s ease; }
+.oceano.on { opacity: .85; }
+.onda { fill: none; stroke: var(--cal-2); stroke-width: 1; opacity: 0; transition: opacity 1.2s ease .2s; }
+.onda.on { opacity: .45; }
+.cacho .cabo { fill: none; stroke: var(--terra-luz); stroke-width: 1.2; stroke-linecap: round; opacity: 0; transition: opacity .4s; }
+.cacho .uva { fill: rgba(229,134,92,.38); stroke: var(--terra-luz); stroke-width: 1; transform-box: fill-box; transform-origin: 50% 0; transform: scale(0);
+  transition: transform .55s cubic-bezier(.3,1.5,.5,1); }
+.cacho.on .cabo { opacity: 1; }
+.cacho.on .uva { transform: scale(1); }
+.ponto.brilha { animation: ponto-brilha 2.4s ease-in-out infinite; background: #fff3e6; }
+@keyframes ponto-brilha {
+  0%,100% { box-shadow: 0 0 0 0 rgba(255,200,150,.0), 0 0 10px 3px rgba(229,134,92,.7); }
+  50%     { box-shadow: 0 0 0 10px rgba(255,200,150,.0), 0 0 26px 9px rgba(255,190,140,.95); }
+}
+@media (prefers-reduced-motion: reduce) { .broto, .uva, .oceano, .onda, .cacho-card { transition: none !important; } .ponto.brilha { animation: none; } }
+
+.percurso { position: relative; padding-inline: 16px; }
+.percurso svg.fio-svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
+.fio-path { fill: none; stroke: var(--terra); stroke-width: 2; stroke-linecap: round; }
+.fio-glow { fill: none; stroke: var(--terra-luz); stroke-width: 6; opacity: .18; stroke-linecap: round; }
+
+.abertura { min-height: 78vh; display: grid; place-items: center; text-align: center; padding-block: 72px 40px; }
+.cruz { width: 34px; height: auto; filter: drop-shadow(0 0 6px rgba(255,255,255,.7)) drop-shadow(0 0 22px rgba(229,134,92,.45)); }
+.abertura h1 {
+  font: 400 clamp(2.4rem, 7vw, 4.6rem)/1.05 var(--display);
+  margin: 28px 0 0; text-wrap: balance; max-width: 15ch; margin-inline: auto;
+}
+.abertura p { color: var(--cal-2); max-width: 46ch; margin: 18px auto 0; }
+/* 4. utilidade: próximo culto, logo no topo */
+.culto { position: relative; z-index: 1; margin: 30px auto 0; display: inline-flex; flex-wrap: wrap; justify-content: center; align-items: baseline;
+  gap: 4px 12px; padding: 14px 20px; border: 1px solid var(--noite-3); background: rgba(23,28,31,.9); max-width: 100%; font-size: .95rem; }
+.culto__rot { width: 100%; font: 500 .68rem var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--terra-luz); margin-bottom: 4px; }
+.culto strong { font-weight: 600; color: #fff; }
+.culto .ex { font: 400 .66rem var(--mono); color: var(--cal-2); border: 1px dashed var(--cal-2); padding: 0 5px; }
+.culto .falta { color: var(--cal); }
+.culto .end { color: var(--cal-2); }
+.culto a { color: var(--terra-luz); text-decoration: none; border-bottom: 1px solid currentColor; }
+.culto a:focus-visible { outline: 2px solid var(--terra-luz); outline-offset: 3px; }
+
+.parada { max-width: 1080px; margin-inline: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; padding-block: 72px; }
+.parada .txt { min-width: 0; position: relative; z-index: 1; }
+.parada h2 { font: 400 clamp(2rem, 5vw, 3.2rem)/1.05 var(--display); margin: 0 0 14px; }
+.parada p { margin: 0 0 12px; max-width: 42ch; color: var(--cal); }
+.parada p.sub { color: var(--cal-2); }
+.coord { font: 400 .8rem/1.4 var(--mono); color: var(--terra-luz); letter-spacing: .02em; margin-bottom: 10px; display: block; }
+.marco { justify-self: center; display: grid; justify-items: center; gap: 10px; }
+.ponto { width: 16px; height: 16px; border-radius: 50%; background: var(--noite); border: 2px solid var(--terra); box-shadow: 0 0 0 6px rgba(200,89,47,.15); }
+.marco small { font: 400 .75rem var(--mono); color: var(--cal-2); }
+.parada--dir .txt { order: 2; }
+.parada--dir .marco { order: 1; }
+.pendente { font-family: var(--mono); font-size: .85em; color: var(--terra-luz); }
+
+/* ---------- Seção das igrejas ---------- */
+.igrejas { padding-block: 56px 96px; overflow: hidden; }
+.igrejas__head { max-width: 1080px; margin: 0 auto; padding-inline: 16px; display: grid; justify-items: center; text-align: center; gap: 10px; }
+.igrejas__head .ponto { margin-bottom: 18px; }
+.igrejas__head h2 { font: 400 clamp(2rem, 5.5vw, 3.4rem)/1.05 var(--display); margin: 0; text-wrap: balance; }
+.igrejas__head p { color: var(--cal-2); margin: 0; max-width: 48ch; }
+
+/* ---------- Carrossel em anel inclinado (visto de cima, na diagonal) ---------- */
+.palco { position: relative; height: 740px; margin-top: 8px; touch-action: pan-y; cursor: grab; outline: none; overflow: hidden; }
+.palco:active { cursor: grabbing; }
+.palco:focus-visible { box-shadow: inset 0 0 0 2px var(--terra); }
+.cena { position: absolute; left: 50%; top: 44%; width: 0; height: 0; transform-style: preserve-3d; }
+.anel { position: absolute; left: 0; top: 0; width: 0; height: 0; transform-style: preserve-3d; }
+.slot { position: absolute; left: 0; top: 0; transform-style: preserve-3d; }
+.card {
+  position: absolute; left: calc(var(--cw) / -2); top: calc(var(--ch) / -2);
+  width: var(--cw); height: var(--ch); display: block; text-decoration: none; color: var(--cal);
+  transform-style: preserve-3d; user-select: none; -webkit-user-drag: none; outline: none;
+  font-size: calc(var(--cw) * .085);
+}
+.face {
+  position: absolute; inset: 0; display: flex; flex-direction: column; padding: .62em .62em .85em;
+  background: var(--noite-2); border: 1px solid var(--noite-3);
+  backface-visibility: hidden; -webkit-backface-visibility: hidden; overflow: hidden;
+}
+.face--b { transform: rotateY(180deg); }
+.face::after { content: ""; position: absolute; inset: 0; background: var(--noite); opacity: var(--sombra, 0); pointer-events: none; }
+.card.is-front .face { border-color: var(--terra); }
+.card:focus-visible .face { box-shadow: 0 0 0 2px var(--terra-luz); }
+.card__in { display: flex; flex-direction: column; height: 100%; opacity: 0; }
+.palco.is-in .card__in { animation: entra .9s cubic-bezier(.2,.7,.2,1) var(--d, 0s) forwards; }
+.palco.sem-anim .card__in { opacity: 1; animation: none; }
+@keyframes entra { from { opacity: 0; transform: scale(.94); } to { opacity: 1; transform: none; } }
+/* Coroa acende (brilho ~0,5s) e só então os cards aparecem */
+.fio-anel { opacity: 0; --op: 1; }
+.fio-tras { --op: .55; }
+.palco.is-in .fio-anel { animation: coroa-acende 1.3s ease-out forwards; }
+.palco.sem-anim .fio-anel { opacity: var(--op); animation: none; }
+@keyframes coroa-acende {
+  0%   { opacity: 0; filter: drop-shadow(0 0 0 rgba(255,170,120,0)); }
+  22%  { opacity: var(--op); filter: drop-shadow(0 0 14px rgba(255,190,140,1)) drop-shadow(0 0 34px rgba(229,134,92,.9)) brightness(1.7); }
+  40%  { opacity: var(--op); filter: drop-shadow(0 0 20px rgba(255,200,150,1)) drop-shadow(0 0 46px rgba(229,134,92,.8)) brightness(2); }
+  100% { opacity: var(--op); filter: drop-shadow(0 0 0 rgba(255,170,120,0)) brightness(1); }
+}
+
+.foto {
+  flex: 1; min-height: 0; display: grid; place-items: end start; padding: .5em;
+  background: linear-gradient(180deg, var(--c1), var(--c2) 70%, #1a1512);
+  position: relative; overflow: hidden;
+}
+.foto::after { content: ""; position: absolute; left: 18%; right: 18%; bottom: 0; height: 40%; background: rgba(15,18,20,.72); clip-path: polygon(0 30%, 50% 0, 100% 30%, 100% 100%, 0 100%); }
+.foto span { position: relative; z-index: 1; font: 500 .62em var(--mono); letter-spacing: .06em; text-transform: uppercase; color: rgba(239,233,223,.75); }
+.card h3 { font: 400 1.4em/1.15 var(--display); margin: .8em .25em .1em; }
+.card .uf { font: 400 .8em var(--mono); color: var(--cal-2); margin: 0 .3em; }
+.card .hora { display: flex; justify-content: space-between; gap: .5em; margin: .8em .3em 0; padding-top: .6em; border-top: 1px dashed var(--noite-3); font: 400 .74em var(--mono); color: var(--cal-2); }
+.card .hora b { font-weight: 500; color: var(--terra-luz); }
+.tag { position: absolute; top: 1em; right: 1em; z-index: 2; font: 500 .58em var(--mono); text-transform: uppercase; letter-spacing: .08em; background: var(--terra); color: var(--noite); padding: .3em .6em; }
+
+/* Coroa: uma camada atrás dos cards (metade do fundo do anel) e outra na frente (metade de perto) */
+.fio-anel { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
+.fio-anel path { fill: none; stroke: var(--terra-luz); stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.fio-anel .esp { fill: var(--terra-luz); stroke-width: .6; }
+
+.palco:not(.estilo-coroa) .fita-b, .palco.estilo-lisa .esp { display: none; }
+/* 2. modo videira: folhas no anel e um cacho na igreja da frente */
+.palco.estilo-videira .esp { fill: rgba(229,134,92,.2); stroke: var(--terra-luz); stroke-width: 1; }
+.cacho-card { position: absolute; top: 50%; right: 16%; width: 1.5em; z-index: 2; transform: scale(0); transform-origin: 50% 0;
+  transition: transform .5s cubic-bezier(.3,1.5,.5,1) .15s; pointer-events: none; }
+.cacho-card circle { fill: rgba(229,134,92,.45); stroke: var(--terra-luz); stroke-width: 1; }
+.cacho-card path { fill: none; stroke: var(--terra-luz); stroke-width: 1.2; }
+.palco.estilo-videira .card.is-front .cacho-card { transform: scale(1); }
+.estilo { display: flex; justify-content: center; gap: 4px; margin-top: 18px; font: 500 .72rem var(--mono); letter-spacing: .08em; text-transform: uppercase; }
+.estilo button { background: none; border: 0; color: var(--cal-2); padding: 10px 12px; min-height: 44px; cursor: pointer; font: inherit; letter-spacing: inherit; text-transform: inherit; border-bottom: 1px solid transparent; }
+.estilo button[aria-pressed="true"] { color: #fff; border-bottom-color: #fff; }
+
+.giro { position: relative; width: 168px; height: 32px; margin: 4px auto 0; cursor: pointer; touch-action: none; outline: none; }
+.giro__linha { position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: rgba(255,255,255,.85); transform: translateY(-50%); }
+.giro__bola { position: absolute; top: 50%; left: 0; width: 11px; height: 11px; margin: -5.5px 0 0 -5.5px; border-radius: 50%; background: #fff; box-shadow: 0 0 10px rgba(255,255,255,.55); transition: transform .2s; }
+.giro:hover .giro__bola, .giro.is-drag .giro__bola { transform: scale(1.35); }
+.giro:focus-visible .giro__bola { box-shadow: 0 0 0 4px rgba(229,134,92,.6), 0 0 10px rgba(255,255,255,.55); }
+
+.fim { text-align: center; padding-block: 40px 80px; color: var(--cal-2); font-size: .9rem; }
+.fim .cruz { width: 18px; margin-bottom: 14px; }
+.notas { max-width: 640px; margin: 0 auto; padding: 24px 16px 64px; border-top: 1px solid var(--noite-3); color: var(--cal-2); font-size: .92rem; }
+.notas h4 { font: 500 .75rem var(--mono); text-transform: uppercase; letter-spacing: .08em; color: var(--terra-luz); margin: 0 0 10px; }
+.notas ul { margin: 0; padding-left: 18px; display: grid; gap: 6px; }
+
+@media (max-width: 760px) {
+  .parada { grid-template-columns: 1fr; padding-block: 48px; gap: 20px; }
+  .parada--dir .txt { order: 1; }
+  .marco { justify-self: start; }
+  .palco { height: 660px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .card { transition: none; }
+}
+
+/* ==========================================================
+   INTRO: cruz surge no preto, pisca com brilho e o site faz fade in
+   Linha do tempo: 0,3s surge · 1,1s pisca · 1,9s tela preta some · 2,9s fim
+   ========================================================== */
+.intro { position: fixed; inset: 0; z-index: 1000; background: #000; animation: intro-sai 1s ease 1.9s forwards; }
+.intro__cruz {
+  position: absolute; left: var(--cx, 50%); top: var(--cy, 40%);
+  width: 34px; height: auto; transform: translate(-50%, -50%); opacity: 0;
+  filter: drop-shadow(0 0 6px rgba(255,255,255,.7)) drop-shadow(0 0 22px rgba(229,134,92,.45));
+  animation: cruz-surge .7s ease .3s forwards, cruz-pisca 1s ease 1.1s forwards;
+}
+.intro__halo {
+  position: absolute; left: var(--cx, 50%); top: var(--cy, 40%);
+  width: 70vmin; height: 70vmin; border-radius: 50%; opacity: 0;
+  transform: translate(-50%, -50%) scale(.1);
+  background: radial-gradient(circle, rgba(255,244,230,.55) 0%, rgba(229,134,92,.22) 32%, transparent 66%);
+  animation: halo 1.1s ease-out 1.1s forwards;
+}
+.intro__pular {
+  position: absolute; right: 16px; bottom: 16px; padding: 12px 14px; min-height: 44px;
+  background: none; border: 0; cursor: pointer;
+  font: 500 .75rem var(--mono); letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4);
+}
+.intro__pular:hover, .intro__pular:focus-visible { color: #fff; outline: none; }
+
+body > :not(.intro):not(script):not(style):not(link) { animation: site-in 1.2s ease 1.9s backwards; }
+html.trava, html.trava body { overflow: hidden; }
+.intro-fim .intro { display: none; }
+.intro-fim body > * { animation: none !important; }
+
+@keyframes cruz-surge { from { opacity: 0; transform: translate(-50%, -50%) scale(.82); } to { opacity: 1; transform: translate(-50%, -50%) scale(1); } }
+@keyframes cruz-pisca {
+  0%   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  14%  { transform: translate(-50%, -50%) scale(1.3); filter: brightness(3) drop-shadow(0 0 10px #fff) drop-shadow(0 0 46px rgba(255,236,214,.95)); }
+  30%  { opacity: .35; transform: translate(-50%, -50%) scale(1); }
+  48%  { opacity: 1; transform: translate(-50%, -50%) scale(1.15); filter: brightness(2.2) drop-shadow(0 0 8px #fff) drop-shadow(0 0 34px rgba(255,236,214,.8)); }
+  100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+@keyframes halo { 0% { opacity: 0; transform: translate(-50%, -50%) scale(.1); } 18% { opacity: 1; } 100% { opacity: 0; transform: translate(-50%, -50%) scale(1.7); } }
+@keyframes intro-sai { to { opacity: 0; visibility: hidden; } }
+@keyframes site-in { from { opacity: 0; } to { opacity: 1; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .intro { display: none; }
+  body > * { animation: none !important; }
+}
+</style>
+
+<div class="intro" id="intro" aria-hidden="true">
+  <div class="intro__halo"></div>
+  <svg class="intro__cruz" viewBox="0 0 60 90" focusable="false"><path d="M26 0h8v26h26v8H34v56h-8V34H0v-8h26z" fill="#fff"/></svg>
+  <button class="intro__pular" id="pular" type="button">Pular</button>
+</div>
+
+<p class="aviso">Protótipo de teste: fotos são marcadores e horários estão como [PREENCHER]</p>
+
+<div class="percurso" id="percurso">
+  <svg class="fio-svg" aria-hidden="true"><path class="fio-glow" id="fioGlow"/><path class="fio-path" id="fio"/><g id="folhas"></g></svg>
+
+  <header class="abertura">
+    <div>
+      <svg class="cruz" data-no viewBox="0 0 60 90" aria-hidden="true"><path d="M26 0h8v26h26v8H34v56h-8V34H0v-8h26z" fill="#fff"/></svg>
+      <h1>Uma igreja que atravessou o continente</h1>
+      <p>Role a página: o fio sai da cruz, passa por Palmas, cruza até Framingham e liga todas as congregações.</p>
+      <div class="culto" id="culto">
+        <span class="culto__rot">Próximo culto em português · Framingham</span>
+        <strong id="culto-quando">Domingo, 18h</strong>
+        <span class="ex" title="Dia e hora fictícios, só para o teste">exemplo</span>
+        <span class="falta" id="culto-falta"></span>
+        <span class="end">59 Howard St, Framingham, MA</span>
+        <a href="https://www.google.com/maps/search/?api=1&amp;query=59+Howard+St+Framingham+MA+01702" target="_blank" rel="noopener">Como chegar →</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="parada">
+    <div class="txt">
+      <span class="coord">10°11′ S · 48°20′ O</span>
+      <h2>Palmas, Tocantins</h2>
+      <p>O trabalho começou aqui com 11 congregações. Hoje são cerca de 60 na capital.</p>
+      <p class="sub">Primeiro culto: <span class="pendente">[PREENCHER ano]</span></p>
+    </div>
+    <div class="marco"><span class="ponto" data-no></span><small>Sede Brasil</small></div>
+  </section>
+
+  <section class="parada parada--dir">
+    <div class="txt">
+      <span class="coord">42°17′ N · 71°25′ O</span>
+      <h2>Framingham, Massachusetts</h2>
+      <p>Há mais de 15 anos o Projeto Restaurando Vidas chegou à Costa Leste. A sede fica na Howard Street.</p>
+      <p class="sub">Chegada aos EUA: <span class="pendente">[PREENCHER ano]</span></p>
+    </div>
+    <div class="marco"><span class="ponto" data-no></span><small>Sede EUA</small></div>
+  </section>
+
+  <div class="igrejas__head" style="padding-top:56px">
+    <span class="ponto" data-no></span>
+  </div>
+</div>
+
+<section class="igrejas" aria-labelledby="t-igrejas">
+  <div class="igrejas__head">
+    <h2 id="t-igrejas">Visite as outras igrejas</h2>
+    <p>Cada congregação tem sua própria página, com horário e Instagram. Todas presas ao mesmo fio. Arraste, use as setas ou clique num card.</p>
+  </div>
+
+  <div class="palco estilo-videira" id="palco" tabindex="0" aria-label="Carrossel das igrejas. Use as setas do teclado ou arraste.">
+    <svg class="fio-anel fio-tras" aria-hidden="true"><path class="fita-a" id="fAb"/><path class="fita-b" id="fBb"/><path class="esp" id="eb"/></svg>
+    <div class="cena" id="cena"><div class="anel" id="anel"></div></div>
+    <svg class="fio-anel fio-frente" aria-hidden="true"><path class="fita-a" id="fAf"/><path class="fita-b" id="fBf"/><path class="esp" id="ef"/></svg>
+  </div>
+  <div class="giro" id="giro" role="slider" tabindex="0" aria-label="Girar o carrossel" aria-valuemin="1" aria-valuemax="13" aria-valuenow="1">
+    <span class="giro__linha"></span>
+    <span class="giro__bola" id="bola"></span>
+  </div>
+  <div class="estilo" role="group" aria-label="Estilo da linha">
+    <button type="button" id="est-lisa" aria-pressed="false">Linha lisa</button>
+    <button type="button" id="est-coroa" aria-pressed="false">Coroa</button>
+    <button type="button" id="est-videira" aria-pressed="true">Videira</button>
+  </div>
+</section>
+
+<footer class="fim">
+  <svg class="cruz" viewBox="0 0 60 90" aria-hidden="true"><path d="M26 0h8v26h26v8H34v56h-8V34H0v-8h26z" fill="#fff"/></svg>
+  <div>AD Missão Restaurando Vidas</div>
+</footer>
+
+<aside class="notas">
+  <h4>O que observar neste teste</h4>
+  <ul>
+    <li><b>Espinhos → folhas → uvas:</b> perto da cruz a linha tem espinhos; em Palmas brotam as primeiras folhas; no fim nasce um cacho (os frutos são as igrejas).</li>
+    <li><b>Travessia:</b> entre Palmas e Framingham a linha fica nua e aparece o oceano.</li>
+    <li><b>Videira no anel:</b> no carrossel, o modo Videira põe folhas no anel e um cacho na igreja da frente. Compare com Coroa e Linha lisa.</li>
+    <li><b>Próximo culto:</b> o bloco do topo calcula “em N dias” pelo horário de Massachusetts. Dia e hora são fictícios (marcados como exemplo).</li>
+    <li>O carrossel é um anel 3D: ao chegar nele, os cards entram da esquerda para a direita. Arraste, use as setas, o teclado ou clique num card lateral.</li>
+    <li>Passa sozinho a cada ~4 s; pausa ao passar o mouse ou no botão Pausar.</li>
+    <li>Cada card levaria à página daquela congregação (ex.: /lowell).</li>
+  </ul>
+</aside>
+
+<script>
+(function () {
+  var reduz = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// ---------- Dados (mesma lista do igrejas.js) ----------
+  var igrejas = [
+    ['Palmas', 'TO · Brasil', 'Sede', '#4a3a2e', '#c8592f'],
+    ['Framingham', 'MA · EUA', 'Sede', '#2b3a48', '#9c6a4a'],
+    ['Lowell', 'MA · EUA', '', '#33414a', '#7b5a48'],
+    ['Somerville', 'MA · EUA', '', '#2d3640', '#8a6550'],
+    ['Everett', 'MA · EUA', '', '#3a3a44', '#7d5f52'],
+    ['Milford', 'MA · EUA', '', '#2f3b3a', '#8c6a4c'],
+    ['Plymouth', 'MA · EUA', '', '#2a3946', '#6f6a62'],
+    ['Brockton', 'MA · EUA', '', '#37343e', '#8a5c46'],
+    ['East Boston', 'MA · EUA', '', '#28343f', '#7e6858'],
+    ['Weymouth', 'MA · EUA', '', '#313c42', '#866650'],
+    ['Fall River', 'MA · EUA', '', '#353a40', '#7c5a4c'],
+    ['Philadelphia', 'PA · EUA', '', '#3a3430', '#94643f'],
+    ['Margate', 'FL · EUA', '', '#2c4048', '#a8744a']
+  ];
+  var N = igrejas.length;
+  var passo = 360 / N;            // graus entre cards
+  var AX = -22, AZ = -8;          // inclinação: olhar de cima (X) e diagonal (Z), em graus
+  var RAD = Math.PI / 180;
+
+  var palco = document.getElementById('palco');
+  var cena = document.getElementById('cena');
+  var anel = document.getElementById('anel');
+  var cards = [];
+
+  igrejas.forEach(function (g, i) {
+    var slot = document.createElement('div');
+    slot.className = 'slot';
+    var a = document.createElement('a');
+    a.className = 'card';
+    a.href = '#' + g[0].toLowerCase().replace(/\s+/g, '-');
+    a.draggable = false;
+    a.style.setProperty('--c1', g[3]);
+    a.style.setProperty('--c2', g[4]);
+    var tag = g[2] ? '<span class="tag">' + g[2] + '</span>' : '';
+    var cacho = '<svg class="cacho-card" viewBox="0 0 20 30" aria-hidden="true"><path d="M10 0 V6"/>' +
+      '<circle cx="5" cy="10" r="3.6"/><circle cx="12.5" cy="10" r="3.6"/><circle cx="8.7" cy="16.4" r="3.6"/><circle cx="15.5" cy="16" r="3"/><circle cx="12" cy="22.5" r="3.4"/></svg>';
+    var conteudo = tag + cacho + '<div class="card__in"><div class="foto"><span>Foto da fachada</span></div>' +
+      '<h3>' + g[0] + '</h3><p class="uf">' + g[1] + '</p>' +
+      '<div class="hora"><span>Domingo</span><b>[PREENCHER]</b></div></div>';
+    // duas faces com o mesmo conteúdo: o card também se lê quando está atrás do anel
+    a.innerHTML = '<div class="face face--f">' + conteudo + '</div><div class="face face--b">' + conteudo + '</div>';
+    a.addEventListener('click', function (e) {
+      e.preventDefault();
+      if (moveu > 6) return;
+      var rel = relativo(i);
+      if (Math.abs(rel) > 0.4) alvo = Math.round(pos + rel);
+    });
+    slot.appendChild(a);
+    anel.appendChild(slot);
+    cards.push({ slot: slot, el: a });
+  });
+
+  // ---------- Geometria ----------
+  var raio = 400, cw = 150, ch = 195, persp = 1000, W = 800, H = 640;
+  function medir() {
+    W = palco.clientWidth; H = palco.clientHeight;
+    var corda = 2 * Math.sin(Math.PI / N);           // lado do polígono para raio 1
+    raio = Math.min(W * 0.31, 430);
+    cw = raio * corda * 0.8;
+    if (cw < 120) { cw = 120; raio = cw * 1.15 / corda; }   // celular: cards legíveis, anel maior que a tela
+    ch = Math.round(cw * 1.3);
+    persp = raio * 2.5;                                // perspectiva forte = campo de visão amplo
+    palco.style.perspective = persp + 'px';
+    palco.style.setProperty('--cw', cw + 'px');
+    palco.style.setProperty('--ch', ch + 'px');
+    cena.style.transform = 'rotateZ(' + AZ + 'deg) rotateX(' + AX + 'deg)';
+    cards.forEach(function (c, i) {
+      c.slot.style.transform = 'rotateY(' + (i * passo) + 'deg) translateZ(' + raio + 'px)';
+    });
+    construirCoroa();
+    renderAnel();
+  }
+
+  // ---------- Coroa: duas fitas trançadas + espinhos, num círculo 3D que passa pelo meio dos cards ----------
+  var modo = 'videira', coroaOn = false, videiraOn = true, fitaA = [], fitaB = [], espinhos = [], folhasAnel = [];
+  function construirCoroa() {
+    var amp = coroaOn ? Math.max(4, raio * 0.016) : 0;
+    var ciclos = Math.max(6, Math.round(2 * Math.PI * raio / Math.max(40, raio * 0.17)));
+    var M = Math.round(2 * Math.PI * raio / 2.5);
+    var seed = 11, prox = 0.5, escala = raio / 410;
+    function rnd() { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; }
+    fitaA = []; fitaB = []; espinhos = []; folhasAnel = [];
+    if (videiraOn) { // 3 folhas entre cada par de cards, alternando acima/abaixo do fio
+      var sd = 5; function r2() { sd = (sd * 9301 + 49297) % 233280; return sd / 233280; }
+      for (var c = 0; c < N; c++) for (var q = 0; q < 3; q++) {
+        var ang = (c + 0.25 + q * 0.25 + (r2() - 0.5) * 0.08) * passo * RAD;
+        folhasAnel.push({ f: ang, lado: (c * 3 + q) % 2 ? 1 : -1, tam: (8 + r2() * 6) * Math.max(raio / 410, .75), giro: 40 + r2() * 30 });
+      }
+    }
+    for (var i = 0; i <= M; i++) {
+      var f = i / M * 2 * Math.PI, fase = f * ciclos, o = amp * Math.sin(fase);
+      var px = Math.sin(f) * raio, pz = Math.cos(f) * raio;
+      fitaA.push([px, o, pz]); fitaB.push([px, -o, pz]);
+      var meio = fase / Math.PI;
+      if (coroaOn && meio >= prox) {
+        var lado = (Math.round(meio) % 2 === 0) ? 1 : -1;
+        prox = Math.floor(meio) + 1.5;
+        if (rnd() < 0.72) {
+          var comp = (11 + rnd() * 9) * Math.max(escala, .8), incl = (rnd() - 0.35) * 1.3, larg = 2.2;
+          var tx = Math.cos(f), tz = -Math.sin(f);
+          var by = lado * amp * 0.55;
+          var dy = lado, dx = tx * incl, dz = tz * incl, dl = Math.hypot(dx, dy, dz);
+          espinhos.push([
+            [px - tx * larg, by, pz - tz * larg],
+            [px + dx / dl * comp, by + dy / dl * comp, pz + dz / dl * comp],
+            [px + tx * larg, by, pz + tz * larg]
+          ]);
+        }
+      }
+    }
+  }
+
+  function desenharCoroa(theta) {
+    var ct = Math.cos(theta), st = Math.sin(theta);
+    var cx_ = Math.cos(AX * RAD), sx_ = Math.sin(AX * RAD), cz_ = Math.cos(AZ * RAD), sz_ = Math.sin(AZ * RAD);
+    function proj(p) { // mesma sequência do CSS: rotateY (anel) → rotateX → rotateZ → perspectiva
+      var x = p[0] * ct + p[2] * st, z = -p[0] * st + p[2] * ct, y = p[1];
+      var y2 = y * cx_ - z * sx_, z2 = y * sx_ + z * cx_;
+      var x3 = x * cz_ - y2 * sz_, y3 = x * sz_ + y2 * cz_;
+      var k = persp / (persp - z2);
+      return [W / 2 + x3 * k, H / 2 + y3 * k, z2, k];
+    }
+    function pt(q) { return q[0].toFixed(1) + ' ' + q[1].toFixed(1) + ' '; }
+    function trilha(arr) {
+      var fs = '', bs = '', ps = null, pq = null;
+      for (var i = 0; i < arr.length; i++) {
+        var q = proj(arr[i]), s = q[2] >= 0;
+        if (ps === null || s !== ps) {
+          if (ps !== null) { if (ps) fs += 'L' + pt(q); else bs += 'L' + pt(q); }
+          if (s) fs += 'M' + pt(pq || q) + 'L' + pt(q); else bs += 'M' + pt(pq || q) + 'L' + pt(q);
+        } else { if (s) fs += 'L' + pt(q); else bs += 'L' + pt(q); }
+        ps = s; pq = q;
+      }
+      return [fs, bs];
+    }
+    var A = trilha(fitaA), B = coroaOn ? trilha(fitaB) : ['', ''];
+    var ef = '', eb = '';
+    for (var j = 0; j < espinhos.length; j++) {
+      var e = espinhos[j], q0 = proj(e[0]), q1 = proj(e[1]), q2 = proj(e[2]);
+      var d = 'M' + pt(q0) + 'L' + pt(q1) + 'L' + pt(q2) + 'Z ';
+      if (q0[2] >= 0) ef += d; else eb += d;
+    }
+    for (var m = 0; m < folhasAnel.length; m++) {
+      var fl = folhasAnel[m], px = Math.sin(fl.f) * raio, pz = Math.cos(fl.f) * raio;
+      var b0 = proj([px, 0, pz]), b1 = proj([Math.sin(fl.f + 0.01) * raio, 0, Math.cos(fl.f + 0.01) * raio]);
+      var ta = Math.atan2(b1[1] - b0[1], b1[0] - b0[0]) + fl.lado * fl.giro * RAD;
+      var ux = Math.cos(ta), uy = Math.sin(ta), nx = -uy, ny = ux, sc = fl.tam * b0[3];
+      function L2(x, y) { return [b0[0] + (ux * x + nx * y) * sc, b0[1] + (uy * x + ny * y) * sc]; }
+      var P = [L2(.3, -.55), L2(1.1, -.5), L2(1.8, 0), L2(1.1, .5), L2(.3, .55)];
+      var dl = 'M' + pt(b0) + 'C' + pt(P[0]) + pt(P[1]) + pt(P[2]) + 'C' + pt(P[3]) + pt(P[4]) + pt(b0) + 'Z ';
+      if (b0[2] >= 0) ef += dl; else eb += dl;
+    }
+    document.getElementById('fAf').setAttribute('d', A[0]); document.getElementById('fAb').setAttribute('d', A[1]);
+    document.getElementById('fBf').setAttribute('d', B[0]); document.getElementById('fBb').setAttribute('d', B[1]);
+    document.getElementById('ef').setAttribute('d', ef);   document.getElementById('eb').setAttribute('d', eb);
+  }
+
+  // interruptor: linha lisa x coroa
+  function estilo(m) {
+    modo = m; coroaOn = m === 'coroa'; videiraOn = m === 'videira';
+    ['lisa', 'coroa', 'videira'].forEach(function (k) {
+      palco.classList.toggle('estilo-' + k, k === m);
+      document.getElementById('est-' + k).setAttribute('aria-pressed', String(k === m));
+    });
+    construirCoroa(); renderAnel();
+  }
+  ['lisa', 'coroa', 'videira'].forEach(function (k) {
+    document.getElementById('est-' + k).addEventListener('click', function () { estilo(k); });
+  });
+
+  // ---------- Estado: pos = índice (fracionário) do card à frente ----------
+  var reduz2 = reduz;
+  var pos = reduz2 ? 0 : 3.4, alvo = 0, mola = reduz2 ? 1 : 0.045;
+  var arrastando = false, moveu = 0, ultimoX = 0, ultimoT = 0, vel = 0, hover = false, pausado = reduz2;
+
+  function relativo(i) {
+    var r = ((i - pos) % N + N) % N;
+    return r > N / 2 ? r - N : r;
+  }
+
+  function renderAnel() {
+    atualizarBola();
+    var th = -pos * passo;
+    anel.style.transform = 'rotateY(' + th + 'deg)';
+    for (var i = 0; i < N; i++) {
+      var rel = relativo(i), t = (Math.cos(rel * passo * RAD) + 1) / 2;   // 1 = de frente, 0 = no fundo
+      cards[i].el.style.setProperty('--sombra', ((1 - t) * 0.62).toFixed(3));
+      cards[i].el.classList.toggle('is-front', Math.abs(rel) < 0.5);
+    }
+    desenharCoroa(th * RAD);
+  }
+
+  function quadro() {
+    if (!arrastando) {
+      var d = alvo - pos;
+      if (Math.abs(d) > 0.0005) { pos += d * mola; }
+      else { pos = alvo; mola = 0.09; }
+      if (Math.abs(d) < 0.02) mola = 0.09;
+    }
+    renderAnel();
+    requestAnimationFrame(quadro);
+  }
+
+  // ---------- Entrada: ao chegar, os cards surgem da esquerda para a direita ----------
+  function prepararEntrada() {
+    cards.forEach(function (c, i) {
+      var r = relativo(i);
+      var atraso = Math.max(0, (Math.min(r, 3.5) + 3.5) / 7) * 0.9 + 0.55;
+      c.el.querySelectorAll('.card__in').forEach(function (n) { n.style.setProperty('--d', atraso.toFixed(2) + 's'); });
+    });
+  }
+  var entrou = false;
+  function entrar() {
+    if (entrou) return; entrou = true;
+    if (reduz2) { palco.classList.add('sem-anim'); return; }
+    var p0 = pos; pos = 0; prepararEntrada(); pos = p0;
+    palco.classList.add('is-in');
+    setTimeout(function () { mola = 0.09; }, 2400);
+  }
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (es, ob) {
+      if (es[0].isIntersecting) { entrar(); ob.disconnect(); }
+    }, { threshold: 0.35 }).observe(palco);
+  } else { entrar(); }
+
+  // ---------- Controles: arrastar, teclado, autoplay ----------
+  palco.addEventListener('pointerenter', function () { hover = true; });
+  palco.addEventListener('pointerleave', function () { hover = false; });
+  palco.addEventListener('pointerdown', function (e) {
+    arrastando = true; moveu = 0; vel = 0; ultimoX = e.clientX; ultimoT = performance.now();
+    palco.setPointerCapture(e.pointerId);
+  });
+  palco.addEventListener('pointermove', function (e) {
+    if (!arrastando) return;
+    var dx = e.clientX - ultimoX, agora = performance.now();
+    moveu += Math.abs(dx);
+    var porCard = Math.max(90, raio * 2 * Math.sin(Math.PI / N) * 1.1);
+    var dp = -dx / porCard;
+    pos += dp; alvo = pos;
+    vel = dp / Math.max(1, agora - ultimoT) * 16;
+    ultimoX = e.clientX; ultimoT = agora;
+  });
+  function soltar() {
+    if (!arrastando) return;
+    arrastando = false;
+    alvo = Math.round(pos + vel * 14);
+    mola = 0.09;
+  }
+  palco.addEventListener('pointerup', soltar);
+  palco.addEventListener('pointercancel', soltar);
+
+  function ir(n) { alvo = Math.round(alvo) + n; mola = 0.09; }
+  palco.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowLeft') { ir(-1); e.preventDefault(); }
+    if (e.key === 'ArrowRight') { ir(1); e.preventDefault(); }
+  });
+
+  // ---------- Linha com bolinha: gira o carrossel ----------
+  var giro = document.getElementById('giro');
+  var bola = document.getElementById('bola');
+  var girando = false;
+
+  function valorDoPonteiro(e) {
+    var r = giro.getBoundingClientRect();
+    var f = Math.max(0, Math.min(1, (e.clientX - r.left) / r.width));
+    var v = f * N;
+    return Math.round((pos - v) / N) * N + v;
+  }
+  giro.addEventListener('pointerdown', function (e) {
+    girando = true; giro.classList.add('is-drag');
+    giro.setPointerCapture(e.pointerId);
+    pos = alvo = valorDoPonteiro(e); mola = 0.09;
+  });
+  giro.addEventListener('pointermove', function (e) { if (girando) pos = alvo = valorDoPonteiro(e); });
+  function largar() {
+    if (!girando) return;
+    girando = false; giro.classList.remove('is-drag');
+    alvo = Math.round(pos);
+  }
+  giro.addEventListener('pointerup', largar);
+  giro.addEventListener('pointercancel', largar);
+  giro.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') { ir(-1); e.preventDefault(); }
+    if (e.key === 'ArrowRight' || e.key === 'ArrowUp') { ir(1); e.preventDefault(); }
+  });
+
+  function atualizarBola() {
+    var f = (((pos % N) + N) % N) / N;
+    bola.style.left = (f * 100).toFixed(2) + '%';
+    giro.setAttribute('aria-valuenow', String(Math.round(((pos % N) + N) % N) + 1));
+  }
+
+  setInterval(function () {
+    if (entrou && !pausado && !hover && !arrastando && !girando && !document.hidden && document.activeElement !== giro) ir(1);
+  }, 4200);
+
+  window.addEventListener('resize', medir);
+  medir();
+  requestAnimationFrame(quadro);
+
+  // ---------- Fio: caminho entre os marcos, desenhado conforme a rolagem ----------
+  var percurso = document.getElementById('percurso');
+  var fio = document.getElementById('fio');
+  var glow = document.getElementById('fioGlow');
+  var comprimento = 0;
+
+  var gFolhas = document.getElementById('folhas'), folhas = [], marcos = [], cacho = null;
+  var NS = 'http://www.w3.org/2000/svg';
+  function el(tag, attrs, pai) {
+    var e = document.createElementNS(NS, tag);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    if (pai) pai.appendChild(e);
+    return e;
+  }
+  function semearFolhas() {
+    gFolhas.innerHTML = ''; folhas = [];
+    var seed = 7;
+    function rnd() { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; }
+    var L1 = marcos[1], L2 = marcos[2], lado = 1, L = 46;
+    var estreito = percurso.clientWidth < 700;   // celular: trecho do oceano passa por trás do texto
+    var fimPalmas = L1 + (estreito ? 40 : 120);
+    while (L < comprimento - 30) {
+      var tipo, passoL;
+      if (L < L1 - 50) { tipo = 'espinho'; passoL = 30 + rnd() * 22; }          // da cruz até perto de Palmas
+      else if (L < fimPalmas) { tipo = 'folha'; passoL = 62 + rnd() * 30; }       // primeiras folhas em Palmas
+      else if (L < L2 - 40) { L = L2 - 40; continue; }                             // oceano: linha nua
+      else { tipo = 'folha'; passoL = 46 + rnd() * 34; }                           // EUA: videira cheia
+      var a = fio.getPointAtLength(L), b = fio.getPointAtLength(L + 2);
+      var ang = Math.atan2(b.y - a.y, b.x - a.x) * 180 / Math.PI;
+      lado = -lado;
+      var g = el('g', { transform: 'translate(' + a.x.toFixed(1) + ' ' + a.y.toFixed(1) + ') rotate(' + (ang + lado * (tipo === 'espinho' ? 70 + rnd() * 30 : 45 + rnd() * 32)).toFixed(1) + ')' }, gFolhas);
+      var bro;
+      if (tipo === 'espinho') {
+        var t = 8 + rnd() * 6;
+        bro = el('path', { 'class': 'broto espinho', d: 'M0 -2.4 L' + t.toFixed(1) + ' 0 L0 2.4 Z' }, g);
+      } else {
+        var tam = 9 + rnd() * 9;
+        bro = el('g', { 'class': 'broto folha' }, g);
+        el('path', { 'class': 'lamina', d: 'M0 0 C ' + tam * .3 + ' ' + (-tam * .55) + ' ' + tam * 1.1 + ' ' + (-tam * .5) + ' ' + tam * 1.8 + ' 0 C ' + tam * 1.1 + ' ' + tam * .5 + ' ' + tam * .3 + ' ' + tam * .55 + ' 0 0 Z' }, bro);
+        el('path', { 'class': 'nerv', d: 'M0 0 L' + (tam * 1.35).toFixed(1) + ' 0' }, bro);
+      }
+      folhas.push({ L: L, el: bro });
+      L += passoL;
+    }
+    // travessia: rótulo do oceano no meio do trecho Palmas → Framingham
+    var Lm = estreito ? L1 + 80 : (L1 + L2) / 2, m0 = fio.getPointAtLength(Lm), m1 = fio.getPointAtLength(Lm + 2);
+    var ta = Math.atan2(m1.y - m0.y, m1.x - m0.x), ox = -Math.sin(ta) * 22, oy = Math.cos(ta) * 22;
+    var desl = 0;
+    if (estreito ? ox < 0 : oy > 0) { ox = -ox; oy = -oy; }   // celular: à direita; computador: acima da linha
+    var tx = el('text', { 'class': 'oceano', x: (m0.x + ox).toFixed(1), y: (m0.y + oy).toFixed(1), 'dominant-baseline': 'middle', 'text-anchor': estreito ? 'start' : 'end' }, gFolhas);
+    tx.textContent = 'OCEANO ATLÂNTICO · ~6.300 KM';
+    folhas.push({ L: Lm - 60, el: tx });
+    var ondas = el('path', { 'class': 'onda', d: ['M', 'M'].map(function (_, i) {
+      var x0 = m0.x + ox - (estreito ? 0 : 80), y0 = m0.y + oy + 14 + i * 7, d = 'M' + x0.toFixed(1) + ' ' + y0.toFixed(1);
+      for (var j = 0; j < 6; j++) d += ' q 6 ' + (j % 2 ? 4 : -4) + ' 12 0';
+      return d;
+    }).join(' ') }, gFolhas);
+    folhas.push({ L: Lm - 40, el: ondas });
+    // fim: cacho de uvas pendurado ao lado da bolinha
+    var e = fio.getPointAtLength(comprimento);
+    cacho = el('g', { 'class': 'cacho', transform: 'translate(' + (e.x + 9).toFixed(1) + ' ' + (e.y - 2).toFixed(1) + ')' }, gFolhas);
+    el('path', { 'class': 'cabo', d: 'M0 0 C 8 -6 16 -2 18 8' }, cacho);
+    [[13, 13], [21, 13], [29, 14], [17, 20], [25, 21], [21, 27], [14, 20.5], [19, 33]].forEach(function (c, i) {
+      var u = el('circle', { 'class': 'uva', cx: c[0], cy: c[1], r: 4 }, cacho);
+      u.style.transitionDelay = (i * 0.07).toFixed(2) + 's';
+    });
+  }
+  var pontoFim = null, yIni = 0, yFim = 1;
+  function montarFio() {
+    var base = percurso.getBoundingClientRect();
+    var pts = Array.prototype.map.call(percurso.querySelectorAll('[data-no]'), function (n) {
+      var r = n.getBoundingClientRect();
+      return [r.left + r.width / 2 - base.left, r.top + r.height / 2 - base.top];
+    });
+    if (pts.length < 2) return;
+    pts[0][1] += 30; // sai da base da cruz
+    yIni = pts[0][1]; yFim = pts[pts.length - 1][1];
+    var d = 'M' + pts[0][0] + ' ' + pts[0][1];
+    marcos = [0];
+    for (var i = 1; i < pts.length; i++) {
+      var a = pts[i - 1], b = pts[i], dy = (b[1] - a[1]) * 0.55;
+      d += ' C' + a[0] + ' ' + (a[1] + dy) + ' ' + b[0] + ' ' + (b[1] - dy) + ' ' + b[0] + ' ' + b[1];
+      fio.setAttribute('d', d); marcos.push(fio.getTotalLength());   // comprimento até cada marco
+    }
+    fio.setAttribute('d', d);
+    glow.setAttribute('d', d);
+    comprimento = fio.getTotalLength();
+    semearFolhas();
+    [fio, glow].forEach(function (p) { p.style.strokeDasharray = comprimento; });
+    desenhar();
+  }
+
+  function desenhar() {
+    if (!comprimento) return;
+    var r = percurso.getBoundingClientRect();
+    var p = reduz ? 1 : (window.innerHeight * 0.68 - r.top - yIni) / Math.max(1, yFim - yIni);
+    p = Math.max(0.04, Math.min(1, p));
+    var off = comprimento * (1 - p);
+    fio.style.strokeDashoffset = off;
+    glow.style.strokeDashoffset = off;
+    var vis = comprimento * p;
+    folhas.forEach(function (o) { o.el.classList.toggle('on', o.L < vis - 12); });
+    if (!pontoFim) { var nos = percurso.querySelectorAll('[data-no]'); pontoFim = nos[nos.length - 1]; }
+    pontoFim.classList.toggle('brilha', p > 0.985);
+    if (cacho) cacho.classList.toggle('on', p > 0.985);
+  }
+
+  // ---------- Próximo culto: conta pelo horário de Massachusetts ----------
+  var CULTO = { dia: 0, hora: 18, minuto: 0 };   // EXEMPLO: domingo 18h (trocar pelos dados reais)
+  (function () {
+    var nomes = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
+    var mapa = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
+    function atualizar() {
+      var partes = {};
+      try {
+        new Intl.DateTimeFormat('en-US', { timeZone: 'America/New_York', weekday: 'short', hour: 'numeric', minute: 'numeric', hour12: false })
+          .formatToParts(new Date()).forEach(function (x) { partes[x.type] = x.value; });
+      } catch (e) { var d0 = new Date(); partes = { weekday: Object.keys(mapa)[d0.getDay()], hour: d0.getHours(), minute: d0.getMinutes() }; }
+      var wd = mapa[partes.weekday], agora = (+partes.hour % 24) * 60 + (+partes.minute), alvoM = CULTO.hora * 60 + CULTO.minuto;
+      var dias = (CULTO.dia - wd + 7) % 7, txt;
+      if (dias === 0 && agora > alvoM + 120) dias = 7;
+      if (dias === 0) {
+        if (agora >= alvoM) txt = 'acontecendo agora';
+        else { var f = alvoM - agora; txt = 'hoje, daqui a ' + (f >= 60 ? Math.floor(f / 60) + 'h' + (f % 60 ? String(f % 60).padStart(2, '0') : '') : f + ' min'); }
+      } else txt = dias === 1 ? 'amanhã' : 'em ' + dias + ' dias';
+      document.getElementById('culto-quando').textContent = nomes[CULTO.dia] + ', ' + CULTO.hora + 'h' + (CULTO.minuto ? String(CULTO.minuto).padStart(2, '0') : '');
+      document.getElementById('culto-falta').textContent = '· ' + txt;
+    }
+    atualizar(); setInterval(atualizar, 60000);
+  })();
+
+  window.addEventListener('scroll', desenhar, { passive: true });
+  var t;
+  window.addEventListener('resize', function () { clearTimeout(t); t = setTimeout(montarFio, 120); });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(montarFio);
+  montarFio();
+})();
+</script>
+
+<script>
+(function () {
+  var raiz = document.documentElement;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  try { history.scrollRestoration = 'manual'; } catch (e) {}
+  window.scrollTo(0, 0);
+  raiz.classList.add('trava');
+
+  var intro = document.getElementById('intro');
+  function ancorar() { // cruz do intro exatamente sobre a cruz do topo da página
+    var alvo = document.querySelector('.abertura .cruz');
+    if (!alvo) return;
+    var r = alvo.getBoundingClientRect();
+    intro.style.setProperty('--cx', (r.left + r.width / 2) + 'px');
+    intro.style.setProperty('--cy', (r.top + r.height / 2) + 'px');
+  }
+  ancorar();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(ancorar);
+
+  var fim = false;
+  function acabar() {
+    if (fim) return; fim = true;
+    raiz.classList.remove('trava');
+    raiz.classList.add('intro-fim');
+  }
+  setTimeout(acabar, 3100);
+  document.getElementById('pular').addEventListener('click', acabar);
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') acabar(); });
+})();
+</script>
+
+</body></html>
