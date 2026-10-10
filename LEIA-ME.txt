@@ -1,0 +1,37 @@
+AMAZON BERRY · versão de apresentação (v2)
+==========================================
+
+COMO ABRIR
+- Dê dois cliques em index.html. Funciona sem internet, exceto o mapa.
+- Para mostrar no celular do cliente, suba a pasta inteira (index.html + images + fonts)
+  em Netlify, Vercel ou GitHub Pages e mande o link.
+
+O QUE MUDOU EM RELAÇÃO À VERSÃO ANTERIOR
+- Identidade: fundo roxo-açaí (no lugar do preto), magenta da logo, creme no lugar do branco.
+  A logo aparece como "adesivo", igual ao copo e ao pote da loja.
+- Assinatura visual: gotas de açaí e de leite condensado escorrem entre as seções quando
+  elas aparecem na tela.
+- Topo: entrada animada do título, mais um selo "Aberto agora / Fechado · abre às..." calculado
+  pelo horário de Massachusetts.
+- Inglês / Português: botão EN | PT no topo. Abre em português se o celular estiver em português.
+- Celular: barra fixa embaixo com Ligar, Como chegar e WhatsApp.
+- Horários: tabela com o dia de hoje destacado. Botões "Get directions" e "Call us".
+- Avaliações: mostram só o primeiro nome e a inicial do sobrenome, mais o link
+  "ver todas no Google".
+- Desempenho: fotos convertidas de PNG para WebP (3,2 MB passaram a 320 KB)
+  e fontes hospedadas no próprio site.
+- Tiramos os emojis, o "🇧🇷" e os textos genéricos ("every bite is a journey").
+- Quem tem "reduzir movimento" ligado no celular vê tudo sem animação.
+
+CONFIRMAR COM O DONO ANTES DE PUBLICAR
+1. As 3 avaliações são reais e públicas no Google? (Vieram da versão anterior; não conferimos.)
+2. O número (978) 398-5330 atende no WhatsApp?
+3. Os horários continuam os mesmos?
+4. Fotos originais em alta resolução. Várias têm só 243 px de largura e ficam borradas
+   em tela grande, principalmente os cards do cardápio.
+5. Ele quer preços no cardápio? (Não inventamos nenhum.)
+6. Quando tiver domínio, trocar a linha og:image por um endereço completo
+   (https://dominio/images/hero.webp). É o que faz a foto aparecer quando o link é
+   mandado no WhatsApp ou no Instagram.
+
+A licença das fontes (OFL) está na pasta fonts. Pode usar comercialmente.

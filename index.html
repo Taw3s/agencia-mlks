@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amazon Berry · Açaí in Lowell, MA</title>
+<meta name="description" content="Amazon Berry serves açaí bowls, milkshakes and Brazilian salgados in Lowell, MA. Made fresh daily at 259 South St.">
+<meta property="og:title" content="Amazon Berry · Brazilian Açaí in Lowell, MA">
+<meta property="og:description" content="Açaí bowls, milkshakes and salgados, made fresh daily at 259 South St, Lowell.">
+<!-- trocar pelo endereço completo quando o site tiver domínio: https://SEU-DOMINIO/images/hero.webp -->
+<meta property="og:image" content="images/hero.webp">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#2a0b2e">
+<link rel="icon" type="image/jpeg" href="images/logo.jpg">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FoodEstablishment",
+  "name": "Amazon Berry",
+  "description": "Açaí bowls, milkshakes and Brazilian salgados in Lowell, MA. Made fresh daily.",
+  "telephone": "+19783985330",
+  "address": { "@type": "PostalAddress", "streetAddress": "259 South St", "addressLocality": "Lowell", "addressRegion": "MA", "postalCode": "01850", "addressCountry": "US" },
+  "openingHoursSpecification": [
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday"], "opens": "15:00", "closes": "22:00" },
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Thursday", "Friday", "Saturday", "Sunday"], "opens": "13:00", "closes": "23:00" }
+  ],
+  "servesCuisine": "Brazilian",
+  "priceRange": "$",
+  "sameAs": ["https://instagram.com/amazonberryusa"]
+}
+</script>
+
+<style>
+/* fontes hospedadas no próprio site (licença OFL, arquivos em /fonts) */
+@font-face { font-family: 'Bricolage Grotesque'; src: url(fonts/bricolage.woff2) format('woff2'); font-weight: 200 800; font-display: swap; }
+@font-face { font-family: 'Figtree'; src: url(fonts/figtree.woff2) format('woff2'); font-weight: 300 900; font-display: swap; }
+:root {
+  --acai: #2a0b2e;        /* roxo do açaí: fundo escuro da marca */
+  --acai-2: #3b1240;
+  --acai-3: #52205a;
+  --berry: #c61d6e;       /* magenta da logo */
+  --pink: #f0389a;        /* destaque sobre fundo escuro */
+  --leaf: #59b24a;        /* folha da logo, usado com parcimônia */
+  --cream: #fff4e8;       /* leite condensado */
+  --cream-2: #f7e8da;
+  --ink: #23101f;
+  --ink-2: #6a5462;
+  --display: 'Bricolage Grotesque', 'Arial Black', sans-serif;
+  --body: 'Figtree', system-ui, sans-serif;
+  --r: 22px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; overflow-x: clip; }
+body { font-family: var(--body); color: var(--ink); background: var(--cream); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--pink); outline-offset: 3px; border-radius: 6px; }
+.wrap { max-width: 1200px; margin: 0 auto; padding-inline: 24px; }
+
+/* ── NAV ── */
+nav {
+  position: fixed; inset: 0 0 auto; z-index: 100; display: flex; align-items: center; justify-content: space-between;
+  padding: 14px clamp(16px, 4vw, 48px); transition: background .35s, box-shadow .35s, padding .35s;
+}
+nav.scrolled { background: rgba(42,11,46,.92); backdrop-filter: blur(12px); box-shadow: 0 6px 30px rgba(0,0,0,.25); padding-block: 9px; }
+.sticker { background: #fff; border-radius: 14px; padding: 4px; box-shadow: 0 4px 0 rgba(0,0,0,.18); }
+.nav-logo { display: block; width: 54px; }
+.nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
+.nav-links a { color: #fff; text-decoration: none; font-weight: 600; font-size: 15px; }
+.nav-links a:not(.btn):hover { color: var(--pink); }
+.lang { display: flex; border: 1.5px solid rgba(255,255,255,.4); border-radius: 99px; overflow: hidden; }
+.lang button { background: none; border: 0; color: rgba(255,255,255,.7); font: 700 12px var(--body); letter-spacing: .06em; padding: 7px 11px; cursor: pointer; min-height: 34px; }
+.lang button[aria-pressed="true"] { background: #fff; color: var(--acai); }
+.nav-right { display: flex; align-items: center; gap: 14px; }
+.hamburger { display: none; width: 44px; height: 44px; background: none; border: 0; cursor: pointer; position: relative; z-index: 120; }
+.hamburger span { position: absolute; left: 10px; right: 10px; height: 2px; background: #fff; border-radius: 2px; transition: transform .3s, opacity .3s; }
+.hamburger span:nth-child(1) { top: 15px; } .hamburger span:nth-child(2) { top: 21px; } .hamburger span:nth-child(3) { top: 27px; }
+.hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+.mobile-menu { position: fixed; inset: 0; z-index: 110; background: var(--acai); display: none; flex-direction: column; align-items: center; justify-content: center; gap: 26px; }
+.mobile-menu.open { display: flex; }
+.mobile-menu a { color: #fff; text-decoration: none; font: 800 34px var(--display); }
+
+/* ── BOTÕES ── */
+.btn { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font: 700 15px var(--body); border-radius: 99px; padding: 15px 28px; min-height: 48px; transition: transform .2s, box-shadow .2s, background .2s; }
+.btn--berry { background: var(--berry); color: #fff; box-shadow: 0 5px 0 #8e1250; }
+.btn--berry:hover { transform: translateY(-2px); box-shadow: 0 7px 0 #8e1250; }
+.btn--berry:active { transform: translateY(3px); box-shadow: 0 2px 0 #8e1250; }
+.btn--ghost { color: #fff; border: 2px solid rgba(255,255,255,.55); }
+.btn--ghost:hover { border-color: #fff; background: rgba(255,255,255,.08); }
+.btn--ink { background: var(--acai); color: #fff; box-shadow: 0 5px 0 #13041a; }
+.btn--ink:hover { transform: translateY(-2px); }
+.btn svg { width: 18px; height: 18px; flex: none; }
+
+/* ── HERO ── */
+.hero { position: relative; display: grid; grid-template-columns: 1.05fr 1fr; min-height: 100vh; background: var(--acai); color: #fff; }
+.hero__txt { position: relative; display: flex; flex-direction: column; justify-content: center; padding: 120px clamp(24px, 5vw, 72px) 110px; overflow: hidden; }
+.hero__txt::before { /* grão leve, textura de polpa */
+  content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .5;
+  background: radial-gradient(ellipse at 15% 20%, rgba(198,29,110,.35), transparent 55%), radial-gradient(ellipse at 85% 90%, rgba(82,32,90,.9), transparent 60%);
+}
+.hero__txt > * { position: relative; }
+.status { display: inline-flex; align-items: center; gap: 9px; align-self: flex-start; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.18); border-radius: 99px; padding: 8px 15px; font-size: 14px; font-weight: 600; margin-bottom: 26px; }
+.status i { width: 9px; height: 9px; border-radius: 50%; background: #9a8a96; }
+.status.is-open i { background: var(--leaf); box-shadow: 0 0 0 0 rgba(89,178,74,.7); animation: pulso 2s infinite; }
+@keyframes pulso { 70% { box-shadow: 0 0 0 9px rgba(89,178,74,0); } 100% { box-shadow: 0 0 0 0 rgba(89,178,74,0); } }
+.hero h1 { font: 800 clamp(3rem, 6.6vw, 6rem)/.92 var(--display); letter-spacing: -.03em; margin-bottom: 26px; }
+.hero h1 .l { display: block; overflow: hidden; padding-bottom: .06em; }
+.hero h1 .l span { display: block; }
+.hero h1 em { font-style: normal; color: var(--pink); }
+.hero p.lead { font-size: clamp(1.05rem, 1.4vw, 1.2rem); line-height: 1.6; color: rgba(255,255,255,.78); max-width: 34ch; margin-bottom: 34px; }
+.hero__ctas { display: flex; flex-wrap: wrap; gap: 14px; }
+.hero__img { position: relative; overflow: hidden; }
+.hero__img img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
+.hero__logo { position: absolute; left: calc(51.2% - 56px); bottom: 70px; width: 112px; z-index: 3; transform: rotate(-8deg); }
+
+/* ── DRIP: o elemento assinatura (açaí / leite condensado escorrendo entre seções) ── */
+.drip { position: absolute; left: 0; right: 0; top: -1px; height: 120px; pointer-events: none; z-index: 2; }
+.drip svg { width: 100%; height: 100%; display: block; overflow: visible; }
+.drip .gota { transform-box: fill-box; transform-origin: 50% 0; transform: scaleY(0); }
+.drip.is-on .gota { animation: escorre 1.6s cubic-bezier(.3,.7,.2,1) var(--d, 0s) forwards; }
+@keyframes escorre { 0% { transform: scaleY(0); } 70% { transform: scaleY(1.06); } 100% { transform: scaleY(1); } }
+
+/* ── SEÇÕES ── */
+section { position: relative; }
+.label { display: inline-block; font: 700 13px var(--body); letter-spacing: .14em; text-transform: uppercase; color: var(--berry); margin-bottom: 14px; }
+h2 { font: 800 clamp(2.4rem, 5vw, 4rem)/.98 var(--display); letter-spacing: -.025em; }
+h2 em { font-style: normal; color: var(--berry); }
+
+.about { padding: 170px 0 130px; }
+.about .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px, 7vw, 100px); align-items: center; }
+.about__img { position: relative; }
+.about__img img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--r); transform: rotate(-2.5deg); box-shadow: 0 30px 60px -25px rgba(42,11,46,.55); }
+.about__img .sticker { position: absolute; right: -18px; top: -22px; width: 92px; transform: rotate(10deg); }
+.about p { font-size: 1.12rem; line-height: 1.75; color: var(--ink-2); margin: 22px 0 0; max-width: 46ch; }
+.about .btn { margin-top: 32px; }
+
+.menu { background: var(--acai); color: #fff; padding: 170px 0 140px; }
+.menu .label { color: var(--pink); }
+.menu h2 em { color: var(--pink); }
+.menu__head { display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap; margin-bottom: 56px; }
+.menu__head p { color: rgba(255,255,255,.65); max-width: 34ch; line-height: 1.6; }
+.menu__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
+.prato { background: var(--acai-2); border-radius: var(--r); overflow: hidden; transition: transform .35s cubic-bezier(.3,.7,.3,1.2); }
+.prato:nth-child(1) { transform: rotate(-1.5deg); } .prato:nth-child(2) { transform: rotate(1deg) translateY(18px); } .prato:nth-child(3) { transform: rotate(-.8deg); }
+.prato:hover { transform: rotate(0) translateY(-8px); }
+.prato__img { position: relative; aspect-ratio: 4 / 3.4; overflow: hidden; }
+.prato__img img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s; }
+.prato:hover .prato__img img { transform: scale(1.06); }
+.selo { position: absolute; top: 14px; left: 14px; background: var(--cream); color: var(--acai); font: 700 12px var(--body); letter-spacing: .04em; text-transform: uppercase; padding: 6px 12px; border-radius: 99px; transform: rotate(-4deg); }
+.prato__txt { padding: 24px 26px 28px; }
+.prato h3 { font: 800 1.6rem var(--display); margin-bottom: 8px; }
+.prato p { color: rgba(255,255,255,.66); line-height: 1.6; }
+
+.gallery { background: var(--cream); padding: 170px 0 60px; overflow: hidden; }
+.gallery__head { display: flex; justify-content: space-between; align-items: end; gap: 20px; flex-wrap: wrap; margin-bottom: 40px; }
+.gallery__hint { color: var(--ink-2); font-size: 14px; }
+.tira { display: flex; gap: 18px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 10px max(24px, calc((100vw - 1200px) / 2 + 24px)) 30px; scrollbar-width: none; cursor: grab; }
+.tira::-webkit-scrollbar { display: none; }
+.tira figure { flex: none; width: clamp(220px, 26vw, 320px); scroll-snap-align: center; }
+.tira img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 18px; transition: transform .4s; }
+.tira figure:nth-child(odd) img { transform: rotate(-1.5deg); }
+.tira figure:nth-child(even) img { transform: rotate(1.5deg) translateY(14px); }
+.tira figure:hover img { transform: rotate(0) scale(1.02); }
+
+.faixa-wrap { overflow: hidden; background: linear-gradient(var(--cream) 50%, var(--cream-2) 50%); padding: 22px 0 30px; }
+.faixa { background: var(--berry); color: #fff; transform: rotate(-2deg); margin: 0 -20px; padding: 16px 0; overflow: hidden; position: relative; z-index: 3; box-shadow: 0 10px 0 var(--acai); }
+.faixa__track { display: flex; width: max-content; animation: corre 28s linear infinite; }
+.faixa__track span { font: 800 1.35rem var(--display); white-space: nowrap; padding: 0 22px; display: inline-flex; align-items: center; gap: 44px; }
+.faixa__track span::after { content: ""; width: 16px; height: 16px; border-radius: 50% 50% 50% 0; background: var(--cream); transform: rotate(-45deg); }
+@keyframes corre { to { transform: translateX(-50%); } }
+
+.reviews { background: var(--cream-2); padding: 80px 0 130px; }
+.reviews__head { text-align: center; margin-bottom: 56px; }
+.reviews__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.review { background: #fff; border-radius: var(--r); padding: 34px 30px 30px; position: relative; box-shadow: 0 2px 0 rgba(42,11,46,.06); }
+.review::before { content: "“"; position: absolute; top: -8px; left: 22px; font: 800 5.5rem/1 var(--display); color: var(--berry); }
+.stars { color: #f5a623; letter-spacing: 3px; font-size: 17px; margin: 18px 0 14px; }
+.review blockquote { color: var(--ink); line-height: 1.7; font-size: 1.02rem; }
+.review footer { display: flex; justify-content: space-between; align-items: center; margin-top: 22px; padding-top: 18px; border-top: 1px dashed #e4d3c7; font-size: 14px; }
+.review footer strong { font-weight: 700; }
+.review footer span { color: var(--ink-2); }
+.reviews__more { text-align: center; margin-top: 40px; }
+.reviews__more a { font-weight: 700; color: var(--berry); }
+
+.visit { background: var(--cream); padding: 130px 0; }
+.visit .wrap { display: grid; grid-template-columns: 1fr 1.05fr; gap: clamp(40px, 6vw, 90px); align-items: start; }
+.hours { list-style: none; margin: 34px 0 30px; border-top: 1px solid #ead9cc; }
+.hours li { display: flex; justify-content: space-between; padding: 14px 4px; border-bottom: 1px solid #ead9cc; font-size: 1.05rem; }
+.hours li.hoje { font-weight: 700; color: var(--berry); }
+.hours li.hoje span:first-child::after { content: attr(data-hoje); font: 700 11px var(--body); letter-spacing: .08em; text-transform: uppercase; background: var(--berry); color: #fff; border-radius: 99px; padding: 3px 8px; margin-left: 10px; vertical-align: 2px; }
+.contato { display: grid; gap: 14px; margin-bottom: 32px; font-size: 1.05rem; }
+.contato a, .contato div { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+.contato a:hover { color: var(--berry); }
+.contato svg { width: 22px; height: 22px; color: var(--berry); flex: none; }
+.visit__ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+.mapa { border-radius: var(--r); overflow: hidden; aspect-ratio: 1 / 1; box-shadow: 0 30px 60px -30px rgba(42,11,46,.5); background: var(--cream-2); }
+.mapa iframe { width: 100%; height: 100%; border: 0; display: block; }
+
+.rodape { background: var(--acai); color: rgba(255,255,255,.7); padding: 150px 0 40px; position: relative; }
+.rodape__in { display: flex; justify-content: space-between; align-items: center; gap: 30px; flex-wrap: wrap; }
+.rodape__marca { display: flex; align-items: center; gap: 16px; color: #fff; font: 800 1.6rem var(--display); }
+.rodape__marca .sticker { width: 62px; }
+.rodape nav { position: static; padding: 0; display: flex; gap: 22px; flex-wrap: wrap; background: none; box-shadow: none; }
+.rodape nav a { text-decoration: none; font-weight: 600; }
+.rodape nav a:hover { color: var(--pink); }
+.rodape small { display: block; margin-top: 40px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,.12); font-size: 13px; }
+
+/* WhatsApp (computador) e barra de ações (celular) */
+.whats { position: fixed; right: 24px; bottom: 24px; z-index: 90; width: 58px; height: 58px; border-radius: 50%; background: #25d366; display: grid; place-items: center; box-shadow: 0 8px 24px rgba(0,0,0,.25); transition: transform .2s; }
+.whats:hover { transform: scale(1.08); }
+.whats svg { width: 30px; height: 30px; fill: #fff; }
+.barra { display: none; }
+
+/* ── REVELAR AO ROLAR ── */
+.rv { opacity: 0; transform: translateY(28px); transition: opacity .8s ease, transform .8s cubic-bezier(.2,.7,.2,1); transition-delay: var(--d, 0s); }
+.rv.is-in { opacity: 1; transform: none; }
+.prato.rv.is-in:nth-child(1) { transform: rotate(-1.5deg); } .prato.rv.is-in:nth-child(2) { transform: rotate(1deg) translateY(18px); } .prato.rv.is-in:nth-child(3) { transform: rotate(-.8deg); }
+.prato.rv.is-in:hover { transform: rotate(0) translateY(-8px); }
+
+/* entrada do topo */
+.js .hero h1 .l span { transform: translateY(105%); }
+.js .hero .status, .js .hero p.lead, .js .hero__ctas { opacity: 0; transform: translateY(14px); }
+.js .hero__logo { transform: scale(0) rotate(-30deg); }
+.js .hero__img img { transform: scale(1.12); opacity: 0; }
+.pronto .hero h1 .l span { transform: none; transition: transform 1s cubic-bezier(.2,.8,.2,1) var(--d, 0s); }
+.pronto .hero .status, .pronto .hero p.lead, .pronto .hero__ctas { opacity: 1; transform: none; transition: opacity .8s ease var(--d), transform .8s ease var(--d); }
+.pronto .hero__logo { transform: rotate(-8deg); transition: transform .8s cubic-bezier(.3,1.6,.5,1) .9s; }
+.pronto .hero__img img { transform: none; opacity: 1; transition: transform 1.6s cubic-bezier(.2,.8,.2,1), opacity 1s ease; }
+
+/* ── CELULAR ── */
+@media (max-width: 900px) {
+  .nav-links { display: none; }
+  .hamburger { display: block; }
+  .hero { grid-template-columns: 1fr; min-height: 0; }
+  .hero__txt { padding: 110px 22px 64px; }
+  .hero__img { height: 64vh; min-height: 380px; }
+  .hero__logo { display: none; }
+  .about { padding: 130px 0 90px; }
+  .about .wrap, .visit .wrap { grid-template-columns: 1fr; }
+  .about__img .sticker { right: 6px; }
+  .menu { padding: 130px 0 100px; }
+  .menu__grid { grid-template-columns: 1fr; gap: 22px; }
+  .prato:nth-child(2), .prato.rv.is-in:nth-child(2) { transform: rotate(1deg); }
+  .gallery { padding: 130px 0 90px; }
+  .tira figure { width: 70vw; }
+  .reviews { padding: 90px 0 100px; }
+  .reviews__grid { grid-template-columns: 1fr; }
+  .visit { padding: 90px 0 110px; }
+  .whats { display: none; }
+  .barra {
+    display: grid; grid-template-columns: repeat(3, 1fr); position: fixed; left: 0; right: 0; bottom: 0; z-index: 95;
+    background: var(--acai); padding: 8px 8px calc(8px + env(safe-area-inset-bottom)); gap: 8px; box-shadow: 0 -8px 24px rgba(0,0,0,.2);
+  }
+  .barra a { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 8px 4px; border-radius: 14px; color: #fff; text-decoration: none; font: 600 12.5px var(--body); min-height: 52px; justify-content: center; }
+  .barra a:first-child { background: var(--berry); }
+  .barra svg { width: 20px; height: 20px; }
+  body { padding-bottom: 76px; }
+  .rodape { padding-bottom: 30px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .rv { opacity: 1; transform: none; }
+  .drip .gota { transform: none; }
+}
+</style>
+</head>
+<body>
+<script>document.documentElement.classList.add('js');</script>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-pin" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 3h3.5l1.8 4.6-2.3 1.5a11 11 0 0 0 6.9 6.9l1.5-2.3L21 15.5V19a2 2 0 0 1-2.2 2A17 17 0 0 1 3 5.2 2 2 0 0 1 5 3z"/></symbol>
+  <symbol id="i-insta" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.3" cy="6.7" r="1.2" fill="currentColor"/></symbol>
+  <symbol id="i-whats" viewBox="0 0 32 32"><path fill="currentColor" d="M16 0C7.163 0 0 7.163 0 16c0 2.833.738 5.494 2.027 7.805L0 32l8.43-2.007A15.93 15.93 0 0016 32c8.837 0 16-7.163 16-16S24.837 0 16 0zm0 29.333a13.27 13.27 0 01-6.79-1.858l-.486-.29-5.004 1.192 1.215-4.876-.317-.5A13.267 13.267 0 012.667 16C2.667 8.636 8.636 2.667 16 2.667S29.333 8.636 29.333 16 23.364 29.333 16 29.333zm7.27-9.87c-.398-.2-2.355-1.163-2.72-1.295-.366-.133-.632-.2-.898.2-.265.398-1.031 1.295-1.264 1.561-.232.265-.465.298-.863.1-.398-.2-1.68-.619-3.2-1.974-1.183-1.054-1.982-2.356-2.214-2.754-.232-.398-.025-.614.175-.812.18-.178.398-.465.597-.697.2-.232.265-.398.398-.664.133-.265.066-.498-.033-.697-.1-.2-.898-2.165-1.23-2.964-.324-.778-.652-.673-.898-.685l-.764-.013c-.265 0-.697.1-1.062.498-.366.398-1.396 1.364-1.396 3.329s1.43 3.861 1.629 4.127c.2.265 2.814 4.294 6.818 6.024.953.412 1.696.657 2.276.841.956.304 1.826.261 2.515.158.767-.114 2.355-.963 2.688-1.894.332-.93.332-1.728.232-1.894-.1-.166-.366-.265-.764-.465z"/></symbol>
+</svg>
+
+<nav id="nav" aria-label="Main">
+  <a href="#top" class="nav-logo sticker" aria-label="Amazon Berry, home"><img src="images/logo.png" alt="Amazon Berry" width="150" height="150"></a>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="#menu" data-i18n="nav.menu">Menu</a></li>
+      <li><a href="#gallery" data-i18n="nav.gallery">Gallery</a></li>
+      <li><a href="#reviews" data-i18n="nav.reviews">Reviews</a></li>
+      <li><a href="#visit" data-i18n="nav.visit">Visit</a></li>
+      <li><a href="tel:+19783985330" class="btn btn--berry" style="padding:10px 20px;min-height:40px" data-i18n="nav.call">Call to order</a></li>
+    </ul>
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" data-lang="en" aria-pressed="true">EN</button>
+      <button type="button" data-lang="pt" aria-pressed="false">PT</button>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#menu" data-i18n="nav.menu">Menu</a>
+  <a href="#gallery" data-i18n="nav.gallery">Gallery</a>
+  <a href="#reviews" data-i18n="nav.reviews">Reviews</a>
+  <a href="#visit" data-i18n="nav.visit">Visit</a>
+</div>
+
+<main id="top">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero__txt">
+      <span class="status" id="status" style="--d:.15s"><i></i><b id="status-txt">Open daily</b></span>
+      <h1>
+        <span class="l"><span style="--d:.25s" data-i18n="hero.l1">From the</span></span>
+        <span class="l"><span style="--d:.37s" data-i18n="hero.l2">Amazon</span></span>
+        <span class="l"><span style="--d:.49s" data-i18n="hero.l3"><em>to your bowl.</em></span></span>
+      </h1>
+      <p class="lead" style="--d:.7s" data-i18n="hero.lead">Açaí bowls, milkshakes and Brazilian salgados, made fresh every day on South Street, Lowell.</p>
+      <div class="hero__ctas" style="--d:.85s">
+        <a href="#menu" class="btn btn--berry" data-i18n="hero.cta1">See the menu</a>
+        <a href="#visit" class="btn btn--ghost" data-i18n="hero.cta2">How to get here</a>
+      </div>
+    </div>
+    <div class="hero__img">
+      <img src="images/hero.webp" alt="Açaí bowl, milkshake and coxinha from Amazon Berry" width="684" height="568" fetchpriority="high">
+    </div>
+    <img src="images/logo.png" alt="" class="hero__logo sticker" width="150" height="150">
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="drip" data-cor="#2a0b2e"></div>
+    <div class="wrap">
+      <div class="about__img rv">
+        <img src="images/about.webp" alt="Açaí cup topped with granola" width="456" height="574" loading="lazy">
+        <img src="images/logo.png" alt="" class="sticker" width="150" height="150" loading="lazy">
+      </div>
+      <div class="rv" style="--d:.12s">
+        <span class="label" data-i18n="about.label">Our story</span>
+        <h2 data-i18n="about.h2">A little piece of <em>Brazil</em> in Lowell.</h2>
+        <p data-i18n="about.p1">We serve açaí the Brazilian way: thick, cold and topped exactly how you like it.</p>
+        <p data-i18n="about.p2">Next to it, creamy milkshakes and salgados made fresh every day, for a snack, a dessert or a full afternoon with friends.</p>
+        <a href="#menu" class="btn btn--ink" data-i18n="about.cta">What we make</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- MENU -->
+  <section class="menu" id="menu">
+    <div class="drip" data-cor="#fff4e8"></div>
+    <div class="wrap">
+      <div class="menu__head rv">
+        <div>
+          <span class="label" data-i18n="menu.label">The menu</span>
+          <h2 data-i18n="menu.h2">Pick your <em>favorite.</em></h2>
+        </div>
+        <p data-i18n="menu.p">Three things we do every day. Ask at the counter for today's flavors and toppings.</p>
+      </div>
+      <div class="menu__grid">
+        <article class="prato rv">
+          <div class="prato__img"><img src="images/acai.webp" alt="Açaí bowl with fruit and granola" width="243" height="406" loading="lazy"><span class="selo" data-i18n="menu.b1">Most popular</span></div>
+          <div class="prato__txt"><h3 data-i18n="menu.t1">Açaí Bowl</h3><p data-i18n="menu.d1">Açaí topped with fresh fruit, granola and your choice of toppings. Build it your way.</p></div>
+        </article>
+        <article class="prato rv" style="--d:.1s">
+          <div class="prato__img"><img src="images/milkshake.webp" alt="Strawberry milkshake" width="467" height="590" loading="lazy"><span class="selo" data-i18n="menu.b2">Signature</span></div>
+          <div class="prato__txt"><h3 data-i18n="menu.t2">Milkshakes</h3><p data-i18n="menu.d2">Thick and creamy: strawberry, Oreo, coconut and more.</p></div>
+        </article>
+        <article class="prato rv" style="--d:.2s">
+          <div class="prato__img"><img src="images/salgados.webp" alt="Brazilian coxinhas" width="243" height="406" loading="lazy"><span class="selo" data-i18n="menu.b3">Fresh today</span></div>
+          <div class="prato__txt"><h3 data-i18n="menu.t3">Salgados</h3><p data-i18n="menu.d3">Traditional Brazilian savory snacks, made fresh and crispy every day.</p></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="gallery" id="gallery">
+    <div class="drip" data-cor="#2a0b2e"></div>
+    <div class="wrap gallery__head rv">
+      <div>
+        <span class="label" data-i18n="gal.label">From our counter</span>
+        <h2 data-i18n="gal.h2">Made to be <em>photographed.</em></h2>
+      </div>
+      <span class="gallery__hint" data-i18n="gal.hint">Drag to see more →</span>
+    </div>
+    <div class="tira" id="tira" tabindex="0" aria-label="Photo gallery">
+      <figure><img src="images/gallery1.webp" alt="Coconut milkshake" width="468" height="583" loading="lazy"></figure>
+      <figure><img src="images/gallery2.webp" alt="Açaí with chocolate and strawberries" width="243" height="304" loading="lazy"></figure>
+      <figure><img src="images/gallery3.webp" alt="Oreo milkshake" width="464" height="585" loading="lazy"></figure>
+      <figure><img src="images/gallery4.webp" alt="Salgados in a paper tray" width="683" height="848" loading="lazy"></figure>
+      <figure><img src="images/gallery5.webp" alt="Açaí bowl with banana and granola" width="243" height="304" loading="lazy"></figure>
+      <figure><img src="images/hero1.webp" alt="Amazon Berry treat" width="243" height="304" loading="lazy"></figure>
+      <figure><img src="images/milkshake.webp" alt="Strawberry milkshake" width="467" height="590" loading="lazy"></figure>
+    </div>
+  </section>
+
+  <div class="faixa-wrap"><div class="faixa" aria-hidden="true">
+    <div class="faixa__track">
+      <span>Açaí bowls</span><span>Milkshakes</span><span>Salgados</span><span>259 South St · Lowell</span><span>English &amp; Português</span>
+      <span>Açaí bowls</span><span>Milkshakes</span><span>Salgados</span><span>259 South St · Lowell</span><span>English &amp; Português</span>
+    </div>
+  </div></div>
+
+  <!-- REVIEWS (texto original das avaliações do Google: confirmar que são reais e públicas) -->
+  <section class="reviews" id="reviews">
+    <div class="wrap">
+      <div class="reviews__head rv">
+        <span class="label" data-i18n="rev.label">Google reviews</span>
+        <h2 data-i18n="rev.h2">Loved by <em>Lowell.</em></h2>
+      </div>
+      <div class="reviews__grid">
+        <figure class="review rv">
+          <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+          <blockquote lang="en">I got the $13 small 12oz açaí bowl with 8 toppings. They managed to fit all 8 surprisingly well… The staff speak both English and Portuguese and were nice. The atmosphere was super cute!</blockquote>
+          <footer><strong>Sheylah C.</strong><span>Google</span></footer>
+        </figure>
+        <figure class="review rv" style="--d:.1s">
+          <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+          <blockquote lang="en">The staff was so sweet and kind. I wish I lived closer so I could come everyday! The ice cream and açaí bowls are self serve if you would like… My favorite dessert place ever!</blockquote>
+          <footer><strong>Erin B.</strong><span>Google</span></footer>
+        </figure>
+        <figure class="review rv" style="--d:.2s">
+          <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+          <blockquote lang="en">From the cute outside seating &amp; decor, to the cute inside, friendly staff and GREAT food, we lucked out! They have a foosball table while you wait… The food tastes as good as it looks!</blockquote>
+          <footer><strong>Amanda L.</strong><span>Google</span></footer>
+        </figure>
+      </div>
+      <p class="reviews__more"><a href="https://www.google.com/maps/search/?api=1&amp;query=Amazon+Berry+259+South+St+Lowell+MA" target="_blank" rel="noopener" data-i18n="rev.more">Read all reviews on Google →</a></p>
+    </div>
+  </section>
+
+  <!-- VISIT -->
+  <section class="visit" id="visit">
+    <div class="wrap">
+      <div class="rv">
+        <span class="label" data-i18n="vis.label">Visit us</span>
+        <h2 data-i18n="vis.h2">Come say <em>oi!</em></h2>
+        <ul class="hours" id="hours" data-hoje="today">
+          <li data-dias="1,2,3"><span data-i18n="vis.d1">Monday – Wednesday</span><span class="h" data-ab="15" data-fe="22"></span></li>
+          <li data-dias="4,5,6,0"><span data-i18n="vis.d2">Thursday – Sunday</span><span class="h" data-ab="13" data-fe="23"></span></li>
+        </ul>
+        <div class="contato">
+          <div><svg><use href="#i-pin"/></svg>259 South St, Lowell, MA 01850</div>
+          <a href="tel:+19783985330"><svg><use href="#i-phone"/></svg>(978) 398-5330</a>
+          <a href="https://instagram.com/amazonberryusa" target="_blank" rel="noopener"><svg><use href="#i-insta"/></svg>@amazonberryusa</a>
+        </div>
+        <div class="visit__ctas">
+          <a class="btn btn--berry" href="https://www.google.com/maps/dir/?api=1&amp;destination=259+South+St+Lowell+MA+01850" target="_blank" rel="noopener"><svg><use href="#i-pin"/></svg><span data-i18n="vis.dir">Get directions</span></a>
+          <a class="btn btn--ink" href="tel:+19783985330"><svg><use href="#i-phone"/></svg><span data-i18n="vis.call">Call us</span></a>
+        </div>
+      </div>
+      <div class="mapa rv" style="--d:.12s">
+        <iframe title="Map: Amazon Berry, 259 South St, Lowell" src="https://maps.google.com/maps?q=259+South+St,+Lowell,+MA+01850&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="rodape">
+  <div class="drip" data-cor="#fff4e8"></div>
+  <div class="wrap">
+    <div class="rodape__in">
+      <div class="rodape__marca"><span class="sticker"><img src="images/logo.png" alt="" width="150" height="150" loading="lazy"></span>Amazon Berry</div>
+      <nav aria-label="Footer">
+        <a href="#menu" data-i18n="nav.menu">Menu</a>
+        <a href="#gallery" data-i18n="nav.gallery">Gallery</a>
+        <a href="#reviews" data-i18n="nav.reviews">Reviews</a>
+        <a href="#visit" data-i18n="nav.visit">Visit</a>
+        <a href="https://instagram.com/amazonberryusa" target="_blank" rel="noopener">Instagram</a>
+      </nav>
+    </div>
+    <small>© <span id="ano">2026</span> Amazon Berry · 259 South St, Lowell, MA</small>
+  </div>
+</footer>
+
+<!-- confirmar com o dono se esse número atende no WhatsApp -->
+<a href="https://wa.me/19783985330" target="_blank" rel="noopener" class="whats" aria-label="Chat on WhatsApp"><svg><use href="#i-whats"/></svg></a>
+
+<div class="barra" aria-label="Quick actions">
+  <a href="tel:+19783985330"><svg><use href="#i-phone"/></svg><span data-i18n="bar.call">Call</span></a>
+  <a href="https://www.google.com/maps/dir/?api=1&amp;destination=259+South+St+Lowell+MA+01850" target="_blank" rel="noopener"><svg><use href="#i-pin"/></svg><span data-i18n="bar.dir">Directions</span></a>
+  <a href="https://wa.me/19783985330" target="_blank" rel="noopener"><svg style="color:#25d366"><use href="#i-whats"/></svg>WhatsApp</a>
+</div>
+
+<script>
+(function () {
+  var reduz = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ---------- Idioma: EN / PT ----------
+  var T = {
+    pt: {
+      'nav.menu': 'Cardápio', 'nav.gallery': 'Fotos', 'nav.reviews': 'Avaliações', 'nav.visit': 'Visite', 'nav.call': 'Ligue e peça',
+      'hero.l1': 'Da Amazônia', 'hero.l2': 'direto', 'hero.l3': '<em>pro seu bowl.</em>',
+      'hero.lead': 'Açaí, milkshakes e salgados brasileiros, feitos todo dia na South Street, em Lowell.',
+      'hero.cta1': 'Ver o cardápio', 'hero.cta2': 'Como chegar',
+      'about.label': 'Nossa história', 'about.h2': 'Um pedacinho do <em>Brasil</em> em Lowell.',
+      'about.p1': 'Servimos açaí do jeito brasileiro: grosso, gelado e montado do jeito que você gosta.',
+      'about.p2': 'Do lado, milkshakes cremosos e salgados feitos na hora, todos os dias, pro lanche, a sobremesa ou a tarde inteira com os amigos.',
+      'about.cta': 'O que a gente faz',
+      'menu.label': 'Cardápio', 'menu.h2': 'Escolha o seu <em>favorito.</em>',
+      'menu.p': 'Três coisas que fazemos todo dia. Pergunte no balcão os sabores e coberturas de hoje.',
+      'menu.b1': 'O mais pedido', 'menu.b2': 'Da casa', 'menu.b3': 'Feito hoje',
+      'menu.t1': 'Açaí', 'menu.d1': 'Açaí com frutas frescas, granola e as coberturas que você escolher. Monte do seu jeito.',
+      'menu.t2': 'Milkshakes', 'menu.d2': 'Grossos e cremosos: morango, Oreo, coco e mais.',
+      'menu.t3': 'Salgados', 'menu.d3': 'Salgados brasileiros tradicionais, feitos na hora e crocantes todo dia.',
+      'gal.label': 'Do nosso balcão', 'gal.h2': 'Feito pra <em>foto.</em>', 'gal.hint': 'Arraste para ver mais →',
+      'rev.label': 'Avaliações no Google', 'rev.h2': 'Lowell <em>aprova.</em>', 'rev.more': 'Ver todas as avaliações no Google →',
+      'vis.label': 'Visite', 'vis.h2': 'Vem dizer <em>oi!</em>', 'vis.d1': 'Segunda a quarta', 'vis.d2': 'Quinta a domingo',
+      'vis.dir': 'Como chegar', 'vis.call': 'Ligar', 'bar.call': 'Ligar', 'bar.dir': 'Como chegar'
+    },
+    en: {}
+  };
+  // guarda o texto original em inglês para poder voltar
+  document.querySelectorAll('[data-i18n]').forEach(function (n) { T.en[n.dataset.i18n] = n.innerHTML; });
+
+  var lang = 'en';
+  try { lang = localStorage.getItem('ab-lang') || ((navigator.language || '').toLowerCase().indexOf('pt') === 0 ? 'pt' : 'en'); } catch (e) {}
+
+  function aplicar(l) {
+    lang = l;
+    document.documentElement.lang = l === 'pt' ? 'pt-BR' : 'en';
+    document.querySelectorAll('[data-i18n]').forEach(function (n) { var v = T[l][n.dataset.i18n]; if (v != null) n.innerHTML = v; });
+    document.querySelectorAll('.lang button').forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.lang === l)); });
+    try { localStorage.setItem('ab-lang', l); } catch (e) {}
+    status();
+  }
+  document.querySelectorAll('.lang button').forEach(function (b) { b.addEventListener('click', function () { aplicar(b.dataset.lang); }); });
+
+  // ---------- Aberto agora? (horário de Massachusetts) ----------
+  var HORAS = { 0: [13, 23], 1: [15, 22], 2: [15, 22], 3: [15, 22], 4: [13, 23], 5: [13, 23], 6: [13, 23] };
+  function agoraMA() {
+    var p = {};
+    try {
+      new Intl.DateTimeFormat('en-US', { timeZone: 'America/New_York', weekday: 'short', hour: 'numeric', minute: 'numeric', hour12: false })
+        .formatToParts(new Date()).forEach(function (x) { p[x.type] = x.value; });
+      return { d: { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 }[p.weekday], m: (+p.hour % 24) * 60 + (+p.minute) };
+    } catch (e) { var d = new Date(); return { d: d.getDay(), m: d.getHours() * 60 + d.getMinutes() }; }
+  }
+  function hora(h) {
+    if (lang === 'pt') return h + 'h';
+    return (h % 12 || 12) + (h < 12 ? ' AM' : ' PM');
+  }
+  function status() {
+    var a = agoraMA(), hj = HORAS[a.d], aberto = a.m >= hj[0] * 60 && a.m < hj[1] * 60, txt;
+    if (aberto) txt = lang === 'pt' ? 'Aberto agora · até ' + hora(hj[1]) : 'Open now · until ' + hora(hj[1]);
+    else if (a.m < hj[0] * 60) txt = lang === 'pt' ? 'Fechado · abre hoje às ' + hora(hj[0]) : 'Closed · opens today at ' + hora(hj[0]);
+    else { var am = HORAS[(a.d + 1) % 7]; txt = lang === 'pt' ? 'Fechado · abre amanhã às ' + hora(am[0]) : 'Closed · opens tomorrow at ' + hora(am[0]); }
+    document.getElementById('status').classList.toggle('is-open', aberto);
+    document.getElementById('status-txt').textContent = txt;
+    // tabela de horários: formato do idioma + destaque do dia de hoje
+    var ul = document.getElementById('hours');
+    ul.dataset.hoje = lang === 'pt' ? 'hoje' : 'today';
+    ul.querySelectorAll('li').forEach(function (li) {
+      var h = li.querySelector('.h');
+      h.textContent = hora(+h.dataset.ab) + ' – ' + hora(+h.dataset.fe);
+      var eh = li.dataset.dias.split(',').indexOf(String(a.d)) > -1;
+      li.classList.toggle('hoje', eh);
+      li.querySelector('span').setAttribute('data-hoje', ul.dataset.hoje);
+    });
+  }
+  setInterval(status, 60000);
+  document.getElementById('ano').textContent = new Date().getFullYear();
+
+  // ---------- Gotas escorrendo (assinatura visual) ----------
+  var drips = [].slice.call(document.querySelectorAll('.drip'));
+  function montarDrip(el) {
+    var w = el.clientWidth, h = el.clientHeight, cor = el.dataset.cor, seed = w % 97 + 13;
+    function rnd() { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; }
+    var faixa = 16, x = 0, gotas = '';
+    while (x < w) {
+      var larg = 26 + rnd() * 40, comp = faixa + 14 + rnd() * (h - faixa - 34), cx = x + larg / 2, r = larg * .32;
+      // corpo da gota: desce da faixa e termina arredondado
+      gotas += '<path class="gota" style="--d:' + (rnd() * .5).toFixed(2) + 's" d="M' + (x - 4).toFixed(1) + ' 0 H' + (x + larg + 4).toFixed(1) +
+        ' V' + faixa + ' C' + (x + larg - 2).toFixed(1) + ' ' + (faixa + 6) + ' ' + (cx + r).toFixed(1) + ' ' + (faixa + 8) + ' ' + (cx + r).toFixed(1) + ' ' + (comp - r).toFixed(1) +
+        ' A' + r.toFixed(1) + ' ' + r.toFixed(1) + ' 0 0 1 ' + (cx - r).toFixed(1) + ' ' + (comp - r).toFixed(1) +
+        ' C' + (cx - r).toFixed(1) + ' ' + (faixa + 8) + ' ' + (x + 2).toFixed(1) + ' ' + (faixa + 6) + ' ' + (x - 4).toFixed(1) + ' ' + faixa + 'Z"/>';
+      x += larg + 30 + rnd() * 90;
+    }
+    el.innerHTML = '<svg viewBox="0 0 ' + w + ' ' + h + '" preserveAspectRatio="none" aria-hidden="true"><rect width="' + w + '" height="' + faixa + '" fill="' + cor + '"/><g fill="' + cor + '">' + gotas + '</g></svg>';
+  }
+  drips.forEach(montarDrip);
+  // só redesenha se a LARGURA mudar (no celular a barra do navegador muda a altura ao rolar)
+  var tw, larg0 = window.innerWidth; window.addEventListener('resize', function () { if (window.innerWidth === larg0) return; larg0 = window.innerWidth; clearTimeout(tw); tw = setTimeout(function () { drips.forEach(montarDrip); }, 150); });
+
+  // ---------- Revelar ao rolar ----------
+  var alvos = [].slice.call(document.querySelectorAll('.rv, .drip'));
+  if ('IntersectionObserver' in window && !reduz) {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add(e.target.classList.contains('drip') ? 'is-on' : 'is-in'); io.unobserve(e.target); } });
+    }, { threshold: .15, rootMargin: '0px 0px -40px 0px' });
+    alvos.forEach(function (n) { io.observe(n); });
+  } else alvos.forEach(function (n) { n.classList.add('is-in', 'is-on'); });
+
+  // ---------- Topo: entrada ----------
+  function entrar() { requestAnimationFrame(function () { document.documentElement.classList.add('pronto'); }); }
+  if (document.fonts && document.fonts.ready) { document.fonts.ready.then(entrar); setTimeout(entrar, 1200); } else entrar();
+
+  // ---------- Menu fixo e menu do celular ----------
+  var nav = document.getElementById('nav');
+  window.addEventListener('scroll', function () { nav.classList.toggle('scrolled', window.scrollY > 40); }, { passive: true });
+  var hb = document.getElementById('hamburger'), mm = document.getElementById('mobileMenu');
+  function menu(abrir) {
+    hb.classList.toggle('open', abrir); mm.classList.toggle('open', abrir);
+    hb.setAttribute('aria-expanded', String(abrir)); document.body.style.overflow = abrir ? 'hidden' : '';
+  }
+  hb.addEventListener('click', function () { menu(!mm.classList.contains('open')); });
+  mm.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', function () { menu(false); }); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') menu(false); });
+
+  // ---------- Galeria: arrastar com o mouse ----------
+  var tira = document.getElementById('tira'), x0 = 0, s0 = 0, seg = false;
+  tira.addEventListener('pointerdown', function (e) { if (e.pointerType !== 'mouse') return; seg = true; x0 = e.clientX; s0 = tira.scrollLeft; tira.style.scrollSnapType = 'none'; tira.setPointerCapture(e.pointerId); });
+  tira.addEventListener('pointermove', function (e) { if (seg) tira.scrollLeft = s0 - (e.clientX - x0); });
+  function soltar() { if (!seg) return; seg = false; tira.style.scrollSnapType = ''; }
+  tira.addEventListener('pointerup', soltar); tira.addEventListener('pointercancel', soltar);
+  tira.addEventListener('dragstart', function (e) { e.preventDefault(); });
+
+  aplicar(lang);
+})();
+</script>
+</body>
+</html>
