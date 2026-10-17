@@ -1,0 +1,458 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Yallem Cake Shop · Bolos de encomenda e doces brasileiros em Dracut, MA</title>
+<meta name="description" content="Bolos personalizados, taças, tortas e doces brasileiros da Yallem Cake Shop, na 197 Merrimack Ave, Dracut, MA. Encomende pelo WhatsApp (978) 227-7733.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#4A2A21">
+<link rel="icon" href="favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Yallem Cake Shop · Dracut, MA">
+<meta property="og:description" content="Bolos de encomenda e doces brasileiros. Encomende pelo WhatsApp.">
+<meta property="og:image" content="https://[PREENCHER-DOMINIO]/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Great+Vibes&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Bakery",
+  "name": "Yallem Cake Shop",
+  "image": "https://[PREENCHER-DOMINIO]/og.jpg",
+  "url": "https://[PREENCHER-DOMINIO]/",
+  "telephone": "+1-978-227-7733",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "197 Merrimack Ave",
+    "addressLocality": "Dracut",
+    "addressRegion": "MA",
+    "postalCode": "01826",
+    "addressCountry": "US"
+  },
+  "servesCuisine": ["Brazilian", "Desserts"]
+}
+</script>
+<style>
+:root{
+  --cream:#FFF9F5; --blush:#F7DEDC; --blush-2:#FBECEA; --rose:#C9707A;
+  --cocoa:#4A2A21; --cocoa-2:#6B4335; --sage:#8FB79A; --sage-d:#4F7A5C;
+  --gold:#C49A4A; --gold-d:#8A6420; --line:rgba(74,42,33,.18);
+  --serif:"Cormorant Garamond",Georgia,serif; --sans:"Jost",system-ui,sans-serif; --script:"Great Vibes",cursive;
+  --r:18px; --wrap:1120px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{margin:0;background:var(--cream);color:var(--cocoa);font:400 17px/1.6 var(--sans);-webkit-font-smoothing:antialiased}
+img{max-width:100%;height:auto;display:block}
+a{color:inherit}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 20px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+:focus-visible{outline:3px solid var(--sage-d);outline-offset:3px;border-radius:6px}
+.skip{position:absolute;left:-999px;top:8px;background:var(--cocoa);color:#fff;padding:10px 14px;border-radius:8px;z-index:99}
+.skip:focus{left:8px}
+
+/* header */
+header{position:sticky;top:0;z-index:40;background:rgba(255,249,245,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;gap:14px;min-height:68px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;margin-right:auto}
+.brand img{width:46px;height:46px;border-radius:50%;box-shadow:0 0 0 1px var(--line)}
+.brand b{font:600 22px/1 var(--serif);letter-spacing:.02em}
+.brand small{display:block;font:500 11px/1.2 var(--sans);letter-spacing:.22em;text-transform:uppercase;color:var(--cocoa-2);margin-top:3px}
+nav ul{display:none;list-style:none;margin:0;padding:0;gap:22px}
+nav a{text-decoration:none;font-weight:500;font-size:15px;padding:10px 0}
+nav a:hover{color:var(--rose)}
+@media(min-width:960px){nav ul{display:flex}}
+.lang{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
+.lang button{all:unset;cursor:pointer;font:600 13px var(--sans);padding:0 12px;min-height:44px;display:grid;place-items:center;letter-spacing:.08em}
+.lang button[aria-pressed="true"]{background:var(--cocoa);color:#fff}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:48px;padding:0 22px;border-radius:999px;font:600 16px var(--sans);text-decoration:none;border:0;cursor:pointer;transition:transform .15s,background .15s}
+.btn:hover{transform:translateY(-1px)}
+.btn svg{width:20px;height:20px;flex:none}
+.btn-wa{background:var(--sage-d);color:#fff}
+.btn-wa:hover{background:#426a4e}
+.btn-ghost{background:transparent;color:var(--cocoa);box-shadow:inset 0 0 0 1.5px var(--cocoa)}
+.btn-ghost:hover{background:var(--cocoa);color:#fff}
+.bar .btn{display:none}
+@media(min-width:720px){.bar .btn{display:inline-flex;min-height:44px;font-size:15px}}
+
+/* ornaments */
+.orn{display:flex;align-items:center;gap:12px;color:var(--gold);justify-content:center;margin:0 auto 14px;max-width:260px}
+.orn::before,.orn::after{content:"";flex:1;height:1px;background:currentColor}
+.orn span{font-size:14px}
+.kicker{font:500 13px/1 var(--sans);letter-spacing:.24em;text-transform:uppercase;color:var(--gold-d)}
+h1,h2,h3{font-family:var(--serif);font-weight:600;line-height:1.05;margin:0}
+h2{font-size:clamp(36px,6vw,56px);text-align:center}
+.script{font-family:var(--script);font-weight:400;color:var(--rose);font-size:1.15em;line-height:.8}
+.lead{color:var(--cocoa-2);max-width:56ch}
+section{padding:84px 0}
+.center{text-align:center}.center .lead{margin:14px auto 0}
+
+/* hero */
+.hero{background:radial-gradient(1200px 500px at 85% 0,var(--blush) 0,transparent 70%),var(--cream);padding:40px 0 70px}
+.hero .wrap{display:grid;gap:36px;align-items:center}
+@media(min-width:880px){.hero .wrap{grid-template-columns:1.05fr .95fr;gap:56px}.hero{padding:70px 0 90px}}
+.hero h1{font-size:clamp(46px,8.4vw,86px);letter-spacing:-.01em}
+.hero h1 .script{display:block;font-size:.72em;margin:4px 0 6px;color:var(--rose)}
+.hero p{font-size:19px;margin:22px 0 28px;color:var(--cocoa-2);max-width:40ch}
+.cta{display:flex;flex-wrap:wrap;gap:12px}
+.facts{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:26px;font-size:15px;color:var(--cocoa-2)}
+.facts span{display:flex;align-items:center;gap:7px}
+.facts svg{width:17px;height:17px;color:var(--sage-d)}
+.arch{position:relative;max-width:460px;margin:0 auto;width:100%}
+.arch .ph{border-radius:999px 999px var(--r) var(--r);overflow:hidden;aspect-ratio:3/4;box-shadow:0 30px 60px -30px rgba(74,42,33,.45)}
+.arch .ph img{width:100%;height:100%;object-fit:cover}
+.arch::before{content:"";position:absolute;inset:-14px -14px auto -14px;bottom:28%;border:1px solid var(--gold);border-bottom:0;border-radius:999px 999px 0 0;pointer-events:none}
+.seal{position:absolute;left:-18px;bottom:26px;width:118px;height:118px;border-radius:50%;background:var(--blush);box-shadow:0 0 0 6px var(--cream),0 0 0 7px var(--sage),0 14px 30px -12px rgba(74,42,33,.5);overflow:hidden}
+.seal img{width:100%;height:100%}
+@media(max-width:480px){.seal{width:92px;height:92px;left:-6px}}
+
+/* gallery */
+.cakes{background:var(--blush-2)}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:44px}
+@media(min-width:820px){.grid{grid-template-columns:repeat(3,1fr);gap:22px}}
+.grid figure{margin:0;background:#fff;border-radius:var(--r);overflow:hidden;box-shadow:0 1px 0 var(--line)}
+.grid .im{aspect-ratio:3/4;overflow:hidden}
+.grid img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.grid figure:hover img{transform:scale(1.04)}
+.grid figcaption{padding:12px 14px 14px;font:500 italic 19px/1.2 var(--serif)}
+.grid figcaption small{display:block;font:400 13px/1.4 var(--sans);font-style:normal;color:var(--cocoa-2);margin-top:3px}
+.ig{margin-top:30px;text-align:center}
+
+/* order builder */
+.order{background:var(--cocoa);color:#fff}
+.order .kicker{color:#E8C98E}
+.order h2{color:#fff}
+.order .lead{color:#F3E2DC}
+.card{max-width:780px;margin:40px auto 0;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.18);border-radius:22px;padding:28px 22px}
+@media(min-width:700px){.card{padding:38px 40px}}
+.sentence{font:500 clamp(24px,3.6vw,34px)/1.7 var(--serif)}
+.sentence label{white-space:nowrap}
+.sentence select,.sentence input{font:600 italic 1em var(--serif);color:#F5D8A0;background:transparent;border:0;border-bottom:1.5px dashed rgba(245,216,160,.7);padding:0 4px;min-height:44px;max-width:100%}
+.sentence select option{color:var(--cocoa)}
+.sentence input[type=number]{width:2.6em;text-align:center;-moz-appearance:textfield}
+.sentence input[type=date]{color-scheme:dark;width:auto}
+.notes{display:block;margin-top:18px}
+.notes span{display:block;font-size:15px;color:#F3E2DC;margin-bottom:6px}
+.notes textarea{width:100%;min-height:84px;border-radius:12px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:#fff;font:400 16px/1.5 var(--sans);padding:12px}
+.card .btn{margin-top:20px;width:100%}
+@media(min-width:700px){.card .btn{width:auto}}
+.hint{font-size:14px;color:#E9D3CB;margin:12px 0 0}
+
+/* menu */
+.menu .cols{display:grid;gap:30px;margin-top:46px;align-items:start}
+@media(min-width:880px){.menu .cols{grid-template-columns:.9fr 1.1fr;gap:56px}}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.duo img{border-radius:var(--r);aspect-ratio:3/4;object-fit:cover;width:100%}
+.duo img:last-child{margin-top:46px}
+@media(min-width:880px){.duo{position:sticky;top:96px}}
+@media(max-width:600px){.arch{max-width:340px}}
+.badge{display:inline-block;background:var(--blush);color:var(--cocoa);font:600 12px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;padding:9px 12px;border-radius:999px}
+.mgroup{margin-top:22px}
+.mhead{display:flex;align-items:baseline;justify-content:space-between;gap:12px;border-bottom:1px solid var(--gold);padding-bottom:8px}
+.mhead h3{font-size:30px}
+.mhead .price{font:600 22px var(--serif);color:var(--rose)}
+.mhead .price small{font:500 13px var(--sans);color:var(--cocoa-2);display:block;text-align:right}
+.mlist{list-style:none;margin:6px 0 0;padding:0}
+.mlist li{padding:12px 0;border-bottom:1px dashed var(--line)}
+.mlist b{font:600 italic 20px/1.2 var(--serif)}
+.mlist p{margin:3px 0 0;font-size:15px;color:var(--cocoa-2)}
+
+/* seasonal */
+.season{background:var(--blush)}
+.season .grid figure{background:var(--cream)}
+
+/* visit */
+.visit .wrap{display:grid;gap:30px}
+@media(min-width:880px){.visit .wrap{grid-template-columns:1fr 1.1fr;gap:56px;align-items:center}.visit h2{text-align:left}}
+.info{list-style:none;padding:0;margin:26px 0;display:grid;gap:16px}
+.info li{display:flex;gap:14px}
+.info svg{width:22px;height:22px;flex:none;color:var(--sage-d);margin-top:3px}
+.info b{display:block;font:600 13px var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--gold-d)}
+.info a{font-weight:500}
+.ph-fill{background:#FFF1C7;color:#6B4A00;padding:1px 6px;border-radius:5px;font-size:15px}
+.map{border-radius:var(--r);overflow:hidden;aspect-ratio:4/3;background:var(--blush);box-shadow:0 0 0 1px var(--line)}
+.map iframe{width:100%;height:100%;border:0}
+
+footer{background:var(--cocoa);color:#F3E2DC;padding:44px 0 110px;text-align:center;font-size:15px}
+footer img{width:72px;height:72px;border-radius:50%;margin:0 auto 12px}
+footer .made{margin-top:18px;font-size:13px;opacity:.8}
+
+.fab{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:50;width:60px;height:60px;border-radius:50%;background:var(--sage-d);color:#fff;display:grid;place-items:center;box-shadow:0 10px 26px -8px rgba(0,0,0,.45)}
+.fab svg{width:30px;height:30px}
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .7s,transform .7s}
+.reveal.in{opacity:1;transform:none}
+.no-js .reveal{opacity:1;transform:none}
+</style>
+</head>
+<body class="no-js">
+<a class="skip" href="#main" data-i18n="skip">Pular para o conteúdo</a>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3a.4.4 0 0 0 0-.4l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.3c0-.1-.2-.2-.4-.3Z"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" d="M12 21s-7-6.2-7-11.5a7 7 0 1 1 14 0C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2Z"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 7v5l3 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="i-cake" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" d="M4 21h16M5 21v-7h14v7M7 14v-3h10v3M12 11V7m0-3v.5"/></symbol>
+</svg>
+
+<header>
+  <div class="wrap bar">
+    <a class="brand" href="#top" aria-label="Yallem Cake Shop, início">
+      <img src="img/logo.webp" width="46" height="46" alt="">
+      <span><b>Yallem</b><small>Cake Shop</small></span>
+    </a>
+    <nav aria-label="Principal"><ul>
+      <li><a href="#bolos" data-i18n="nav1">Bolos</a></li>
+      <li><a href="#pedido" data-i18n="nav2">Encomendar</a></li>
+      <li><a href="#sobremesas" data-i18n="nav3">Taças e tortas</a></li>
+      <li><a href="#visite" data-i18n="nav4">Visite</a></li>
+    </ul></nav>
+    <div class="lang" role="group" aria-label="Idioma / Language">
+      <button type="button" data-lang="pt" aria-pressed="true">PT</button>
+      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+    </div>
+    <a class="btn btn-wa wa" href="https://wa.me/19782277733" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-wa"/></svg>WhatsApp</a>
+  </div>
+</header>
+
+<main id="main">
+<section class="hero" id="top">
+  <div class="wrap">
+    <div class="reveal">
+      <p class="kicker" data-i18n="kick">Dracut, Massachusetts</p>
+      <h1><span data-i18n="h1a">Bolos feitos</span> <span class="script" data-i18n="h1b">com carinho</span><span data-i18n="h1c">para o seu momento.</span></h1>
+      <p data-i18n="sub">Bolos personalizados, taças, tortas e doces brasileiros, feitos pela Yallem na nossa loja em Dracut.</p>
+      <div class="cta">
+        <a class="btn btn-wa wa" href="https://wa.me/19782277733" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-wa"/></svg><span data-i18n="cta1">Encomendar pelo WhatsApp</span></a>
+        <a class="btn btn-ghost" href="#bolos" data-i18n="cta2">Ver os bolos</a>
+      </div>
+      <div class="facts">
+        <span><svg aria-hidden="true"><use href="#i-pin"/></svg>197 Merrimack Ave</span>
+        <span><svg aria-hidden="true"><use href="#i-phone"/></svg><a href="tel:+19782277733">(978) 227-7733</a></span>
+      </div>
+    </div>
+    <div class="arch reveal">
+      <div class="ph"><img src="img/bolo-flores-1000.webp" srcset="img/bolo-flores-600.webp 600w, img/bolo-flores-1000.webp 1000w" sizes="(min-width:880px) 460px, 90vw" width="1000" height="1333" alt="Bolo branco de aniversário com o número 25, borda de chantilly e flores rosa e brancas" data-i18n-alt="altHero" fetchpriority="high"></div>
+      <div class="seal"><img src="img/logo.webp" width="200" height="200" alt="Logo Yallem Cake Design"></div>
+    </div>
+  </div>
+</section>
+
+<section class="cakes" id="bolos">
+  <div class="wrap center">
+    <div class="orn"><span>✦</span></div>
+    <p class="kicker" data-i18n="k2">Bolos de encomenda</p>
+    <h2><span data-i18n="h2a">Cada bolo começa</span> <span class="script" data-i18n="h2b">com uma conversa</span></h2>
+    <p class="lead" data-i18n="l2">Conte a ocasião, as cores e quantas pessoas. A Yallem sugere sabores e decoração e manda o orçamento pelo WhatsApp.</p>
+    <div class="grid">
+      <figure class="reveal"><div class="im"><img loading="lazy" src="img/bolo-livros-600.webp" width="600" height="745" alt="Bolo branco com lombadas de livros cor-de-rosa e nude com nomes em dourado, rosas e folha de ouro" data-i18n-alt="a1"></div><figcaption data-i18n="c1">Livros e folha de ouro<small>Chá de bebê</small></figcaption></figure>
+      <figure class="reveal"><div class="im"><img loading="lazy" src="img/xadrez-600.webp" width="526" height="701" alt="Bolo xadrez preto e branco com peças de xadrez no topo e rosas de chantilly" data-i18n-alt="a2"></div><figcaption data-i18n="c2">Tabuleiro de xadrez<small>Bolo temático</small></figcaption></figure>
+      <figure class="reveal"><div class="im"><img loading="lazy" src="img/maracuja-600.webp" width="600" height="763" alt="Bolo amarelo de maracujá com cobertura de chocolate escorrendo e brigadeiros" data-i18n-alt="a3"></div><figcaption data-i18n="c3">Maracujá com chocolate<small>Com brigadeiros</small></figcaption></figure>
+      <figure class="reveal"><div class="im"><img loading="lazy" src="img/doce-de-leite-600.webp" width="600" height="800" alt="Bolo branco com calda de doce de leite escorrendo e docinhos de coco" data-i18n-alt="a4"></div><figcaption data-i18n="c4">Doce de leite e coco<small>Calda escorrendo</small></figcaption></figure>
+      <figure class="reveal"><div class="im"><img loading="lazy" src="img/bolo-flores-600.webp" width="600" height="800" alt="Bolo branco de aniversário com flores delicadas" data-i18n-alt="a5"></div><figcaption data-i18n="c5">Floral delicado<small>Aniversário</small></figcaption></figure>
+      <figure class="reveal"><div class="im"><img loading="lazy" src="img/thanksgiving-600.webp" width="600" height="800" alt="Bolos decorados para o Thanksgiving com folhas de outono, abóboras e laços" data-i18n-alt="a6"></div><figcaption data-i18n="c6">Mesa de Thanksgiving<small>Datas especiais</small></figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="order" id="pedido">
+  <div class="wrap center">
+    <p class="kicker" data-i18n="k3">Monte seu pedido</p>
+    <h2><span data-i18n="h3a">Escreva do seu jeito,</span> <span class="script" style="color:#F2B8BE" data-i18n="h3b">a gente cuida do resto</span></h2>
+    <p class="lead" data-i18n="l3">Preencha a frase e envie. A mensagem chega pronta no WhatsApp da Yallem.</p>
+  </div>
+  <div class="wrap">
+    <form class="card" id="f" novalidate>
+      <p class="sentence">
+        <span data-i18n="s1">Quero um bolo de</span>
+        <label><span class="sr" data-i18n="lOcc">Ocasião</span>
+        <select id="occ">
+          <option data-i18n="o1" value="aniversário">aniversário</option>
+          <option data-i18n="o2" value="casamento">casamento</option>
+          <option data-i18n="o3" value="chá de bebê">chá de bebê</option>
+          <option data-i18n="o4" value="chá revelação">chá revelação</option>
+          <option data-i18n="o5" value="batizado">batizado</option>
+          <option data-i18n="o6" value="outra ocasião">outra ocasião</option>
+        </select></label>
+        <span data-i18n="s2">para</span>
+        <label><span class="sr" data-i18n="lPpl">Número de pessoas</span><input id="ppl" type="number" inputmode="numeric" min="1" max="500" value="20"></label>
+        <span data-i18n="s3">pessoas, no dia</span>
+        <label><span class="sr" data-i18n="lDate">Data</span><input id="date" type="date"></label><span>,</span>
+        <span data-i18n="s4">com recheio de</span>
+        <label><span class="sr" data-i18n="lFill">Recheio</span>
+        <select id="fill">
+          <option data-i18n="r1" value="brigadeiro">brigadeiro</option>
+          <option data-i18n="r2" value="ninho com Nutella">ninho com Nutella</option>
+          <option data-i18n="r3" value="maracujá">maracujá</option>
+          <option data-i18n="r4" value="doce de leite">doce de leite</option>
+          <option data-i18n="r5" value="morango com ninho">morango com ninho</option>
+          <option data-i18n="r6" value="ainda não sei">ainda não sei</option>
+        </select></label>.
+      </p>
+      <label class="notes"><span data-i18n="nLbl">Cores, tema ou ideia (opcional)</span>
+        <textarea id="notes" data-i18n-ph="nPh" placeholder="Ex.: tons de rosa, flores, nome da aniversariante…"></textarea></label>
+      <button class="btn btn-wa" type="submit"><svg aria-hidden="true"><use href="#i-wa"/></svg><span data-i18n="send">Enviar pelo WhatsApp</span></button>
+      <p class="hint" data-i18n="hint">Encomendas são feitas com antecedência. Se puder, mande também uma foto de referência na conversa.</p>
+    </form>
+  </div>
+</section>
+
+<section class="menu" id="sobremesas">
+  <div class="wrap">
+    <div class="center">
+      <div class="orn"><span>✦</span></div>
+      <p class="kicker" data-i18n="k4">Sobremesas especiais</p>
+      <h2><span data-i18n="h4a">Taças e tortas</span> <span class="script" data-i18n="h4b">para a família</span></h2>
+    </div>
+    <div class="cols">
+      <div class="duo reveal">
+        <img loading="lazy" src="img/tacas-600.webp" width="600" height="800" alt="Taças de sobremesa com chantilly, brigadeiros, morangos e amendoim" data-i18n-alt="a7">
+        <img loading="lazy" src="img/banoffee-600.webp" width="600" height="800" alt="Taça de banoffee com creme, banana caramelizada e canela" data-i18n-alt="a8">
+      </div>
+      <div class="reveal">
+        <span class="badge" data-i18n="badge">Cardápio de Thanksgiving</span>
+        <div class="mgroup">
+          <div class="mhead"><h3 data-i18n="tH">Taças 1,5 L</h3><div class="price">$72.90<small data-i18n="each">cada</small></div></div>
+          <ul class="mlist">
+            <li><b>Kinder Bueno</b><p data-i18n="t1">Creme de ninho com creme de avelã, pedaços de bolo e Kinder Bueno.</p></li>
+            <li><b data-i18n="t2n">Red velvet com creme de ninho</b><p data-i18n="t2">Pedaços de red velvet com um creme de ninho suave e cremoso.</p></li>
+            <li><b data-i18n="t3n">Mousse de maracujá</b><p data-i18n="t3">O azedinho do maracujá com o doce cremoso do brigadeiro.</p></li>
+            <li><b data-i18n="t4n">Crocante</b><p data-i18n="t4">Creme belga e doce de leite, com amendoim e paçoquinha.</p></li>
+            <li><b>Banoffee</b><p data-i18n="t5">Creme belga, banana caramelizada e canela.</p></li>
+            <li><b data-i18n="t6n">Morango, ninho e brigadeiro</b><p data-i18n="t6">Creme belga com morango fresco e chantilly leve.</p></li>
+          </ul>
+        </div>
+        <div class="mgroup">
+          <div class="mhead"><h3 data-i18n="pH">Tortas</h3><div class="price">$62.90<small data-i18n="each">cada</small></div></div>
+          <ul class="mlist">
+            <li><b data-i18n="p1n">Cheesecake de maracujá</b><p data-i18n="p1">Base crocante, cheesecake cremoso, camada de chocolate e cobertura de maracujá.</p></li>
+            <li><b data-i18n="p2n">Pistache com frutas vermelhas</b><p data-i18n="p2">Creme de pistache com toque crocante e geleia de frutas vermelhas.</p></li>
+            <li><b data-i18n="p3n">Cheesecake de doce de leite com amendoim</b><p data-i18n="p3">Cheesecake cremoso de doce de leite com amendoim crocante.</p></li>
+          </ul>
+        </div>
+        <p style="margin-top:24px"><a class="btn btn-wa wa" data-msg="menu" href="https://wa.me/19782277733" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-wa"/></svg><span data-i18n="cta3">Reservar a minha</span></a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="season" id="festas">
+  <div class="wrap center">
+    <p class="kicker" data-i18n="k5">Fim de ano</p>
+    <h2><span data-i18n="h5a">Presentes</span> <span class="script" data-i18n="h5b">que adoçam</span></h2>
+    <p class="lead" data-i18n="l5">Panetone recheado, biscoitos amanteigados e caixas de brigadeiros gourmet. Pergunte pelo WhatsApp sobre sabores e disponibilidade.</p>
+    <div class="grid">
+      <figure class="reveal"><div class="im"><img loading="lazy" src="img/panetone-600.webp" width="600" height="800" alt="Panetone cortado ao meio, recheado com creme de chocolate" data-i18n-alt="a9"></div><figcaption data-i18n="c7">Panetone recheado</figcaption></figure>
+      <figure class="reveal"><div class="im"><img loading="lazy" src="img/brigadeiros-600.webp" width="600" height="800" alt="Caixa com dezesseis brigadeiros gourmet coloridos de Natal" data-i18n-alt="a10"></div><figcaption data-i18n="c8">Caixa de brigadeiros</figcaption></figure>
+      <figure class="reveal"><div class="im"><img loading="lazy" src="img/cookies-600.webp" width="600" height="800" alt="Biscoitos amanteigados de baunilha e chocolate com confeitos de Natal" data-i18n-alt="a11"></div><figcaption data-i18n="c9">Biscoitos amanteigados</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="visit" id="visite">
+  <div class="wrap">
+    <div class="reveal">
+      <p class="kicker" data-i18n="k6">Visite a loja</p>
+      <h2><span data-i18n="h6a">Venha</span> <span class="script" data-i18n="h6b">provar</span></h2>
+      <ul class="info">
+        <li><svg aria-hidden="true"><use href="#i-pin"/></svg><div><b data-i18n="iAddr">Endereço</b>197 Merrimack Ave, Dracut, MA 01826<br><a href="https://www.google.com/maps/dir/?api=1&destination=197+Merrimack+Ave,+Dracut,+MA+01826" target="_blank" rel="noopener" data-i18n="route">Como chegar</a></div></li>
+        <li><svg aria-hidden="true"><use href="#i-phone"/></svg><div><b data-i18n="iPhone">Telefone e WhatsApp</b><a href="tel:+19782277733">(978) 227-7733</a></div></li>
+        <li><svg aria-hidden="true"><use href="#i-clock"/></svg><div><b data-i18n="iHours">Horário</b><span class="ph-fill">[PREENCHER horário de funcionamento]</span></div></li>
+      </ul>
+      <div class="cta">
+        <a class="btn btn-wa wa" href="https://wa.me/19782277733" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-wa"/></svg>WhatsApp</a>
+        <a class="btn btn-ghost" href="tel:+19782277733" data-i18n="call">Ligar</a>
+      </div>
+    </div>
+    <div class="map reveal"><iframe loading="lazy" title="Mapa: Yallem Cake Shop, 197 Merrimack Ave, Dracut" src="https://www.google.com/maps?q=197+Merrimack+Ave,+Dracut,+MA+01826&output=embed" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <img src="img/logo.webp" width="72" height="72" alt="Yallem Cake Design">
+  <div>Yallem Cake Shop · 197 Merrimack Ave, Dracut, MA 01826 · <a href="tel:+19782277733">(978) 227-7733</a></div>
+  <div class="made" data-i18n="made">Site por Paradoxum</div>
+</footer>
+
+<a class="fab wa" href="https://wa.me/19782277733" target="_blank" rel="noopener" aria-label="Falar no WhatsApp" data-i18n-aria="fab"><svg aria-hidden="true"><use href="#i-wa"/></svg></a>
+
+<script>
+document.body.classList.remove('no-js');
+const PHONE='19782277733';
+const T={en:{
+ skip:'Skip to content',nav1:'Cakes',nav2:'Order',nav3:'Dessert cups & pies',nav4:'Visit',
+ kick:'Dracut, Massachusetts',h1a:'Cakes made',h1b:'with love',h1c:'for your moment.',
+ sub:'Custom cakes, dessert cups, pies and Brazilian sweets, made by Yallem at our shop in Dracut.',
+ cta1:'Order on WhatsApp',cta2:'See the cakes',altHero:'White birthday cake with the number 25, piped cream border and pink and white flowers',
+ k2:'Custom cakes',h2a:'Every cake starts',h2b:'with a conversation',l2:'Tell us the occasion, the colors and how many guests. Yallem suggests flavors and decoration and sends you a quote on WhatsApp.',
+ c1:'Books and gold leaf<small>Baby shower</small>',c2:'Chessboard<small>Themed cake</small>',c3:'Passion fruit and chocolate<small>With brigadeiros</small>',c4:'Dulce de leche and coconut<small>Drip cake</small>',c5:'Delicate florals<small>Birthday</small>',c6:'Thanksgiving table<small>Special dates</small>',
+ a1:'White cake with pink and nude book spines with names in gold, roses and gold leaf',a2:'Black and white checkered cake with chess pieces on top and piped roses',a3:'Yellow passion fruit cake with chocolate drip and brigadeiros',a4:'White cake with dulce de leche drip and coconut truffles',a5:'White birthday cake with delicate flowers',a6:'Thanksgiving cakes with autumn leaves, pumpkins and ribbons',
+ k3:'Build your order',h3a:'Say it your way,',h3b:'we take care of the rest',l3:'Fill in the sentence and send. The message arrives ready on Yallem’s WhatsApp.',
+ s1:'I’d like a',s2:'cake for',s3:'guests, on',s4:'with',lOcc:'Occasion',lPpl:'Number of guests',lDate:'Date',lFill:'Filling',
+ o1:'birthday',o2:'wedding',o3:'baby shower',o4:'gender reveal',o5:'baptism',o6:'other occasion',
+ r1:'brigadeiro',r2:'Ninho with Nutella',r3:'passion fruit',r4:'dulce de leche',r5:'strawberry with Ninho',r6:'not sure yet',
+ nLbl:'Colors, theme or idea (optional)',nPh:'E.g.: pink tones, flowers, the birthday girl’s name…',send:'Send on WhatsApp',hint:'Orders are made in advance. If you can, send a reference photo in the chat too.',
+ k4:'Special desserts',h4a:'Dessert cups and pies',h4b:'for the family',badge:'Thanksgiving menu',tH:'Family-size cups (1.5 L)',pH:'Cheesecakes',each:'each',
+ t1:'Ninho milk cream with hazelnut cream, layered with cake pieces and Kinder Bueno.',t2n:'Red velvet with Ninho cream',t2:'Red velvet chunks with a smooth, creamy Ninho filling.',t3n:'Passion fruit mousse',t3:'Tangy passion fruit balanced with creamy brigadeiro.',t4n:'Crocante crunchy',t4:'Belgian cream and dulce de leche, with peanut crunch and paçoquinha.',t5:'Belgian cream, caramelized banana and cinnamon.',t6n:'Strawberry, Ninho and brigadeiro',t6:'Belgian cream with fresh strawberries and light whipped cream.',
+ p1n:'Passion fruit cheesecake',p1:'Crunchy base, creamy cheesecake, a layer of chocolate and passion fruit topping.',p2n:'Pistachio with red berry jam',p2:'Pistachio cream with a crunchy touch and red berry jam.',p3n:'Dulce de leche and peanut cheesecake',p3:'Creamy dulce de leche cheesecake with crunchy peanuts.',
+ a7:'Dessert cups with whipped cream, brigadeiros, strawberries and peanuts',a8:'Banoffee cup with cream, caramelized banana and cinnamon',cta3:'Reserve mine',
+ k5:'Holiday season',h5a:'Gifts',h5b:'that sweeten',l5:'Filled panettone, butter cookies and boxes of gourmet brigadeiros. Ask on WhatsApp about flavors and availability.',c7:'Filled panettone',c8:'Brigadeiro box',c9:'Butter cookies',
+ a9:'Panettone cut in half, filled with chocolate cream',a10:'Box of sixteen colorful Christmas brigadeiros',a11:'Vanilla and chocolate butter cookies with Christmas sprinkles',
+ k6:'Visit the shop',h6a:'Come',h6b:'taste it',iAddr:'Address',route:'Get directions',iPhone:'Phone and WhatsApp',iHours:'Hours',call:'Call',made:'Website by Paradoxum',fab:'Chat on WhatsApp'
+}};
+const PT={};
+document.querySelectorAll('[data-i18n]').forEach(el=>PT[el.dataset.i18n]=el.innerHTML);
+document.querySelectorAll('[data-i18n-alt]').forEach(el=>PT[el.dataset.i18nAlt]=el.alt);
+document.querySelectorAll('[data-i18n-ph]').forEach(el=>PT[el.dataset.i18nPh]=el.placeholder);
+document.querySelectorAll('[data-i18n-aria]').forEach(el=>PT[el.dataset.i18nAria]=el.getAttribute('aria-label'));
+let lang='pt';
+function setLang(l){
+  lang=l; const d=l==='en'?T.en:PT;
+  document.documentElement.lang=l==='en'?'en':'pt-BR';
+  document.querySelectorAll('[data-i18n]').forEach(el=>{const v=d[el.dataset.i18n];if(v!=null)el.innerHTML=v});
+  document.querySelectorAll('[data-i18n-alt]').forEach(el=>{const v=d[el.dataset.i18nAlt];if(v)el.alt=v});
+  document.querySelectorAll('[data-i18n-ph]').forEach(el=>{const v=d[el.dataset.i18nPh];if(v)el.placeholder=v});
+  document.querySelectorAll('[data-i18n-aria]').forEach(el=>{const v=d[el.dataset.i18nAria];if(v)el.setAttribute('aria-label',v)});
+  document.querySelectorAll('[data-lang]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.lang===l)));
+  try{localStorage.setItem('yc-lang',l)}catch(e){}
+  setWa();
+}
+function wa(msg){return 'https://wa.me/'+PHONE+'?text='+encodeURIComponent(msg)}
+function setWa(){
+  const hi=lang==='en'?'Hi Yallem! I saw your website and I’d like to place an order.':'Oi, Yallem! Vi o site e queria fazer uma encomenda.';
+  const menu=lang==='en'?'Hi Yallem! I’d like to reserve a Thanksgiving dessert cup / cheesecake.':'Oi, Yallem! Queria reservar uma taça / torta do cardápio de Thanksgiving.';
+  document.querySelectorAll('a.wa').forEach(a=>a.href=wa(a.dataset.msg==='menu'?menu:hi));
+}
+document.querySelectorAll('[data-lang]').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang)));
+let saved=null;try{saved=localStorage.getItem('yc-lang')}catch(e){}
+setLang(saved||((navigator.language||'pt').toLowerCase().startsWith('pt')?'pt':'en'));
+
+const dt=document.getElementById('date');
+const min=new Date();min.setDate(min.getDate()+2);dt.min=min.toISOString().slice(0,10);
+document.getElementById('f').addEventListener('submit',e=>{
+  e.preventDefault();
+  const sel=id=>{const s=document.getElementById(id);return s.options[s.selectedIndex].text.trim()};
+  const ppl=document.getElementById('ppl').value||'?';
+  let d=dt.value;
+  if(d){const [y,m,dd]=d.split('-');d=lang==='en'?`${m}/${dd}/${y}`:`${dd}/${m}/${y}`}else d=lang==='en'?'(date to be confirmed)':'(data a combinar)';
+  const notes=document.getElementById('notes').value.trim();
+  let msg=lang==='en'
+    ?`Hi Yallem! I'd like a ${sel('occ')} cake for ${ppl} guests, on ${d}, with ${sel('fill')} filling.`
+    :`Oi, Yallem! Quero um bolo de ${sel('occ')} para ${ppl} pessoas, no dia ${d}, com recheio de ${sel('fill')}.`;
+  if(notes)msg+=(lang==='en'?'\nIdea: ':'\nIdeia: ')+notes;
+  window.open(wa(msg),'_blank','noopener');
+});
+
+const io='IntersectionObserver' in window?new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}}),{rootMargin:'0px 0px -8% 0px'}):null;
+document.querySelectorAll('.reveal').forEach(el=>io?io.observe(el):el.classList.add('in'));
+</script>
+</body>
+</html>
