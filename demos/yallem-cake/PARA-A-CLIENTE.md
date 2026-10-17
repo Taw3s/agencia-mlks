@@ -27,7 +27,8 @@ Este site é uma demonstração. Tudo que aparece com fundo amarelo ("a confirma
 | Horário (liga o selo "aberto agora") | `index.html` | constante `HORARIO` |
 | Instagram, avaliações reais, licença | `index.html` | objeto `CONFIG` |
 | Faixa do topo por estação (textos e datas) | `index.html` | lista `SAZONAIS` |
-| Preços, prazos, sinal, entrega, cancelamento | `index.html` | procurar `class="pf"` (PT) e `pf` dentro de `T.en` (EN) |
+| Itens e preços do cardápio (taças, tortas, presentes, tamanhos, recheios) | `cardapio.js` | lista `CARDAPIO` (uma lista só: o livro e o card "Seu pedido" se ajustam sozinhos) |
+| Prazos, sinal, entrega, cancelamento | `index.html` | procurar `class="pf"` (PT) e `pf` dentro de `T.en` (EN) |
 | Ingredientes reais | `vitrine.js` | lista `CAKES`; depois mudar `INGREDIENTES_DE_EXEMPLO` para `false` |
 | Domínio | `index.html` | trocar `[PREENCHER-DOMINIO]` (og, canonical, hreflang, JSON-LD) |
 | Publicar no Google | `index.html` | apagar `<meta name="robots" content="noindex">` só no lançamento |
@@ -92,5 +93,11 @@ Se o celular não aguentar o 3D ou derrubar o WebGL, o site mostra fotos do mesm
 - **Vídeos de bastidor (C9, E7):** não há vídeo da Yallem. O espaço fica para quando ela mandar.
 - **Vídeo do corte no lugar do 3D (E3):** E3 era alternativa ao E2. Ficou o E2 (3D com proteção). Quando o 3D não roda, aparecem fotos do bolo inteiro e cortado.
 - **Duas páginas separadas por idioma (D4):** isso depende do domínio. Por enquanto o inglês tem endereço próprio (`?lang=en`) e as tags hreflang já estão no código.
-- **Calculadora de preço (B15):** a pesquisa sugeria descartar, porque preço de bolo decorado é caso a caso. Foi feita só a calculadora de tamanho pelo número de pessoas, sem preço.
+- **Calculadora de preço (B15):** a pesquisa sugeria descartar, porque preço de bolo decorado é caso a caso. O card "Seu pedido" só sugere o tamanho pelo número de pessoas, e só soma o que tem preço fixo (taças e tortas), como "valor de referência".
 - **AVIF:** as fotos já estão em WebP com tamanhos menores. AVIF exigiria duplicar todas as imagens, com pouco ganho.
+
+## 11. Cardápio em livro e card "Seu pedido"
+
+- Uma porta só para pedir: o livro do cardápio com o card ao lado (no celular, uma barra no rodapé). A vitrine 3D ("Quero um assim") e o botão "Fazer meu pedido" do topo levam para o mesmo card.
+- O pedido inteiro (bolo de encomenda + itens do cardápio) vira uma mensagem só no WhatsApp.
+- Os preços das taças e tortas são do cardápio de Thanksgiving. Quando a estação mudar, troque em `CARDAPIO` (`cardapio.js`) e a faixa em `SAZONAIS` (`index.html`). Preço desatualizado no site vira discussão no balcão.

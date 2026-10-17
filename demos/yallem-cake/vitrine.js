@@ -286,6 +286,12 @@ function fechar(devolverFoco) {
   if (devolverFoco && ultimoCard) ultimoCard.focus({ preventScroll: true });
 }
 painel.querySelector('.x').addEventListener('click', () => fechar(true));
+// "Quero um assim": entra no card "Seu pedido" do cardápio (cardapio.js)
+painel.querySelector('.btn-pedir').addEventListener('click', () => {
+  if (sel < 0) return;
+  const c = CAKES[sel];
+  document.dispatchEvent(new CustomEvent('yc-pedido-bolo', { detail: { pt: c.pt.n, en: c.en.n, img: c.img } }));
+});
 
 function preencherPainel() {
   if (sel < 0) return;
@@ -300,9 +306,7 @@ function preencherPainel() {
   painel.querySelector('h4').textContent = u.ing;
   painel.querySelector('ul').innerHTML = L.i.map(x => `<li>${x}</li>`).join('');
   const ex = painel.querySelector('.ex'); ex.hidden = !INGREDIENTES_DE_EXEMPLO; ex.textContent = u.ex;
-  const a = painel.querySelector('.btn-wa');
-  a.href = 'https://wa.me/' + PHONE + '?text=' + encodeURIComponent(u.msg(L.n));
-  a.querySelector('span').textContent = u.cta;
+  painel.querySelector('.btn-pedir span:last-child').textContent = u.cta;
   painel.querySelector('.x').setAttribute('aria-label', u.close);
 }
 function aplicarIdioma(l) {
