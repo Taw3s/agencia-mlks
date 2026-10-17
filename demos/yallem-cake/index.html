@@ -19,6 +19,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Great+Vibes&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<script>
+(function(){var v=1,nova=true;try{nova=!sessionStorage.getItem('yc-s');var c=+localStorage.getItem('yc-v')||0;if(nova){c++;localStorage.setItem('yc-v',String(c));sessionStorage.setItem('yc-s','1')}v=c||1}catch(e){}
+var rm=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches,h=document.documentElement;
+if(v<=3&&nova&&!rm)h.classList.add('com-intro');if(v>3)h.classList.add('volta');})();
+</script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -77,7 +82,7 @@ nav a:hover{color:var(--rose)}
 .btn svg{width:20px;height:20px;flex:none}
 .btn-wa{background:var(--sage-d);color:#fff}
 .btn-wa:hover{background:#426a4e}
-.btn-ghost{background:transparent;color:var(--cocoa);box-shadow:inset 0 0 0 1.5px var(--cocoa)}
+.btn-ghost{background:var(--cream);color:var(--cocoa);box-shadow:inset 0 0 0 1.5px var(--cocoa)}
 .btn-ghost:hover{background:var(--cocoa);color:#fff}
 .bar .btn{display:none}
 @media(min-width:720px){.bar .btn{display:inline-flex;min-height:44px;font-size:15px}}
@@ -189,9 +194,121 @@ footer .made{margin-top:18px;font-size:13px;opacity:.8}
 .reveal{opacity:0;transform:translateY(16px);transition:opacity .7s,transform .7s}
 .reveal.in{opacity:1;transform:none}
 .no-js .reveal{opacity:1;transform:none}
+
+/* ===== Abertura: caixinha 3D ===== */
+.intro{display:none;position:fixed;inset:0;z-index:100;background:radial-gradient(circle at 50% 45%,#FFF6F4 0,var(--blush) 75%);transition:opacity .6s ease}
+.com-intro .intro{display:block;animation:intro-seguro 0s linear 6s forwards}
+@keyframes intro-seguro{to{visibility:hidden;opacity:0;pointer-events:none}}
+.intro.sai{opacity:0;pointer-events:none}
+.caixa-pos{position:absolute;left:var(--bx,50%);top:var(--by,50%);width:0;height:0;perspective:900px}
+.caixa-in{position:absolute;left:0;top:0;transform-style:preserve-3d;animation:caixa-entra .55s cubic-bezier(.2,.9,.3,1.25) both;transition:transform .5s ease .1s,opacity .45s ease .15s}
+.caixa{--b:132px;position:absolute;left:calc(var(--b)/-2);top:calc(var(--b)/-2);width:var(--b);height:var(--b);transform-style:preserve-3d;animation:caixa-gira 1.3s cubic-bezier(.55,.05,.25,1) .5s both}
+@keyframes caixa-entra{from{opacity:0;transform:translateY(-70px) scale(.45)}to{opacity:1;transform:none}}
+@keyframes caixa-gira{from{transform:rotateX(-20deg) rotateY(-28deg)}to{transform:rotateX(-20deg) rotateY(332deg)}}
+.cf{position:absolute;inset:0;border-radius:3px;backface-visibility:hidden;-webkit-backface-visibility:hidden;
+  background:linear-gradient(90deg,transparent calc(50% - 13px),#D4AD62 calc(50% - 13px),#D4AD62 calc(50% - 10px),#E9A7AF calc(50% - 10px),#E9A7AF calc(50% + 10px),#D4AD62 calc(50% + 10px),#D4AD62 calc(50% + 13px),transparent calc(50% + 13px)),
+  linear-gradient(180deg,rgba(74,42,33,.10) 0,rgba(74,42,33,.10) 22%,transparent 22.5%),linear-gradient(155deg,#FCE7E5,#F1C3C6);
+  box-shadow:inset 0 0 0 1px rgba(74,42,33,.10)}
+.cf.fr{transform:translateZ(calc(var(--b)/2))}.cf.bk{transform:rotateY(180deg) translateZ(calc(var(--b)/2))}
+.cf.rt{transform:rotateY(90deg) translateZ(calc(var(--b)/2))}.cf.lf{transform:rotateY(-90deg) translateZ(calc(var(--b)/2))}
+.cf.tp{transform:rotateX(90deg) translateZ(calc(var(--b)/2));background:
+  linear-gradient(90deg,transparent calc(50% - 13px),#D4AD62 calc(50% - 13px),#D4AD62 calc(50% - 10px),#E9A7AF calc(50% - 10px),#E9A7AF calc(50% + 10px),#D4AD62 calc(50% + 10px),#D4AD62 calc(50% + 13px),transparent calc(50% + 13px)),
+  linear-gradient(0deg,transparent calc(50% - 13px),#D4AD62 calc(50% - 13px),#D4AD62 calc(50% - 10px),#E9A7AF calc(50% - 10px),#E9A7AF calc(50% + 10px),#D4AD62 calc(50% + 10px),#D4AD62 calc(50% + 13px),transparent calc(50% + 13px)),
+  linear-gradient(155deg,#FDEDEB,#F4CDD0)}
+.cf.bt{transform:rotateX(-90deg) translateZ(calc(var(--b)/2));background:#E9B9BC}
+.laco{position:absolute;left:50%;top:0;width:96px;height:58px;margin-left:-48px;margin-top:-50px;transform-style:preserve-3d;transition:transform .4s cubic-bezier(.5,0,.75,0),opacity .3s}
+.laco svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.laco svg+svg{transform:rotateY(90deg)}
+.laco path{fill:#E9A7AF;stroke:#C89545;stroke-width:1.6}
+.laco circle{fill:#D4AD62}
+.intro.puxa .laco{transform:translateY(-90px) scale(.2);opacity:0}
+.intro.puxa .caixa-in{transform:scale(.55);opacity:0}
+.pular{position:absolute;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));min-height:44px;padding:0 20px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.75);font:600 14px var(--sans);color:var(--cocoa);cursor:pointer}
+.com-intro .hero .wrap{opacity:0;animation:intro-seguro2 0s 6s forwards}
+@keyframes intro-seguro2{to{opacity:1}}
+.hero .wrap{transition:opacity .7s ease}
+
+/* ===== Fita parada atrás do topo ===== */
+.hero{position:relative}
+.hero .wrap{position:relative;z-index:1}
+.fita{position:absolute;left:0;top:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.fita.na-frente{z-index:101}
+.fita .borda{fill:none;stroke:#D4AD62;stroke-width:30;stroke-linecap:butt}
+.fita .cetim{fill:none;stroke:#EDB4BB;stroke-width:25}
+.fita .brilho{fill:none;stroke:#fff;stroke-opacity:.38;stroke-width:5;transform:translateY(-5px)}
+.fita text{display:none;font:600 11px var(--sans);letter-spacing:.26em;text-transform:uppercase;fill:var(--cocoa)}
+.volta .fita text{display:inline}
+
+/* ===== Vitrine 3D ===== */
+.vitrine{position:relative;margin-top:22px}
+.palco{position:relative;height:600px;touch-action:pan-y;cursor:grab;outline:none;overflow:hidden;user-select:none;-webkit-user-select:none}
+@media(max-width:720px){.palco{height:600px}}
+.rc.is-sel .rf--a{box-shadow:0 0 0 3px var(--gold)}
+.palco:active{cursor:grabbing}
+.palco:focus-visible{box-shadow:inset 0 0 0 2px var(--sage-d);border-radius:22px}
+.cena{position:absolute;left:50%;top:42%;width:0;height:0;transform-style:preserve-3d}
+.anel,.slot{position:absolute;left:0;top:0;width:0;height:0;transform-style:preserve-3d}
+.rc{position:absolute;left:calc(var(--cw)/-2);top:calc(var(--ch)/-2);width:var(--cw);height:var(--ch);padding:0;border:0;background:none;cursor:pointer;transform-style:preserve-3d;transition:opacity .45s;-webkit-tap-highlight-color:transparent}
+.rf{position:absolute;inset:0;border-radius:14px;overflow:hidden;background:#fff;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;flex-direction:column;box-shadow:0 12px 26px -16px rgba(74,42,33,.6)}
+.rf img{flex:1;min-height:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
+.rf .cap{flex:none;font:600 italic max(12px,calc(var(--cw)*.088))/1.15 var(--serif);padding:.45em .5em .55em;color:var(--cocoa);text-align:center}
+.rf--b{transform:rotateY(180deg);background:var(--blush);align-items:center;justify-content:center}
+.rf--b img{flex:none;width:44%;height:auto;border-radius:50%;opacity:.6}
+.rf::after{content:"";position:absolute;inset:0;background:var(--cream);opacity:var(--sombra,0);pointer-events:none}
+.rc.is-front .rf--a{box-shadow:0 0 0 2px var(--gold),0 16px 30px -16px rgba(74,42,33,.65)}
+.rc:focus-visible{outline:none}.rc:focus-visible .rf--a{box-shadow:0 0 0 3px var(--sage-d)}
+.bolo3d{position:absolute;pointer-events:none}
+.bolo3d canvas{display:block;width:100%;height:100%}
+.bolo3d .fb{position:absolute;left:50%;top:50%;width:40%;transform:translate(-50%,-50%);border-radius:50%;box-shadow:0 0 0 6px var(--cream),0 0 0 7px var(--sage)}
+.bolo3d.ok .fb{display:none}
+.coroa{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.coroa .fa,.coroa .fb{fill:none;stroke:var(--gold);stroke-width:1.5;stroke-linecap:round}
+.coroa .fb{stroke:#E3A3AB}
+.coroa .p1{fill:#fff;stroke:#D4AD62;stroke-width:.8}.coroa .p2{fill:#F2C2C8;stroke:#D4AD62;stroke-width:.8}
+.palco.aberto .coroa{opacity:.35;transition:opacity .4s}
+.vctl{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:4px}
+.vctl button{width:48px;height:48px;border-radius:50%;border:1.5px solid var(--cocoa);background:transparent;color:var(--cocoa);cursor:pointer;display:grid;place-items:center;font-size:22px;line-height:1}
+.vctl button:hover{background:var(--cocoa);color:#fff}
+.vctl p{margin:0;font-size:14px;color:var(--cocoa-2);max-width:30ch}
+.fatia{position:absolute;z-index:5;background:var(--cream);border-radius:20px;box-shadow:0 30px 60px -28px rgba(74,42,33,.55),0 0 0 1px var(--line);padding:18px 18px 20px;text-align:left;opacity:0;transition:opacity .45s,transform .45s;left:10px;right:10px;bottom:10px;max-height:56%;overflow:auto;transform:translateY(16px)}
+.fatia.on{opacity:1;transform:none}
+.fatia .x{position:absolute;right:8px;top:8px;width:44px;height:44px;border-radius:50%;border:0;background:transparent;font-size:26px;line-height:1;color:var(--cocoa);cursor:pointer}
+.fatia .x:hover{background:var(--blush)}
+.fatia .top{display:flex;gap:14px;align-items:flex-start;padding-right:30px}
+.fatia img{width:92px;height:122px;object-fit:cover;border-radius:12px;flex:none}
+.fatia .occ{font:500 12px/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--gold-d);margin:4px 0 6px}
+.fatia h3{font-size:28px;outline:none}
+.fatia .desc{margin:6px 0 0;font-size:15px;color:var(--cocoa-2);line-height:1.45}
+.fatia h4{margin:14px 0 4px;font:600 12px var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--cocoa)}
+.fatia ul{margin:0;padding:0;list-style:none;font-size:15px}
+.fatia li{padding:4px 0 4px 18px;position:relative;border-bottom:1px dashed var(--line)}
+.fatia li::before{content:"✦";position:absolute;left:0;top:5px;font-size:10px;color:var(--gold)}
+.fatia .ex{font-size:12.5px;color:var(--cocoa-2);background:#FFF1C7;border-radius:8px;padding:6px 9px;margin:10px 0 0}
+.fatia .btn{margin-top:14px;width:100%}
+@media(min-width:900px){
+  .fatia{left:auto;right:0;bottom:auto;top:50%;width:min(370px,36%);max-height:none;transform:translate(16px,-50%)}
+  .fatia.on{transform:translate(0,-50%)}
+  .fatia .top{display:block;padding-right:0}
+  .fatia img{width:100%;height:auto;aspect-ratio:4/3;margin-bottom:12px}
+}
+.no-js .palco{height:auto;cursor:auto}.no-js .vctl,.no-js .coroa,.no-js .bolo3d{display:none}
+.no-js .cena,.no-js .anel,.no-js .slot{position:static;transform:none!important;width:auto;height:auto}
+.no-js .anel{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+@media(min-width:820px){.no-js .anel{grid-template-columns:repeat(4,1fr)}}
+.no-js .rc{position:relative;left:0;top:0;width:100%;height:auto;aspect-ratio:3/4}.no-js .rf--b{display:none}
 </style>
 </head>
 <body class="no-js">
+<div class="intro" id="intro" aria-hidden="true">
+  <div class="caixa-pos" id="caixaPos"><div class="caixa-in"><div class="caixa">
+    <div class="cf fr"></div><div class="cf bk"></div><div class="cf rt"></div><div class="cf lf"></div><div class="cf tp"></div><div class="cf bt"></div>
+    <div class="laco">
+      <svg viewBox="0 0 96 58"><path d="M48 50C36 30 8 22 6 38s24 16 42 12Z"/><path d="M48 50C60 30 88 22 90 38s-24 16-42 12Z"/><circle cx="48" cy="48" r="7"/></svg>
+      <svg viewBox="0 0 96 58"><path d="M48 50C36 30 8 22 6 38s24 16 42 12Z"/><path d="M48 50C60 30 88 22 90 38s-24 16-42 12Z"/><circle cx="48" cy="48" r="7"/></svg>
+    </div>
+  </div></div></div>
+  <button class="pular" type="button" id="pular" data-i18n="skipIntro">Pular</button>
+</div>
 <a class="skip" href="#main" data-i18n="skip">Pular para o conteúdo</a>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -224,6 +341,11 @@ footer .made{margin-top:18px;font-size:13px;opacity:.8}
 
 <main id="main">
 <section class="hero" id="top">
+  <svg class="fita" id="fita" aria-hidden="true">
+    <defs><path id="fitaPath" d=""/></defs>
+    <g id="fitaG"><use href="#fitaPath" class="borda"/><use href="#fitaPath" class="cetim"/><use href="#fitaPath" class="brilho"/></g>
+    <text dy="4"><textPath href="#fitaPath" startOffset="2%" data-i18n="fitaTxt">Bom te ver novamente ✦ Bom te ver novamente ✦ Bom te ver novamente ✦ Bom te ver novamente ✦ Bom te ver novamente ✦ Bom te ver novamente ✦ Bom te ver novamente ✦ Bom te ver novamente ✦ Bom te ver novamente ✦ Bom te ver novamente ✦</textPath></text>
+  </svg>
   <div class="wrap">
     <div class="reveal">
       <p class="kicker" data-i18n="kick">Dracut, Massachusetts</p>
@@ -251,14 +373,23 @@ footer .made{margin-top:18px;font-size:13px;opacity:.8}
     <p class="kicker" data-i18n="k2">Bolos de encomenda</p>
     <h2><span data-i18n="h2a">Cada bolo começa</span> <span class="script" data-i18n="h2b">com uma conversa</span></h2>
     <p class="lead" data-i18n="l2">Conte a ocasião, as cores e quantas pessoas. A Yallem sugere sabores e decoração e manda o orçamento pelo WhatsApp.</p>
-    <div class="grid">
-      <figure class="reveal"><div class="im"><img loading="lazy" src="img/bolo-livros-600.webp" width="600" height="745" alt="Bolo branco com lombadas de livros cor-de-rosa e nude com nomes em dourado, rosas e folha de ouro" data-i18n-alt="a1"></div><figcaption data-i18n="c1">Livros e folha de ouro<small>Chá de bebê</small></figcaption></figure>
-      <figure class="reveal"><div class="im"><img loading="lazy" src="img/xadrez-600.webp" width="526" height="701" alt="Bolo xadrez preto e branco com peças de xadrez no topo e rosas de chantilly" data-i18n-alt="a2"></div><figcaption data-i18n="c2">Tabuleiro de xadrez<small>Bolo temático</small></figcaption></figure>
-      <figure class="reveal"><div class="im"><img loading="lazy" src="img/maracuja-600.webp" width="600" height="763" alt="Bolo amarelo de maracujá com cobertura de chocolate escorrendo e brigadeiros" data-i18n-alt="a3"></div><figcaption data-i18n="c3">Maracujá com chocolate<small>Com brigadeiros</small></figcaption></figure>
-      <figure class="reveal"><div class="im"><img loading="lazy" src="img/doce-de-leite-600.webp" width="600" height="800" alt="Bolo branco com calda de doce de leite escorrendo e docinhos de coco" data-i18n-alt="a4"></div><figcaption data-i18n="c4">Doce de leite e coco<small>Calda escorrendo</small></figcaption></figure>
-      <figure class="reveal"><div class="im"><img loading="lazy" src="img/bolo-flores-600.webp" width="600" height="800" alt="Bolo branco de aniversário com flores delicadas" data-i18n-alt="a5"></div><figcaption data-i18n="c5">Floral delicado<small>Aniversário</small></figcaption></figure>
-      <figure class="reveal"><div class="im"><img loading="lazy" src="img/thanksgiving-600.webp" width="600" height="800" alt="Bolos decorados para o Thanksgiving com folhas de outono, abóboras e laços" data-i18n-alt="a6"></div><figcaption data-i18n="c6">Mesa de Thanksgiving<small>Datas especiais</small></figcaption></figure>
+    <div class="vitrine" id="vitrine">
+      <div class="palco" id="palco" tabindex="0" role="group" aria-roledescription="carrossel" aria-label="Vitrine de bolos">
+        <svg class="coroa" id="coroaT" aria-hidden="true"></svg>
+        <div class="cena" id="cena">
+          <div class="bolo3d" id="bolo3d" aria-hidden="true"><canvas id="cake"></canvas><img class="fb" src="img/logo.webp" width="200" height="200" alt=""></div>
+          <div class="anel" id="anel"></div>
+        </div>
+        <svg class="coroa" id="coroaF" aria-hidden="true"></svg>
+      </div>
+      <aside class="fatia" id="fatia" hidden aria-live="polite">
+        <button class="x" type="button" aria-label="Fechar">×</button>
+        <div class="top"><img alt="" width="600" height="800"><div><p class="occ"></p><h3 tabindex="-1"></h3><p class="desc"></p></div></div>
+        <h4>Ingredientes</h4><ul></ul><p class="ex"></p>
+        <a class="btn btn-wa" href="https://wa.me/19782277733" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-wa"/></svg><span>Quero um assim</span></a>
+      </aside>
     </div>
+    <div class="vctl"><button type="button" id="vAnt" aria-label="Bolo anterior">‹</button><p id="vHint">Arraste ou use as setas. Toque num bolo para ver a fatia.</p><button type="button" id="vProx" aria-label="Próximo bolo">›</button></div>
   </div>
 </section>
 
@@ -406,7 +537,7 @@ const T={en:{
  a7:'Dessert cups with whipped cream, brigadeiros, strawberries and peanuts',a8:'Banoffee cup with cream, caramelized banana and cinnamon',cta3:'Reserve mine',
  k5:'Holiday season',h5a:'Gifts',h5b:'that sweeten',l5:'Filled panettone, butter cookies and boxes of gourmet brigadeiros. Ask on WhatsApp about flavors and availability.',c7:'Filled panettone',c8:'Brigadeiro box',c9:'Butter cookies',
  a9:'Panettone cut in half, filled with chocolate cream',a10:'Box of sixteen colorful Christmas brigadeiros',a11:'Vanilla and chocolate butter cookies with Christmas sprinkles',
- k6:'Visit the shop',h6a:'Come',h6b:'taste it',iAddr:'Address',route:'Get directions',iPhone:'Phone and WhatsApp',iHours:'Hours',call:'Call',made:'Website by Paradoxum',fab:'Chat on WhatsApp'
+ k6:'Visit the shop',h6a:'Come',h6b:'taste it',iAddr:'Address',route:'Get directions',iPhone:'Phone and WhatsApp',iHours:'Hours',call:'Call',made:'Website by Paradoxum',fab:'Chat on WhatsApp',skipIntro:'Skip',fitaTxt:'Good to see you again ✦ '.repeat(10)
 }};
 const PT={};
 document.querySelectorAll('[data-i18n]').forEach(el=>PT[el.dataset.i18n]=el.innerHTML);
@@ -424,6 +555,7 @@ function setLang(l){
   document.querySelectorAll('[data-lang]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.lang===l)));
   try{localStorage.setItem('yc-lang',l)}catch(e){}
   setWa();
+  document.dispatchEvent(new CustomEvent('yc-lang',{detail:l}));
 }
 function wa(msg){return 'https://wa.me/'+PHONE+'?text='+encodeURIComponent(msg)}
 function setWa(){
@@ -451,8 +583,49 @@ document.getElementById('f').addEventListener('submit',e=>{
   window.open(wa(msg),'_blank','noopener');
 });
 
+
+// ---------- Fita do topo + abertura com a caixinha ----------
+(function(){
+  const hero=document.querySelector('.hero'), svg=document.getElementById('fita'), path=document.getElementById('fitaPath'), g=document.getElementById('fitaG');
+  const html=document.documentElement, intro=document.getElementById('intro');
+  function montar(){
+    const W=hero.clientWidth, H=hero.clientHeight;
+    svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
+    const d = W<880
+      ? `M -60 ${H*.66} C ${W*.28} ${H*.56}, ${W*.40} ${H*.64}, ${W*.5} ${H*.62} S ${W*.78} ${H*.56}, ${W+60} ${H*.66}`
+      : `M -60 ${H*.93} C ${W*.40} ${H*1.02}, ${W*.475} ${H*.80}, ${W*.49} ${H*.42} S ${W*.8} ${H*.98}, ${W+60} ${H*.1}`;
+    path.setAttribute('d',d);
+  }
+  montar();
+  let tm; addEventListener('resize',()=>{clearTimeout(tm);tm=setTimeout(montar,120)});
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(()=>{ if(!html.classList.contains('com-intro')) montar(); });
+  if(!html.classList.contains('com-intro')){ intro.remove(); return; }
+
+  const L=path.getTotalLength(), meio=path.getPointAtLength(L/2), m=svg.getScreenCTM();
+  if(m){ const pos=document.getElementById('caixaPos'); pos.style.setProperty('--bx',(meio.x*m.a+m.e)+'px'); pos.style.setProperty('--by',(meio.y*m.d+m.f)+'px'); }
+  const timers=[]; let raf=0, acabou=false;
+  function desenhar(f){ const len=L*f; g.style.strokeDasharray=`${len} ${L+10}`; g.style.strokeDashoffset=String(-(L/2-len/2)); }
+  function fim(){
+    if(acabou) return; acabou=true; timers.forEach(clearTimeout); cancelAnimationFrame(raf);
+    g.style.strokeDasharray=''; g.style.strokeDashoffset='';
+    intro.classList.add('sai'); svg.classList.remove('na-frente'); html.classList.remove('com-intro');
+    setTimeout(()=>intro.remove(),650);
+  }
+  desenhar(0);
+  timers.push(setTimeout(()=>{
+    intro.classList.add('puxa'); svg.classList.add('na-frente');
+    const t0=performance.now(), dur=950;
+    (function passo(t){ const e=Math.min(1,(t-t0)/dur), k=1-Math.pow(1-e,3); desenhar(k); if(e<1) raf=requestAnimationFrame(passo); })(t0);
+  },1850));
+  timers.push(setTimeout(()=>intro.classList.add('sai'),2500));
+  timers.push(setTimeout(fim,3050));
+  document.getElementById('pular').addEventListener('click',fim);
+  intro.addEventListener('click',e=>{ if(e.target===intro) fim(); });
+})();
+
 const io='IntersectionObserver' in window?new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}}),{rootMargin:'0px 0px -8% 0px'}):null;
 document.querySelectorAll('.reveal').forEach(el=>io?io.observe(el):el.classList.add('in'));
 </script>
+<script type="module" src="vitrine.js"></script>
 </body>
 </html>
