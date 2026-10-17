@@ -226,10 +226,14 @@ function escolher(i) {
   palco.classList.add('aberto');
   definirDeslocamento();
   preencherPainel();
-  painel.hidden = false;
-  requestAnimationFrame(() => painel.classList.add('on'));
-  painel.querySelector('h3').focus({ preventScroll: true });
-  if (cake) cake.abrir(i);
+  painel.classList.remove('on'); painel.hidden = true;
+  const mostrar = () => {
+    if (sel !== i) return;
+    painel.hidden = false;
+    requestAnimationFrame(() => requestAnimationFrame(() => painel.classList.add('on')));
+    painel.querySelector('h3').focus({ preventScroll: true });
+  };
+  if (cake) cake.abrir(i, mostrar); else mostrar();
 }
 function fechar(devolverFoco) {
   if (sel < 0) return;
@@ -346,14 +350,15 @@ async function iniciarBolo() {
       const r = new THREE.Mesh(geoEsfera, mat(0xb8324e)); r.scale.set(0.055, 0.06, 0.055); r.position.copy(at(0.12, 0.83, yt + 0.055)); g.add(r);
     }
     // florzinha rosa e pérolas douradas na borda
-    const fl = new THREE.Mesh(geoEsfera, mRosa); fl.scale.set(0.06, 0.035, 0.06); fl.position.copy(at(half * 0.95, 0.9, yt + 0.04)); g.add(fl);
+    const fl = new THREE.Mesh(geoEsfera, mRosa); fl.scale.set(0.06, 0.035, 0.06); fl.position.copy(at(half * 0.3, 0.7, yt + 0.03)); g.add(fl);
     for (let q = 0; q < 4; q++) {
       const p = new THREE.Mesh(geoEsfera, mOuro); p.scale.setScalar(0.018);
       p.position.copy(at(-half + (q + 0.5) * (2 * half / 4), 0.985, yt + 0.005)); g.add(p);
     }
     g.rotation.y = i * passo * RAD;
+    g.traverse(m => { if (m.isMesh && !recheio.includes(m)) m.material = m.material.clone(); });
     giro.add(g);
-    return { g, recheio, d: 0 };
+    return { g, recheio, k: 0 };
   });
 
   // faca
@@ -363,7 +368,7 @@ async function iniciarBolo() {
   const cabo = new THREE.Mesh(new THREE.BoxGeometry(0.045, 0.11, 0.42), mat(0x3b2a24)); cabo.position.set(0, 0.06, 1.32); faca.add(cabo);
   faca.visible = false; giro.add(faca);
 
-  let fase = 'idle', t0 = 0, atual = -1, dSaida = 0;
+  let fase = 'idle', t0 = 0, atual = -1, kSaida = 0, avisar = null;
   const easeIO = t => t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
   const easeOut = t => 1 - Math.pow(1 - t, 3);
   function corte(e, ang) { // e: 0..1 desce e sobe
@@ -371,13 +376,24 @@ async function iniciarBolo() {
     const desce = e < 0.55 ? easeIO(e / 0.55) : 1 - easeIO((e - 0.55) / 0.45);
     faca.position.y = 1.15 - desce * (1.15 + 0.27);
   }
-  // a fatia sai pela frente, gira para mostrar o recheio no corte e fica servida à esquerda
-  const DMAX = 0.6;
-  function posFatia(i, d) {
-    const f = fatias[i]; f.d = d;
-    const k = Math.min(1, d / DMAX), base = i * passo * RAD, h = base - 1.0 * k;
-    f.g.rotation.y = h;
-    f.g.position.set(Math.sin(h) * d, Math.sin(Math.PI * k) * 0.18 + k * 0.03, Math.cos(h) * d);
+  // a fatia sai um pouco para a frente, sobe e desaparece (k: 0 no bolo, 1 sumiu)
+  function opacidade(g, op) {
+    const t = op < 0.999;
+    g.traverse(m => {
+      if (!m.isMesh) return;
+      if (m.material.transparent !== t) { m.material.transparent = t; m.material.depthWrite = !t; m.material.needsUpdate = true; }
+      m.material.opacity = op;
+    });
+  }
+  function posFatia(i, k) {
+    const f = fatias[i]; f.k = k;
+    const base = i * passo * RAD, sai = 0.28 * Math.min(1, k * 2.2), sobe = 1.7 * easeIO(k);
+    f.g.rotation.y = base;
+    f.g.position.set(Math.sin(base) * sai, sobe, Math.cos(base) * sai);
+    f.g.scale.setScalar(1 - 0.18 * k);
+    const op = k < 0.45 ? 1 : Math.max(0, 1 - (k - 0.45) / 0.55);
+    opacidade(f.g, op);
+    f.g.visible = op > 0.001;
   }
 
   let w = 0, h = 0;
@@ -392,28 +408,29 @@ async function iniciarBolo() {
       root.scale.setScalar(R * 0.55);
     },
     girar(theta) { giro.rotation.y = theta; },
-    abrir(i) {
+    abrir(i, aoSumir) {
       if (atual >= 0 && atual !== i) posFatia(atual, 0);
-      atual = i; fase = 'espera'; faca.visible = false;
+      atual = i; fase = 'espera'; faca.visible = false; avisar = aoSumir || null;
       // o bolo inteiro assume o sabor escolhido, para o corte mostrar um recheio só
       fatias.forEach(f => f.recheio.forEach((m, k) => m.material.color.set(corCamada(CAKES[i], k))));
     },
-    fechar() { if (atual >= 0) { fase = 'volta'; t0 = performance.now(); dSaida = fatias[atual].d; faca.visible = false; } },
+    fechar() { avisar = null; if (atual >= 0) { fase = 'volta'; t0 = performance.now(); kSaida = fatias[atual].k; faca.visible = false; } },
     quadro(parado) {
       const agora = performance.now();
+      const sumiu = () => { posFatia(atual, 1); fase = 'aberta'; if (avisar) { const f = avisar; avisar = null; f(); } };
       if (fase === 'espera' && parado) {
-        if (reduz) { posFatia(atual, DMAX); fase = 'aberta'; } else { fase = 'corte'; t0 = agora; }
+        if (reduz) sumiu(); else { fase = 'corte'; t0 = agora; }
       }
       if (fase === 'corte') {
         const e = agora - t0, ang = atual * passo * RAD;
-        if (e < 480) corte(e / 480, ang - half);
-        else if (e < 960) corte((e - 480) / 480, ang + half);
-        else if (e < 1640) { faca.visible = false; posFatia(atual, DMAX * easeOut((e - 960) / 680)); }
-        else { posFatia(atual, DMAX); fase = 'aberta'; }
+        if (e < 400) corte(e / 400, ang - half);
+        else if (e < 800) corte((e - 400) / 400, ang + half);
+        else if (e < 1700) { faca.visible = false; posFatia(atual, (e - 800) / 900); }
+        else sumiu();
       }
-      if (fase === 'volta') {
-        const e = Math.min(1, (agora - t0) / 450);
-        posFatia(atual, dSaida * (1 - easeOut(e)));
+      if (fase === 'volta') { // fecha: a fatia desce de volta para o lugar
+        const e = Math.min(1, (agora - t0) / 650);
+        posFatia(atual, kSaida * (1 - easeOut(e)));
         if (e >= 1) { fase = 'idle'; atual = -1; }
       }
       renderer.render(scene, camera);
