@@ -47,7 +47,7 @@ if(v<=3&&nova&&!rm)h.classList.add('com-intro');if(v>3)h.classList.add('volta');
 :root{
   --cream:#FFF9F5; --blush:#F7DEDC; --blush-2:#FBECEA; --rose:#C9707A;
   --cocoa:#4A2A21; --cocoa-2:#6B4335; --sage:#8FB79A; --sage-d:#4F7A5C;
-  --gold:#C49A4A; --gold-d:#8A6420; --line:rgba(74,42,33,.18);
+  --gold:#C49A4A; --gold-d:#7A5518; --rose-d:#B85F6B; --price:#A9505D; --ribbon-gold:#D4AD62; --ribbon-pink:#E9A7AF; --line:rgba(74,42,33,.18);
   --serif:"Cormorant Garamond",Georgia,serif; --sans:"Jost",system-ui,sans-serif; --script:"Great Vibes",cursive;
   --r:18px; --wrap:1120px;
 }
@@ -71,12 +71,14 @@ header{position:sticky;top:0;z-index:40;background:rgba(255,249,245,.94);backdro
 .brand b{font:600 22px/1 var(--serif);letter-spacing:.02em}
 .brand small{display:block;font:500 11px/1.2 var(--sans);letter-spacing:.22em;text-transform:uppercase;color:var(--cocoa-2);margin-top:3px}
 nav ul{display:none;list-style:none;margin:0;padding:0;gap:22px}
-nav a{text-decoration:none;font-weight:500;font-size:15px;padding:10px 0}
+nav a{text-decoration:none;font-weight:500;font-size:15px;display:inline-flex;align-items:center;min-height:44px}
 nav a:hover{color:var(--rose)}
 @media(min-width:960px){nav ul{display:flex}}
 .lang{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
 .lang button{all:unset;cursor:pointer;font:600 13px var(--sans);padding:0 12px;min-height:44px;display:grid;place-items:center;letter-spacing:.08em}
 .lang button[aria-pressed="true"]{background:var(--cocoa);color:#fff}
+.lang button:focus-visible{outline:3px solid var(--sage-d);outline-offset:-3px;border-radius:999px}
+.cakes .script,.season .script{color:var(--rose-d)}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:48px;padding:0 22px;border-radius:999px;font:600 16px var(--sans);text-decoration:none;border:0;cursor:pointer;transition:transform .15s,background .15s}
 .btn:hover{transform:translateY(-1px)}
 .btn svg{width:20px;height:20px;flex:none}
@@ -162,7 +164,7 @@ section{padding:84px 0}
 .mgroup{margin-top:22px}
 .mhead{display:flex;align-items:baseline;justify-content:space-between;gap:12px;border-bottom:1px solid var(--gold);padding-bottom:8px}
 .mhead h3{font-size:30px}
-.mhead .price{font:600 22px var(--serif);color:var(--rose)}
+.mhead .price{font:600 22px var(--serif);color:var(--price)}
 .mhead .price small{font:500 13px var(--sans);color:var(--cocoa-2);display:block;text-align:right}
 .mlist{list-style:none;margin:6px 0 0;padding:0}
 .mlist li{padding:12px 0;border-bottom:1px dashed var(--line)}
@@ -180,7 +182,8 @@ section{padding:84px 0}
 .info li{display:flex;gap:14px}
 .info svg{width:22px;height:22px;flex:none;color:var(--sage-d);margin-top:3px}
 .info b{display:block;font:600 13px var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--gold-d)}
-.info a{font-weight:500}
+.info a{font-weight:500;display:inline-flex;align-items:center;min-height:44px}
+footer a{display:inline-flex;align-items:center;min-height:44px}
 .ph-fill{background:#FFF1C7;color:#6B4A00;padding:1px 6px;border-radius:5px;font-size:15px}
 .map{border-radius:var(--r);overflow:hidden;aspect-ratio:4/3;background:var(--blush);box-shadow:0 0 0 1px var(--line)}
 .map iframe{width:100%;height:100%;border:0}
@@ -267,10 +270,10 @@ footer .made{margin-top:18px;font-size:13px;opacity:.8}
 .coroa .p1{fill:#fff;stroke:#D4AD62;stroke-width:.8}.coroa .p2{fill:#F2C2C8;stroke:#D4AD62;stroke-width:.8}
 .palco.aberto .coroa{opacity:.35;transition:opacity .4s}
 .vctl{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:4px}
-.vctl button{width:48px;height:48px;border-radius:50%;border:1.5px solid var(--cocoa);background:transparent;color:var(--cocoa);cursor:pointer;display:grid;place-items:center;font-size:22px;line-height:1}
+.vctl button{flex:none;width:48px;height:48px;border-radius:50%;border:1.5px solid var(--cocoa);background:transparent;color:var(--cocoa);cursor:pointer;display:grid;place-items:center;font-size:22px;line-height:1}
 .vctl button:hover{background:var(--cocoa);color:#fff}
 .vctl p{margin:0;font-size:14px;color:var(--cocoa-2);max-width:30ch}
-.fatia{position:absolute;z-index:5;background:var(--cream);border-radius:20px;box-shadow:0 30px 60px -28px rgba(74,42,33,.55),0 0 0 1px var(--line);padding:18px 18px 20px;text-align:left;opacity:0;transition:opacity .3s ease,transform .65s cubic-bezier(.2,.9,.25,1);left:10px;right:10px;bottom:10px;max-height:56%;overflow:auto;transform:translateY(-90px) rotate(-1.5deg)}
+.fatia{position:relative;z-index:5;background:var(--cream);border-radius:20px;box-shadow:0 30px 60px -28px rgba(74,42,33,.55),0 0 0 1px var(--line);padding:18px 18px 20px;margin:4px 0 8px;text-align:left;opacity:0;transition:opacity .3s ease,transform .65s cubic-bezier(.2,.9,.25,1);transform:translateY(-90px) rotate(-1.5deg)}
 .fatia.on{opacity:1;transform:none}
 .fatia .x{position:absolute;right:8px;top:8px;width:44px;height:44px;border-radius:50%;border:0;background:transparent;font-size:26px;line-height:1;color:var(--cocoa);cursor:pointer}
 .fatia .x:hover{background:var(--blush)}
@@ -286,21 +289,72 @@ footer .made{margin-top:18px;font-size:13px;opacity:.8}
 .fatia .ex{font-size:12.5px;color:var(--cocoa-2);background:#FFF1C7;border-radius:8px;padding:6px 9px;margin:10px 0 0}
 .fatia .btn{margin-top:14px;width:100%}
 @media(min-width:900px){
-  .fatia{left:auto;right:0;bottom:auto;top:50%;width:min(370px,36%);max-height:none;transform:translate(0,calc(-50% - 110px)) rotate(-1.5deg)}
-  .fatia.on{transform:translate(0,-50%)}
+  .fatia{position:absolute;margin:0;right:0;top:12px;bottom:12px;width:min(370px,36%);overflow:auto;overscroll-behavior:contain;transform:translateY(-110px) rotate(-1.5deg)}
+  .fatia.on{transform:none}
   .fatia .top{display:block;padding-right:0}
-  .fatia img{width:100%;height:auto;aspect-ratio:4/3;margin-bottom:12px}
+  .fatia img{width:100%;height:auto;aspect-ratio:2/1;margin-bottom:8px}
+  .fatia li{padding:3px 0 3px 18px}
+  .palco{height:690px}
+  .fatia h3{font-size:26px}.fatia .desc{font-size:14.5px}.fatia h4{margin-top:10px}
 }
 .no-js .palco{height:auto;cursor:auto}.no-js .vctl,.no-js .coroa,.no-js .bolo3d{display:none}
 .no-js .cena,.no-js .anel,.no-js .slot{position:static;transform:none!important;width:auto;height:auto}
 .no-js .anel{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
 @media(min-width:820px){.no-js .anel{grid-template-columns:repeat(4,1fr)}}
 .no-js .rc{position:relative;left:0;top:0;width:100%;height:auto;aspect-ratio:3/4}.no-js .rf--b{display:none}
+
+/* ===== Topo v2: faixa sazonal, colagem com fita costurada, pedido rápido, sabores ===== */
+.sazonal{display:flex;justify-content:center;align-items:center;gap:8px;flex-wrap:wrap;min-height:44px;padding:8px 16px;background:var(--cocoa);color:#F7E9E4;font-size:14px;text-decoration:none;text-align:center}
+.sazonal b{color:#F2C9A0;font-weight:600}
+@media(max-width:600px){.sazonal{font-size:13px;line-height:1.35}.sazonal>span[aria-hidden]{display:none}}
+.sazonal:hover b{text-decoration:underline}
+.sazonal[hidden]{display:none}
+.hero .wrap{position:relative;z-index:auto}
+.hero-txt{position:relative;z-index:2}
+.hero h1{font-size:clamp(44px,7.4vw,80px);line-height:1}
+.hero h1 .script{display:block;font-size:.95em;margin:6px 0 0;line-height:1.05;color:var(--rose)}
+.hero .sub{font-size:19px;margin:22px 0 26px;color:var(--cocoa-2);max-width:40ch}
+.rapido{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;background:#fff;border:1px solid var(--line);border-radius:22px;padding:10px 10px 10px 18px;box-shadow:0 18px 40px -26px rgba(74,42,33,.45);max-width:560px;font:500 18px/1.3 var(--serif);font-size:20px}
+.rapido label,.rapido span{white-space:nowrap}
+.rapido select,.rapido input{font:600 italic 20px var(--serif);color:var(--rose-d);background:transparent;border:0;border-bottom:1.5px dashed var(--rose);min-height:44px;padding:0 2px}
+.rapido input{width:2.6em;text-align:center;-moz-appearance:textfield}
+.rapido .btn{margin-left:auto;font-family:var(--sans);font-size:15px;min-height:46px}
+@media(max-width:560px){.rapido{border-radius:18px}.rapido .btn{width:100%;margin-left:0}}
+.facts{align-items:center}
+.facts .ver{font-weight:600;color:var(--cocoa);display:inline-flex;align-items:center;min-height:44px;text-underline-offset:4px}
+.facts a{display:inline-flex;align-items:center;min-height:44px}
+.selo-aberto{display:inline-flex;align-items:center;gap:7px;font-weight:600;color:var(--sage-d)}
+.selo-aberto::before{content:"";width:9px;height:9px;border-radius:50%;background:currentColor;box-shadow:0 0 0 4px rgba(79,122,92,.18)}
+.selo-aberto.fechado{color:var(--cocoa-2)}
+.selo-aberto[hidden]{display:none}
+.hero{overflow-x:clip}
+.collage{position:relative;width:100%;max-width:520px;margin:0 auto;aspect-ratio:520/600}
+.collage .arch{position:absolute;right:3%;top:5%;width:68%;max-width:none;margin:0;z-index:2}
+.collage .seal{left:auto;right:-22px;bottom:30px;width:104px;height:104px}
+.foto{position:absolute;margin:0;background:#fff;padding:7px;border-radius:16px;box-shadow:0 22px 40px -22px rgba(74,42,33,.55)}
+.foto img{border-radius:10px;width:100%;aspect-ratio:4/5;object-fit:cover}
+.foto-a{left:0;bottom:3%;width:39%;rotate:-6deg;z-index:0}
+.foto-b{right:-3%;top:0;width:31%;rotate:7deg;z-index:3}
+@media(max-width:1180px){.foto-b{right:0}}
+@media(max-width:879px){.collage{max-width:400px}.collage .seal{width:84px;height:84px;right:-12px}}
+.fita{z-index:1}
+.sabores{position:relative;display:flex;align-items:center;background:var(--blush);border-block:1px solid rgba(196,154,74,.45);overflow:hidden}
+.trilho{flex:1;overflow:hidden;-webkit-mask:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.trilho .anda{display:flex;width:max-content;animation:sabores 46s linear infinite}
+.trilho ul{display:flex;list-style:none;margin:0;padding:0}
+.trilho li{font:500 italic 22px/1 var(--serif);color:var(--cocoa);padding:16px 0;white-space:nowrap;display:flex;align-items:center}
+.trilho li::after{content:"✦";font:normal 12px var(--sans);color:var(--gold);margin:0 22px}
+@keyframes sabores{to{transform:translateX(-50%)}}
+.sabores:hover .anda,.pausado .trilho .anda{animation-play-state:paused}
+.pausa{flex:none;width:44px;height:44px;margin:0 10px;border-radius:50%;border:1px solid var(--line);background:var(--cream);cursor:pointer;display:grid;place-items:center}
+.pausa span{width:10px;height:12px;border-inline:3px solid var(--cocoa)}
+.pausado .pausa span{width:0;height:0;border-inline:0;border-block:6px solid transparent;border-left:10px solid var(--cocoa);margin-left:3px}
+@media (prefers-reduced-motion:reduce){.trilho .anda{animation:none}.pausa{display:none}}
 </style>
 </head>
 <body class="no-js">
-<div class="intro" id="intro" aria-hidden="true">
-  <div class="caixa-pos" id="caixaPos"><div class="caixa-in"><div class="caixa">
+<div class="intro" id="intro">
+  <div class="caixa-pos" id="caixaPos" aria-hidden="true"><div class="caixa-in"><div class="caixa">
     <div class="cf fr"></div><div class="cf bk"></div><div class="cf rt"></div><div class="cf lf"></div><div class="cf tp"></div><div class="cf bt"></div>
     <div class="laco">
       <svg viewBox="0 0 96 58"><path d="M48 50C36 30 8 22 6 38s24 16 42 12Z"/><path d="M48 50C60 30 88 22 90 38s-24 16-42 12Z"/><circle cx="48" cy="48" r="7"/></svg>
@@ -310,6 +364,7 @@ footer .made{margin-top:18px;font-size:13px;opacity:.8}
   <button class="pular" type="button" id="pular" data-i18n="skipIntro">Pular</button>
 </div>
 <a class="skip" href="#main" data-i18n="skip">Pular para o conteúdo</a>
+<a class="sazonal" id="sazonal" href="#sobremesas"><span aria-hidden="true">✦</span> <span data-i18n="saz">Cardápio de Thanksgiving: taças de 1,5 L e tortas para a família</span> <b data-i18n="sazCta">Ver cardápio →</b></a>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="i-wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3a.4.4 0 0 0 0-.4l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.3c0-.1-.2-.2-.4-.3Z"/></symbol>
@@ -347,29 +402,51 @@ footer .made{margin-top:18px;font-size:13px;opacity:.8}
     <text dy="4"><textPath href="#fitaPath" startOffset="2%" data-i18n="fitaTxt">Bom te ver novamente ✦ Bom te ver novamente ✦ Bom te ver novamente ✦ Bom te ver novamente ✦ Bom te ver novamente ✦ Bom te ver novamente ✦ Bom te ver novamente ✦ Bom te ver novamente ✦ Bom te ver novamente ✦ Bom te ver novamente ✦</textPath></text>
   </svg>
   <div class="wrap">
-    <div class="reveal">
-      <p class="kicker" data-i18n="kick">Dracut, Massachusetts</p>
-      <h1><span data-i18n="h1a">Bolos feitos</span> <span class="script" data-i18n="h1b">com carinho</span><span data-i18n="h1c">para o seu momento.</span></h1>
-      <p data-i18n="sub">Bolos personalizados, taças, tortas e doces brasileiros, feitos pela Yallem na nossa loja em Dracut.</p>
-      <div class="cta">
-        <a class="btn btn-wa wa" href="https://wa.me/19782277733" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-wa"/></svg><span data-i18n="cta1">Encomendar pelo WhatsApp</span></a>
-        <a class="btn btn-ghost" href="#bolos" data-i18n="cta2">Ver os bolos</a>
-      </div>
+    <div class="hero-txt reveal">
+      <p class="kicker" data-i18n="kick">Yallem Cake Shop · Dracut, MA</p>
+      <h1><span data-i18n="h1a">Bem-vindos ao</span> <span class="script" data-i18n="h1b">nosso mundo doce</span></h1>
+      <p class="sub" data-i18n="sub">Bolos de encomenda, taças, tortas e doces brasileiros, feitos pela Yallem na nossa loja da Merrimack Ave.</p>
+      <form class="rapido" id="rapido">
+        <label for="rOcc" data-i18n="rq1">Quero um bolo de</label>
+        <select id="rOcc">
+          <option data-i18n="o1" value="aniversário">aniversário</option>
+          <option data-i18n="o2" value="casamento">casamento</option>
+          <option data-i18n="o3" value="chá de bebê">chá de bebê</option>
+          <option data-i18n="o4" value="chá revelação">chá revelação</option>
+          <option data-i18n="o5" value="batizado">batizado</option>
+          <option data-i18n="o6" value="outra ocasião">outra ocasião</option>
+        </select>
+        <label for="rPpl" data-i18n="rq2">para</label>
+        <input id="rPpl" type="number" inputmode="numeric" min="1" max="500" value="20">
+        <span data-i18n="rq3">pessoas</span>
+        <button class="btn btn-wa" type="submit"><svg aria-hidden="true"><use href="#i-wa"/></svg><span data-i18n="rqBtn">Pedir pelo WhatsApp</span></button>
+      </form>
       <div class="facts">
+        <span id="aberto" class="selo-aberto" hidden></span>
         <span><svg aria-hidden="true"><use href="#i-pin"/></svg>197 Merrimack Ave</span>
         <span><svg aria-hidden="true"><use href="#i-phone"/></svg><a href="tel:+19782277733">(978) 227-7733</a></span>
+        <a class="ver" href="#bolos" data-i18n="cta2">Ver os bolos ↓</a>
       </div>
     </div>
-    <div class="arch reveal">
-      <div class="ph"><img src="img/bolo-flores-1000.webp" srcset="img/bolo-flores-600.webp 600w, img/bolo-flores-1000.webp 1000w" sizes="(min-width:880px) 460px, 90vw" width="1000" height="1333" alt="Bolo branco de aniversário com o número 25, borda de chantilly e flores rosa e brancas" data-i18n-alt="altHero" fetchpriority="high"></div>
-      <div class="seal"><img src="img/logo.webp" width="200" height="200" alt="Logo Yallem Cake Design"></div>
+    <div class="collage" id="collage">
+      <figure class="foto foto-a reveal" id="fotoA"><img src="img/frutas-vermelhas-600.webp" width="600" height="800" alt="Bolo branco com coroa de morangos, mirtilos, amoras e cerejas e frase escrita em dourado" data-i18n-alt="altA"></figure>
+      <div class="arch reveal" id="fotoM">
+        <div class="ph"><img src="img/bolo-flores-1000.webp" srcset="img/bolo-flores-600.webp 600w, img/bolo-flores-1000.webp 1000w" sizes="(min-width:880px) 380px, 70vw" width="1000" height="1333" alt="Bolo branco de aniversário com o número 25, borda de chantilly e flores rosa e brancas" data-i18n-alt="altHero" fetchpriority="high"></div>
+        <div class="seal"><img src="img/logo.webp" width="200" height="200" alt="Logo Yallem Cake Design"></div>
+      </div>
+      <figure class="foto foto-b reveal" id="fotoB"><img src="img/bolo-livros-600.webp" width="600" height="745" alt="Bolo branco com lombadas de livros cor-de-rosa e nude com nomes em dourado e rosas" data-i18n-alt="altB"></figure>
     </div>
   </div>
 </section>
 
+<div class="sabores" id="sabores">
+  <div class="trilho" id="trilho"><ul><li>Brigadeiro</li><li>Beijinho</li><li>Ninho com Nutella</li><li>Maracujá</li><li>Doce de leite</li><li>Cajuzinho</li><li>Red velvet</li><li>Banoffee</li><li>Pistache com frutas vermelhas</li><li>Kinder Bueno</li></ul></div>
+  <button class="pausa" id="pausa" type="button" aria-pressed="false" aria-label="Pausar animações" data-i18n-aria="pausa"><span aria-hidden="true"></span></button>
+</div>
+
 <section class="cakes" id="bolos">
   <div class="wrap center">
-    <div class="orn"><span>✦</span></div>
+    <div class="orn" aria-hidden="true"><span>✦</span></div>
     <p class="kicker" data-i18n="k2">Bolos de encomenda</p>
     <h2><span data-i18n="h2a">Cada bolo começa</span> <span class="script" data-i18n="h2b">com uma conversa</span></h2>
     <p class="lead" data-i18n="l2">Conte a ocasião, as cores e quantas pessoas. A Yallem sugere sabores e decoração e manda o orçamento pelo WhatsApp.</p>
@@ -438,7 +515,7 @@ footer .made{margin-top:18px;font-size:13px;opacity:.8}
 <section class="menu" id="sobremesas">
   <div class="wrap">
     <div class="center">
-      <div class="orn"><span>✦</span></div>
+      <div class="orn" aria-hidden="true"><span>✦</span></div>
       <p class="kicker" data-i18n="k4">Sobremesas especiais</p>
       <h2><span data-i18n="h4a">Taças e tortas</span> <span class="script" data-i18n="h4b">para a família</span></h2>
     </div>
@@ -520,9 +597,9 @@ document.body.classList.remove('no-js');
 const PHONE='19782277733';
 const T={en:{
  skip:'Skip to content',nav1:'Cakes',nav2:'Order',nav3:'Dessert cups & pies',nav4:'Visit',
- kick:'Dracut, Massachusetts',h1a:'Cakes made',h1b:'with love',h1c:'for your moment.',
- sub:'Custom cakes, dessert cups, pies and Brazilian sweets, made by Yallem at our shop in Dracut.',
- cta1:'Order on WhatsApp',cta2:'See the cakes',altHero:'White birthday cake with the number 25, piped cream border and pink and white flowers',
+ kick:'Yallem Cake Shop · Dracut, MA',h1a:'Welcome to',h1b:'our sweet world',saz:'Thanksgiving menu: 1.5 L dessert cups and pies for the whole family',sazCta:'See the menu →',rq1:'I’d like a',rq2:'cake for',rq3:'guests',rqBtn:'Order on WhatsApp',pausa:'Pause animations',pausaOn:'Play animations',altA:'White cake with a crown of strawberries, blueberries, blackberries and cherries and a message written in gold',altB:'White cake with pink and nude book spines with names in gold and roses',
+ sub:'Custom cakes, dessert cups, pies and Brazilian sweets, made by Yallem at our shop on Merrimack Ave.',
+ cta1:'Order on WhatsApp',cta2:'See the cakes ↓',altHero:'White birthday cake with the number 25, piped cream border and pink and white flowers',
  k2:'Custom cakes',h2a:'Every cake starts',h2b:'with a conversation',l2:'Tell us the occasion, the colors and how many guests. Yallem suggests flavors and decoration and sends you a quote on WhatsApp.',
  c1:'Books and gold leaf<small>Baby shower</small>',c2:'Chessboard<small>Themed cake</small>',c3:'Passion fruit and chocolate<small>With brigadeiros</small>',c4:'Dulce de leche and coconut<small>Drip cake</small>',c5:'Delicate florals<small>Birthday</small>',c6:'Thanksgiving table<small>Special dates</small>',
  a1:'White cake with pink and nude book spines with names in gold, roses and gold leaf',a2:'Black and white checkered cake with chess pieces on top and piped roses',a3:'Yellow passion fruit cake with chocolate drip and brigadeiros',a4:'White cake with dulce de leche drip and coconut truffles',a5:'White birthday cake with delicate flowers',a6:'Thanksgiving cakes with autumn leaves, pumpkins and ribbons',
@@ -583,18 +660,74 @@ document.getElementById('f').addEventListener('submit',e=>{
   window.open(wa(msg),'_blank','noopener');
 });
 
+// ---------- Pedido rápido no topo ----------
+document.getElementById('rapido').addEventListener('submit',e=>{
+  e.preventDefault();
+  const s=document.getElementById('rOcc'), occ=s.options[s.selectedIndex].text.trim(), n=document.getElementById('rPpl').value||'?';
+  const msg=lang==='en'?`Hi Yallem! I'd like a ${occ} cake for ${n} guests. Could you send me flavors and a quote?`
+                        :`Oi, Yallem! Quero um bolo de ${occ} para ${n} pessoas. Pode me passar sabores e orçamento?`;
+  window.open(wa(msg),'_blank','noopener');
+});
+
+// ---------- Faixa de sabores + botão de pausa (vale também para a vitrine) ----------
+const SABORES={pt:['Brigadeiro','Beijinho','Ninho com Nutella','Maracujá','Doce de leite','Cajuzinho','Red velvet','Banoffee','Pistache com frutas vermelhas','Kinder Bueno'],
+               en:['Brigadeiro','Beijinho','Ninho with Nutella','Passion fruit','Dulce de leche','Cajuzinho','Red velvet','Banoffee','Pistachio and red berries','Kinder Bueno']};
+function montarSabores(){
+  const lis=SABORES[lang==='en'?'en':'pt'].map(x=>`<li>${x}</li>`).join('');
+  document.getElementById('trilho').innerHTML=`<div class="anda"><ul>${lis}</ul><ul aria-hidden="true">${lis}</ul></div>`;
+  document.getElementById('sabores').setAttribute('aria-label',lang==='en'?'Flavors':'Sabores');
+}
+const pausa=document.getElementById('pausa');
+pausa.addEventListener('click',()=>{
+  const on=document.documentElement.classList.toggle('pausado');
+  pausa.setAttribute('aria-pressed',String(on));
+  pausa.setAttribute('aria-label',(lang==='en'?T.en:PT)[on?'pausaOn':'pausa']||(on?'Retomar animações':'Pausar animações'));
+});
+PT.pausaOn='Retomar animações';
+
+// ---------- Aberto agora (preencha HORARIO; vazio = selo escondido) ----------
+// Formato: dia da semana (0=domingo) → [abre, fecha] em horas, horário de Dracut. null = fechado.
+const HORARIO = null; // ex.: {0:null,1:[9,19],2:[9,19],3:[9,19],4:[9,19],5:[9,19],6:[9,17]}  [PREENCHER]
+function atualizarAberto(){
+  const el=document.getElementById('aberto'); if(!HORARIO){el.hidden=true;return}
+  const p=new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',weekday:'short',hour:'numeric',minute:'numeric',hour12:false}).formatToParts(new Date());
+  const g=t=>p.find(x=>x.type===t).value, dia=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].indexOf(g('weekday')), h=+g('hour')%24+ +g('minute')/60;
+  const hj=HORARIO[dia], aberto=hj&&h>=hj[0]&&h<hj[1];
+  el.hidden=false; el.classList.toggle('fechado',!aberto);
+  el.textContent=aberto?(lang==='en'?`Open now · until ${hj[1]}:00`:`Aberto agora · até ${hj[1]}h`):(lang==='en'?'Closed now':'Fechado agora');
+}
+
+// ---------- Faixa sazonal: some sozinha depois do Thanksgiving ----------
+(function(){ const fim=new Date('2026-11-27T05:00:00Z'); if(new Date()>fim) document.getElementById('sazonal').hidden=true; })();
+
+document.addEventListener('yc-lang',()=>{montarSabores();atualizarAberto();
+  pausa.setAttribute('aria-label',(lang==='en'?T.en:PT)[document.documentElement.classList.contains('pausado')?'pausaOn':'pausa']);});
+montarSabores(); atualizarAberto(); setInterval(atualizarAberto,60000);
 
 // ---------- Fita do topo + abertura com a caixinha ----------
 (function(){
   const hero=document.querySelector('.hero'), svg=document.getElementById('fita'), path=document.getElementById('fitaPath'), g=document.getElementById('fitaG');
   const html=document.documentElement, intro=document.getElementById('intro');
+  // A fita passa POR CIMA da foto A (z 0), POR TRÁS da foto principal (z 2) e POR TRÁS da foto B (z 3)
+  function caixa(id){ const h=hero.getBoundingClientRect(), r=document.getElementById(id).getBoundingClientRect();
+    return {l:r.left-h.left,t:r.top-h.top,w:r.width,h:r.height,cx:r.left-h.left+r.width/2,cy:r.top-h.top+r.height/2}; }
+  function suave(pts){ // Catmull-Rom → Bézier
+    let d=`M ${pts[0][0].toFixed(1)} ${pts[0][1].toFixed(1)}`;
+    for(let i=0;i<pts.length-1;i++){
+      const p0=pts[i-1]||pts[i], p1=pts[i], p2=pts[i+1], p3=pts[i+2]||p2;
+      const c1=[p1[0]+(p2[0]-p0[0])/6, p1[1]+(p2[1]-p0[1])/6], c2=[p2[0]-(p3[0]-p1[0])/6, p2[1]-(p3[1]-p1[1])/6];
+      d+=` C ${c1[0].toFixed(1)} ${c1[1].toFixed(1)}, ${c2[0].toFixed(1)} ${c2[1].toFixed(1)}, ${p2[0].toFixed(1)} ${p2[1].toFixed(1)}`;
+    }
+    return d;
+  }
   function montar(){
     const W=hero.clientWidth, H=hero.clientHeight;
     svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
-    const d = W<880
-      ? `M -60 ${H*.66} C ${W*.28} ${H*.56}, ${W*.40} ${H*.64}, ${W*.5} ${H*.62} S ${W*.78} ${H*.56}, ${W+60} ${H*.66}`
-      : `M -60 ${H*.93} C ${W*.40} ${H*1.02}, ${W*.475} ${H*.80}, ${W*.49} ${H*.42} S ${W*.8} ${H*.98}, ${W+60} ${H*.1}`;
-    path.setAttribute('d',d);
+    const A=caixa('fotoA'), M=caixa('fotoM'), B=caixa('fotoB');
+    const pts = W<880
+      ? [[-60,A.cy-A.h*.15],[A.cx,A.cy+A.h*.05],[M.cx,M.cy],[B.cx,B.cy+B.h*.1],[W+60,B.t+B.h*.2]]
+      : [[-60,H*.9],[A.l-30,H*.97],[A.cx,A.cy+A.h*.08],[M.cx,M.cy+M.h*.05],[B.cx,B.cy+B.h*.12],[W+60,B.t-10]];
+    path.setAttribute('d',suave(pts));
   }
   montar();
   let tm; addEventListener('resize',()=>{clearTimeout(tm);tm=setTimeout(montar,120)});

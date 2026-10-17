@@ -86,7 +86,8 @@ function medir() {
 }
 function definirDeslocamento() {
   if (sel < 0) { shAlvo = { x: 0, y: 0, s: 1 }; return; }
-  shAlvo = W >= 900 ? { x: -Math.min(W * 0.21, 240), y: 0, s: 0.9 } : { x: 0, y: -H * 0.25, s: 0.8 };
+  // desktop: cena vai para a esquerda e o card ocupa a direita do palco; celular: card abaixo do palco, cena fica parada
+  shAlvo = W >= 900 ? { x: -Math.min(W * 0.21, 240), y: 0, s: 0.9 } : { x: 0, y: 0, s: 1 };
 }
 
 // ---------- Coroa: duas fitas trançadas douradas e pérolas ----------
@@ -213,7 +214,7 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape' && sel >= 0) 
 $('#vAnt').addEventListener('click', () => ir(-1));
 $('#vProx').addEventListener('click', () => ir(1));
 setInterval(() => {
-  if (visivel && !reduz && !hover && !arrastando && sel < 0 && !document.hidden && !vitrine.contains(document.activeElement)) ir(1);
+  if (visivel && !reduz && !hover && !arrastando && sel < 0 && !document.hidden && !document.documentElement.classList.contains('pausado') && !vitrine.contains(document.activeElement)) ir(1);
 }, 3400);
 
 // ---------- Escolher / fechar ----------
@@ -232,6 +233,7 @@ function escolher(i) {
     painel.hidden = false;
     requestAnimationFrame(() => requestAnimationFrame(() => painel.classList.add('on')));
     painel.querySelector('h3').focus({ preventScroll: true });
+    if (W < 900) setTimeout(() => painel.scrollIntoView({ behavior: reduz ? 'auto' : 'smooth', block: 'nearest' }), 120);
   };
   if (cake) cake.abrir(i, mostrar); else mostrar();
 }
