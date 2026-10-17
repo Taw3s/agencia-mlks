@@ -50,7 +50,7 @@ const N = CAKES.length, passo = 360 / N, AX = -24, AZ = -4, RAD = Math.PI / 180;
 const cards = CAKES.map((c, i) => {
   const slot = document.createElement('div'); slot.className = 'slot';
   const b = document.createElement('button'); b.type = 'button'; b.className = 'rc';
-  b.innerHTML = `<span class="rf rf--a"><img src="img/${c.img}-600.webp" width="${c.w || 600}" height="${c.h || 800}" alt="" draggable="false" loading="lazy"><span class="cap"></span></span>
+  b.innerHTML = `<span class="rf rf--a"><img src="img/${c.img}-400.webp" width="${c.w || 600}" height="${c.h || 800}" alt="" draggable="false" loading="lazy"><span class="cap"></span></span>
     <span class="rf rf--b" aria-hidden="true"><img src="img/logo.webp" width="200" height="200" alt="" draggable="false"></span>`;
   slot.appendChild(b); anel.appendChild(slot);
   b.addEventListener('click', e => { if (moveu > 6) { e.preventDefault(); return; } escolher(i); });
@@ -321,13 +321,18 @@ aplicarIdioma(lang);
 // ---------- Bolo 3D ----------
 let cake = null;
 async function iniciarBolo() {
+  if (navigator.deviceMemory && navigator.deviceMemory <= 2) return; // celular com 2 GB ou menos: foto do bolo
   let THREE;
   try { THREE = await import('./vendor/three.module.min.js'); } catch (e) { return; }
   const canvas = document.getElementById('cake');
   let renderer;
-  try { renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'low-power' }); }
+  // failIfMajorPerformanceCaveat: se o celular só tiver WebGL por software, fica a foto do bolo (mais leve)
+  try { renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'low-power', failIfMajorPerformanceCaveat: true }); }
   catch (e) { return; }
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
+  // se o aparelho derrubar o contexto WebGL (falta de memória), mostra a foto e segue funcionando; volta ao 3D se o contexto voltar
+  canvas.addEventListener('webglcontextlost', e => { e.preventDefault(); vivo = false; bolo3d.classList.remove('ok'); }, false);
+  canvas.addEventListener('webglcontextrestored', () => { vivo = true; bolo3d.classList.add('ok'); acordar(); }, false);
   renderer.outputColorSpace = THREE.SRGBColorSpace;
 
   const scene = new THREE.Scene();
@@ -407,7 +412,7 @@ async function iniciarBolo() {
   const cabo = new THREE.Mesh(new THREE.BoxGeometry(0.045, 0.11, 0.42), mat(0x3b2a24)); cabo.position.set(0, 0.06, 1.32); faca.add(cabo);
   faca.visible = false; giro.add(faca);
 
-  let fase = 'idle', t0 = 0, atual = -1, kSaida = 0, avisar = null;
+  let fase = 'idle', t0 = 0, atual = -1, kSaida = 0, avisar = null, vivo = true;
   const easeIO = t => t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
   const easeOut = t => 1 - Math.pow(1 - t, 3);
   function corte(e, ang) { // e: 0..1 desce e sobe
@@ -474,7 +479,7 @@ async function iniciarBolo() {
         posFatia(atual, kSaida * (1 - easeOut(e)));
         if (e >= 1) { fase = 'idle'; atual = -1; }
       }
-      renderer.render(scene, camera);
+      if (vivo) renderer.render(scene, camera);
     },
   };
   cake = api;
