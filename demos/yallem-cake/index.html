@@ -20,9 +20,13 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Great+Vibes&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
 <script>
-(function(){var v=1,nova=true;try{nova=!sessionStorage.getItem('yc-s');var c=+localStorage.getItem('yc-v')||0;if(nova){c++;localStorage.setItem('yc-v',String(c));sessionStorage.setItem('yc-s','1')}v=c||1}catch(e){}
-var rm=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches,h=document.documentElement;
-if(v<=3&&nova&&!rm)h.classList.add('com-intro');if(v>3)h.classList.add('volta');})();
+(function(){var h=document.documentElement,v=0,nova=false,ok=false;
+// contador aproximado e só deste navegador. Se o armazenamento falhar, não repete a intro (melhor não mostrar do que mostrar sempre).
+try{var c=+localStorage.getItem('yc-v')||0;
+if(!sessionStorage.getItem('yc-s')){sessionStorage.setItem('yc-s','1');c++;localStorage.setItem('yc-v',String(c));nova=true}
+v=c;ok=true}catch(e){}
+var rm=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+if(ok){if(nova&&v<=3&&!rm)h.classList.add('com-intro');if(v>3)h.classList.add('volta')}})();
 </script>
 <script type="application/ld+json">
 {
@@ -297,11 +301,7 @@ footer .made{margin-top:18px;font-size:13px;opacity:.8}
   .palco{height:690px}
   .fatia h3{font-size:26px}.fatia .desc{font-size:14.5px}.fatia h4{margin-top:10px}
 }
-.no-js .palco{height:auto;cursor:auto}.no-js .vctl,.no-js .coroa,.no-js .bolo3d{display:none}
-.no-js .cena,.no-js .anel,.no-js .slot{position:static;transform:none!important;width:auto;height:auto}
-.no-js .anel{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
-@media(min-width:820px){.no-js .anel{grid-template-columns:repeat(4,1fr)}}
-.no-js .rc{position:relative;left:0;top:0;width:100%;height:auto;aspect-ratio:3/4}.no-js .rf--b{display:none}
+.no-js .vitrine,.no-js .vctl{display:none}
 
 /* ===== Topo v2: faixa sazonal, colagem com fita costurada, pedido rápido, sabores ===== */
 .sazonal{display:flex;justify-content:center;align-items:center;gap:8px;flex-wrap:wrap;min-height:44px;padding:8px 16px;background:var(--cocoa);color:#F7E9E4;font-size:14px;text-decoration:none;text-align:center}
@@ -450,6 +450,7 @@ footer .made{margin-top:18px;font-size:13px;opacity:.8}
     <p class="kicker" data-i18n="k2">Bolos de encomenda</p>
     <h2><span data-i18n="h2a">Cada bolo começa</span> <span class="script" data-i18n="h2b">com uma conversa</span></h2>
     <p class="lead" data-i18n="l2">Conte a ocasião, as cores e quantas pessoas. A Yallem sugere sabores e decoração e manda o orçamento pelo WhatsApp.</p>
+    <noscript><div class="grid"><figure><div class="im"><img src="img/bolo-livros-600.webp" width="600" height="800" alt="Bolo livros e folha de ouro" loading="lazy"></div><figcaption>Livros e folha de ouro<small>Chá de bebê</small></figcaption></figure><figure><div class="im"><img src="img/xadrez-600.webp" width="526" height="701" alt="Bolo tabuleiro de xadrez" loading="lazy"></div><figcaption>Tabuleiro de xadrez<small>Bolo temático</small></figcaption></figure><figure><div class="im"><img src="img/maracuja-600.webp" width="600" height="800" alt="Bolo maracujá com chocolate" loading="lazy"></div><figcaption>Maracujá com chocolate<small>Aniversário</small></figcaption></figure><figure><div class="im"><img src="img/doce-de-leite-600.webp" width="600" height="800" alt="Bolo doce de leite e coco" loading="lazy"></div><figcaption>Doce de leite e coco<small>Aniversário</small></figcaption></figure><figure><div class="im"><img src="img/bolo-flores-600.webp" width="600" height="800" alt="Bolo floral delicado" loading="lazy"></div><figcaption>Floral delicado<small>Aniversário</small></figcaption></figure><figure><div class="im"><img src="img/frutas-vermelhas-600.webp" width="600" height="800" alt="Bolo jardim de frutas vermelhas" loading="lazy"></div><figcaption>Jardim de frutas vermelhas<small>Chá revelação</small></figcaption></figure><figure><div class="im"><img src="img/mommy-to-bee-600.webp" width="600" height="800" alt="Bolo mommy to bee" loading="lazy"></div><figcaption>Mommy to Bee<small>Chá de bebê</small></figcaption></figure><figure><div class="im"><img src="img/thanksgiving-600.webp" width="600" height="800" alt="Bolo mesa de thanksgiving" loading="lazy"></div><figcaption>Mesa de Thanksgiving<small>Datas especiais</small></figcaption></figure></div></noscript>
     <div class="vitrine" id="vitrine">
       <div class="palco" id="palco" tabindex="0" role="group" aria-roledescription="carrossel" aria-label="Vitrine de bolos">
         <svg class="coroa" id="coroaT" aria-hidden="true"></svg>
@@ -459,7 +460,8 @@ footer .made{margin-top:18px;font-size:13px;opacity:.8}
         </div>
         <svg class="coroa" id="coroaF" aria-hidden="true"></svg>
       </div>
-      <aside class="fatia" id="fatia" hidden aria-live="polite">
+      <p class="sr" id="vStatus" role="status" aria-live="polite"></p>
+      <aside class="fatia" id="fatia" hidden>
         <button class="x" type="button" aria-label="Fechar">×</button>
         <div class="top"><img alt="" width="600" height="800"><div><p class="occ"></p><h3 tabindex="-1"></h3><p class="desc"></p></div></div>
         <h4>Ingredientes</h4><ul></ul><p class="ex"></p>

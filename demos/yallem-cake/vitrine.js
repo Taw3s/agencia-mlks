@@ -33,8 +33,8 @@ const CAKES = [
     en: { n: 'Thanksgiving table', o: 'Special dates', d: 'Autumn leaves, pumpkins and ribbons for the family table.', i: ['Spice sponge', 'Dulce de leche filling', 'Chocolate ganache', 'Decorative leaves and pumpkins'] } },
 ];
 const UI = {
-  pt: { ing: 'Ingredientes', ex: 'Ingredientes de exemplo. A Yallem confirma sabores e alergênicos na encomenda.', cta: 'Quero um assim', close: 'Fechar', hint: 'Arraste ou use as setas. Toque num bolo para ver a fatia.', prev: 'Bolo anterior', next: 'Próximo bolo', region: 'Vitrine de bolos. Use as setas do teclado ou arraste.', msg: n => `Oi, Yallem! Vi o bolo “${n}” no site e queria um parecido.` },
-  en: { ing: 'Ingredients', ex: 'Sample ingredients. Yallem confirms flavors and allergens when you order.', cta: 'I want one like this', close: 'Close', hint: 'Drag or use the arrows. Tap a cake to see the slice.', prev: 'Previous cake', next: 'Next cake', region: 'Cake showcase. Use the arrow keys or drag.', msg: n => `Hi Yallem! I saw the “${n}” cake on your website and I’d like one like it.` },
+  pt: { ing: 'Ingredientes', ex: 'Ingredientes de exemplo. A Yallem confirma sabores e alergênicos na encomenda.', cta: 'Quero um assim', close: 'Fechar', hint: 'Arraste ou use as setas. Toque num bolo para ver a fatia.', prev: 'Bolo anterior', next: 'Próximo bolo', region: 'Vitrine de bolos. Use as setas do teclado ou arraste.', aberto: n => `${n}: ingredientes e botão de pedido abertos.`, msg: n => `Oi, Yallem! Vi o bolo “${n}” no site e queria um parecido.` },
+  en: { ing: 'Ingredients', ex: 'Sample ingredients. Yallem confirms flavors and allergens when you order.', cta: 'I want one like this', close: 'Close', hint: 'Drag or use the arrows. Tap a cake to see the slice.', prev: 'Previous cake', next: 'Next cake', region: 'Cake showcase. Use the arrow keys or drag.', aberto: n => `${n}: ingredients and order button open.`, msg: n => `Hi Yallem! I saw the “${n}” cake on your website and I’d like one like it.` },
 };
 
 const reduz = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -54,12 +54,13 @@ const cards = CAKES.map((c, i) => {
     <span class="rf rf--b" aria-hidden="true"><img src="img/logo.webp" width="200" height="200" alt="" draggable="false"></span>`;
   slot.appendChild(b); anel.appendChild(slot);
   b.addEventListener('click', e => { if (moveu > 6) { e.preventDefault(); return; } escolher(i); });
-  b.addEventListener('focus', () => { if (sel < 0 && !arrastando) { alvo = Math.round(pos + relativo(i)); mola = 0.09; } });
+  b.addEventListener('focus', () => { if (semMover) return; if (sel < 0 && !arrastando) { alvo = Math.round(pos + relativo(i)); mola = 0.09; } });
   return { slot, el: b, cap: b.querySelector('.cap') };
 });
 
 // ---------- Geometria ----------
 let W = 800, H = 640, R = 300, cw = 180, ch = 240, persp = 900, cx0 = 400, cy0 = 270;
+const lateral = matchMedia('(min-width:900px)'); // mesma condição do CSS que põe o card ao lado do palco
 let sh = { x: 0, y: 0, s: 1 }, shAlvo = { x: 0, y: 0, s: 1 };
 function medir() {
   W = palco.clientWidth; H = palco.clientHeight;
@@ -83,11 +84,12 @@ function medir() {
   sh = { ...shAlvo };
   construirCoroa();
   if (cake) cake.resize(bw, bh);
+  acordar();
 }
 function definirDeslocamento() {
   if (sel < 0) { shAlvo = { x: 0, y: 0, s: 1 }; return; }
   // desktop: cena vai para a esquerda e o card ocupa a direita do palco; celular: card abaixo do palco, cena fica parada
-  shAlvo = W >= 900 ? { x: -Math.min(W * 0.21, 240), y: 0, s: 0.9 } : { x: 0, y: 0, s: 1 };
+  shAlvo = lateral.matches ? { x: -Math.min(W * 0.21, 240), y: 0, s: 0.9 } : { x: 0, y: 0, s: 1 };
 }
 
 // ---------- Coroa: duas fitas trançadas douradas e pérolas ----------
@@ -163,20 +165,36 @@ function renderAnel() {
   desenharCoroa(th * RAD);
   if (cake) cake.girar(th * RAD);
 }
-let tAnt = performance.now();
+let tAnt = performance.now(), rafId = 0, tParou = 0, sujo = 3;
+const acordar = () => { sujo = 3; }; // força redesenhar alguns quadros (mudança de estado, tamanho, volta à tela)
 function quadro(agora) {
   const dt = Math.min(100, (agora || performance.now()) - tAnt) / 16.67; tAnt = agora || performance.now();
   const f = m => 1 - Math.pow(1 - m, dt); // mola independente da taxa de quadros
+  let mexe = arrastando;
   if (!arrastando) {
     const d = alvo - pos;
-    if (Math.abs(d) > 0.0005) pos += d * f(mola); else { pos = alvo; mola = 0.09; }
+    if (Math.abs(d) > 0.0005) { pos += d * f(mola); mexe = true; } else { if (pos !== alvo) { pos = alvo; sujo = 2; } mola = 0.09; }
     if (Math.abs(d) < 0.02) mola = 0.09;
   }
-  const k = reduz ? 1 : f(0.12);
-  sh.x += (shAlvo.x - sh.x) * k; sh.y += (shAlvo.y - sh.y) * k; sh.s += (shAlvo.s - sh.s) * k;
-  if (visivel) { renderAnel(); if (cake) cake.quadro(Math.abs(alvo - pos) < 0.015); }
-  requestAnimationFrame(quadro);
+  const dsh = Math.abs(shAlvo.x - sh.x) + Math.abs(shAlvo.y - sh.y) + Math.abs(shAlvo.s - sh.s) * 100;
+  if (dsh >= 0.05) {
+    const k = reduz ? 1 : f(0.12);
+    sh.x += (shAlvo.x - sh.x) * k; sh.y += (shAlvo.y - sh.y) * k; sh.s += (shAlvo.s - sh.s) * k; mexe = true;
+  } else if (dsh > 0) { sh.x = shAlvo.x; sh.y = shAlvo.y; sh.s = shAlvo.s; sujo = 2; }
+  if (cake && cake.animando()) mexe = true;
+  // parado e sem mudança: não recalcula a coroa nem renderiza o Three.js
+  if (visivel && (mexe || sujo > 0)) { renderAnel(); if (cake) cake.quadro(Math.abs(alvo - pos) < 0.015); if (sujo > 0) sujo--; }
+  rafId = requestAnimationFrame(quadro);
 }
+// o laço só roda com a vitrine na tela e a aba visível; ao voltar, o tempo parado não conta para a animação do corte
+function iniciar() {
+  if (rafId) return;
+  if (tParou) { if (cake) cake.deslocar(performance.now() - tParou); tParou = 0; }
+  tAnt = performance.now(); sujo = 3; rafId = requestAnimationFrame(quadro);
+}
+function parar() { if (!rafId) return; cancelAnimationFrame(rafId); rafId = 0; tParou = performance.now(); }
+function avaliar() { if (visivel && !document.hidden) iniciar(); else parar(); }
+document.addEventListener('visibilitychange', avaliar);
 
 // ---------- Controles ----------
 palco.addEventListener('pointerenter', () => { hover = true; });
@@ -205,23 +223,35 @@ function soltar() {
 }
 window.addEventListener('pointerup', soltar);
 window.addEventListener('pointercancel', soltar);
+let semMover = false;
 function ir(n) { if (sel >= 0) fechar(false); alvo = Math.round(alvo) + n; mola = 0.09; }
+// com o foco num card, as setas levam o foco junto: o card focado é sempre o que está na frente
+function seguirFoco() {
+  semMover = true;
+  cards[((Math.round(alvo) % N) + N) % N].el.focus({ preventScroll: true });
+  semMover = false;
+}
 palco.addEventListener('keydown', e => {
-  if (e.key === 'ArrowLeft') { ir(-1); e.preventDefault(); }
-  if (e.key === 'ArrowRight') { ir(1); e.preventDefault(); }
+  if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+  const noCard = !!(e.target.closest && e.target.closest('.rc'));
+  ir(e.key === 'ArrowLeft' ? -1 : 1);
+  if (noCard) seguirFoco();
+  e.preventDefault();
 });
 document.addEventListener('keydown', e => { if (e.key === 'Escape' && sel >= 0) fechar(true); });
+const vctl = $('.vctl');
+const focoNaVitrine = () => vitrine.contains(document.activeElement) || vctl.contains(document.activeElement);
 $('#vAnt').addEventListener('click', () => ir(-1));
 $('#vProx').addEventListener('click', () => ir(1));
 setInterval(() => {
-  if (visivel && !reduz && !hover && !arrastando && sel < 0 && !document.hidden && !document.documentElement.classList.contains('pausado') && !vitrine.contains(document.activeElement)) ir(1);
+  if (visivel && !reduz && !hover && !arrastando && sel < 0 && !document.hidden && !document.documentElement.classList.contains('pausado') && !focoNaVitrine()) ir(1);
 }, 3400);
 
 // ---------- Escolher / fechar ----------
 let ultimoCard = null;
 function escolher(i) {
   ultimoCard = cards[i].el;
-  sel = i;
+  sel = i; acordar();
   alvo = Math.round(pos + relativo(i)); mola = 0.09;
   cards.forEach((c, j) => c.el.classList.toggle('is-sel', j === i));
   palco.classList.add('aberto');
@@ -232,14 +262,21 @@ function escolher(i) {
     if (sel !== i) return;
     painel.hidden = false;
     requestAnimationFrame(() => requestAnimationFrame(() => painel.classList.add('on')));
-    painel.querySelector('h3').focus({ preventScroll: true });
-    if (W < 900) setTimeout(() => painel.scrollIntoView({ behavior: reduz ? 'auto' : 'smooth', block: 'nearest' }), 120);
+    anunciar(UI[lang].aberto(CAKES[i][lang].n));
+    // só leva o foco e a rolagem se a pessoa ainda está nessa seleção; se ela foi para outro controle, não atrapalha
+    const ae = document.activeElement;
+    if (!ae || ae === document.body || ae === palco || ae === cards[i].el || painel.contains(ae)) {
+      painel.querySelector('h3').focus({ preventScroll: true });
+      if (!lateral.matches) setTimeout(() => painel.scrollIntoView({ behavior: reduz ? 'auto' : 'smooth', block: 'nearest' }), 120);
+    }
   };
   if (cake) cake.abrir(i, mostrar); else mostrar();
 }
+const estado = $('#vStatus');
+function anunciar(txt) { estado.textContent = ''; setTimeout(() => { estado.textContent = txt; }, 60); }
 function fechar(devolverFoco) {
   if (sel < 0) return;
-  sel = -1;
+  sel = -1; acordar();
   palco.classList.remove('aberto');
   cards.forEach(c => c.el.classList.remove('is-sel'));
   definirDeslocamento();
@@ -402,7 +439,7 @@ async function iniciarBolo() {
   const api = {
     resize(bw, bh) {
       w = bw; h = bh;
-      renderer.setSize(w, h, false);
+      renderer.setSize(w, h, false); acordar();
       const D = persp, e = -AX * RAD;
       camera.fov = 2 * Math.atan((h / 2) / D) / RAD; camera.aspect = w / h;
       camera.position.set(0, D * Math.sin(e), D * Math.cos(e)); camera.lookAt(0, 0, 0);
@@ -410,9 +447,11 @@ async function iniciarBolo() {
       root.scale.setScalar(R * 0.55);
     },
     girar(theta) { giro.rotation.y = theta; },
+    animando() { return fase === 'espera' || fase === 'corte' || fase === 'volta'; },
+    deslocar(d) { t0 += d; },
     abrir(i, aoSumir) {
       if (atual >= 0 && atual !== i) posFatia(atual, 0);
-      atual = i; fase = 'espera'; faca.visible = false; avisar = aoSumir || null;
+      acordar(); atual = i; fase = 'espera'; faca.visible = false; avisar = aoSumir || null;
       // o bolo inteiro assume o sabor escolhido, para o corte mostrar um recheio só
       fatias.forEach(f => f.recheio.forEach((m, k) => m.material.color.set(corCamada(CAKES[i], k))));
     },
@@ -441,15 +480,14 @@ async function iniciarBolo() {
   cake = api;
   api.resize(parseFloat(bolo3d.style.width), parseFloat(bolo3d.style.height));
   if (sel >= 0) api.abrir(sel);
-  bolo3d.classList.add('ok');
+  bolo3d.classList.add('ok'); acordar();
 }
 
 // ---------- Início ----------
 medir();
 let tRes; window.addEventListener('resize', () => { clearTimeout(tRes); tRes = setTimeout(medir, 120); });
 if ('IntersectionObserver' in window) {
-  new IntersectionObserver(es => { visivel = es[0].isIntersecting; }, { rootMargin: '120px 0px' }).observe(palco);
+  new IntersectionObserver(es => { visivel = es[0].isIntersecting; avaliar(); }, { rootMargin: '120px 0px' }).observe(palco);
   new IntersectionObserver((es, ob) => { if (es[0].isIntersecting) { ob.disconnect(); iniciarBolo(); } }, { rootMargin: '900px 0px' }).observe(palco);
-} else { visivel = true; iniciarBolo(); }
+} else { visivel = true; iniciarBolo(); avaliar(); }
 renderAnel();
-requestAnimationFrame(quadro);
