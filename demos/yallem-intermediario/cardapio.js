@@ -5,7 +5,7 @@
 const PHONE = '19782277733';
 
 const CARDAPIO = [
-  { id: 'bolos', tipo: 'tamanhos', foto: 'bolo-flores',
+  { id: 'bolos', tipo: 'tamanhos', foto: 'bolo-flores', aConfirmar: true, // porções são referência de mercado (site A)
     nome: { pt: 'Bolos de encomenda', en: 'Custom cakes' },
     sub: { pt: 'Orçamento pelo WhatsApp', en: 'Quoted on WhatsApp' },
     nota: { pt: 'Porções de referência para fatias de festa. O valor final depende do recheio, da decoração e do prazo.',
@@ -21,47 +21,61 @@ const CARDAPIO = [
   { id: 'sabores', tipo: 'recheios', classe: 'pag--sabor',
     nome: { pt: 'Sabores do Brasil', en: 'Flavors of Brazil' },
     sub: { pt: 'Recheios · toque em + para escolher', en: 'Fillings · tap + to pick yours' },
-    nota: { pt: 'Docinhos de festa: brigadeiro, beijinho, cajuzinho e ninho com Nutella. Cobertura dos bolos: chantininho.',
-            en: 'Party sweets: brigadeiro, beijinho, cajuzinho and Ninho with Nutella. Cake frosting: chantininho.' },
+    nota: { pt: 'Docinhos de festa: brigadeiro, beijinho, cajuzinho e ninho com Nutella.',
+            en: 'Party sweets: brigadeiro, beijinho, cajuzinho and Ninho with Nutella.' },
     itens: [
       { id: 'brigadeiro', nome: { pt: 'Brigadeiro', en: 'Brigadeiro' }, d: { pt: 'O doce de chocolate com leite condensado que não falta em festa brasileira.', en: 'The chocolate and condensed milk sweet every Brazilian party has.' } },
       { id: 'beijinho', nome: { pt: 'Beijinho', en: 'Beijinho' }, d: { pt: 'O docinho de coco, primo branquinho do brigadeiro.', en: 'The coconut sweet, brigadeiro’s white cousin.' } },
       { id: 'doce-de-leite', nome: { pt: 'Doce de leite', en: 'Dulce de leche' }, d: { pt: 'Doce de leite cremoso, de comer de colher.', en: 'Creamy dulce de leche, good enough to eat with a spoon.' } },
-      { id: 'ninho-nutella', nome: { pt: 'Ninho com Nutella', en: 'Ninho with Nutella' }, d: { pt: 'Creme de leite Ninho com Nutella.', en: 'Ninho milk cream with Nutella.' } },
+      { id: 'ninho-nutella', nome: { pt: 'Ninho com Nutella', en: 'Ninho with Nutella' }, d: { pt: 'Creme de Ninho com Nutella.', en: 'Ninho milk cream with Nutella.' } },
       { id: 'manga-coco', nome: { pt: 'Manga com coco', en: 'Mango and coconut' }, d: { pt: 'Recheio de manga com coco.', en: 'Mango and coconut filling.' } },
-      { id: 'ninho', nome: { pt: 'Ninho', en: 'Ninho' }, d: { pt: 'Creme de leite em pó Ninho, suave.', en: 'A mild, milky cream made with Ninho powdered milk.' } },
-      { id: 'morango-ninho', nome: { pt: 'Morango com ninho', en: 'Strawberry with Ninho' }, d: { pt: 'Creme de ninho com morango fresco.', en: 'Ninho cream with fresh strawberries.' } },
+    ] },
+  // recheios que só o site A listava
+  { id: 'mais-recheios', tipo: 'recheios', classe: 'pag--sabor', foto: 'maracuja',
+    nome: { pt: 'Mais recheios', en: 'More fillings' },
+    sub: { pt: 'Toque em + para escolher', en: 'Tap + to pick yours' },
+    nota: { pt: 'Cobertura dos bolos: chantininho, chantilly batido com leite Ninho.', en: 'Cake frosting: chantininho, whipped cream mixed with Ninho milk.' },
+    itens: [
+      { id: 'ninho', nome: { pt: 'Ninho', en: 'Ninho' }, d: { pt: 'Creme de leite Ninho, suave.', en: 'A mild, milky cream made with Ninho powdered milk.' } },
+      { id: 'morango-ninho', nome: { pt: 'Morango com Ninho', en: 'Strawberry with Ninho' }, d: { pt: 'Creme de Ninho com morango fresco.', en: 'Ninho cream with fresh strawberries.' } },
       { id: 'maracuja', nome: { pt: 'Maracujá', en: 'Passion fruit' }, d: { pt: 'Creme de maracujá, azedinho e tropical.', en: 'Passion fruit cream, tangy and tropical.' } },
     ] },
-  // "Do balcão": preços que o site B mostra. NENHUM foi confirmado pela Yallem: aConfirmar põe o aviso amarelo na página.
-  { id: 'balcao', tipo: 'preco', aConfirmar: true, foto: 'brigadeiros',
+  // "Do balcão": preços que o site B mostra, em duas páginas para caber no livro.
+  // NENHUM foi confirmado pela Yallem: aConfirmar põe o aviso amarelo na página. Depois de confirmar, apague aConfirmar.
+  { id: 'balcao', tipo: 'preco', aConfirmar: true, foto: 'maracuja',
     nome: { pt: 'Do balcão', en: 'From the counter' },
-    sub: { pt: 'Preços da loja', en: 'Shop prices' },
-    nota: { pt: 'Nos apps de entrega o preço pode ser diferente do balcão.', en: 'Prices on delivery apps may differ from the shop.' },
+    sub: { pt: 'Bolos e fatias', en: 'Cakes and slices' },
+    nota: { pt: 'Preços da loja. Nos apps de entrega o preço pode ser diferente.', en: 'Shop prices. Prices on delivery apps may differ.' },
     itens: [
-      { id: 'b-acetato', preco: 70.90, nome: { pt: 'Bolo acetato', en: 'Acetate cake' } },
+      { id: 'b-acetato', preco: 70.90, nome: { pt: 'Bolo acetato', en: 'Acetate mousse cake' } },
       { id: 'b-rocambole', preco: 36.90, nome: { pt: 'Rocambole', en: 'Swiss roll' } },
       { id: 'b-fatia', preco: 11.90, nome: { pt: 'Fatia de bolo', en: 'Cake slice' } },
+      { id: 'b-cheesecake', preco: 9.90, nome: { pt: 'Cheesecake', en: 'Cheesecake' }, d: { pt: 'Red velvet, chocolate, Oreo ou pistache com frutas vermelhas.', en: 'Red velvet, chocolate, Oreo or pistachio with red berries.' } },
+      { id: 'b-brownie', preco: 7.90, nome: { pt: 'Brownie (unidade)', en: 'Brownie (each)' } },
+    ] },
+  { id: 'balcao-doces', tipo: 'preco', aConfirmar: true, foto: 'brigadeiros',
+    nome: { pt: 'Doces e copos', en: 'Sweets and cups' },
+    sub: { pt: 'Do balcão', en: 'From the counter' },
+    nota: { pt: 'Preços da loja. Nos apps de entrega o preço pode ser diferente.', en: 'Shop prices. Prices on delivery apps may differ.' },
+    itens: [
       { id: 'b-cakepop', preco: 4.90, nome: { pt: 'Cake pop', en: 'Cake pop' } },
       { id: 'b-caixa4', preco: 12.90, nome: { pt: 'Caixa com 4 doces', en: 'Box of 4 sweets' } },
       { id: 'b-copo', preco: 10.90, nome: { pt: 'Sobremesa de copo', en: 'Dessert cup' } },
       { id: 'b-mousse', preco: 8.90, nome: { pt: 'Mousse 3 chocolates', en: '3 chocolate mousse' } },
-      { id: 'b-cone', preco: 11.00, nome: { pt: 'Cone grande', en: 'Large cone' } },
-      { id: 'b-cheesecake', preco: 9.90, nome: { pt: 'Cheesecake', en: 'Cheesecake' }, d: { pt: 'Red velvet, chocolate, Oreo ou pistache com frutas vermelhas.', en: 'Red velvet, chocolate, Oreo or pistachio with red berries.' } },
-      { id: 'b-brownie', preco: 7.90, nome: { pt: 'Brownie (unidade)', en: 'Brownie (each)' } },
+      { id: 'b-cone', preco: 11.00, nome: { pt: 'Cone grande', en: 'Large filled cone' } },
     ] },
-  { id: 'tacas', tipo: 'preco', preco: 72.90, foto: 'tacas',
+  { id: 'tacas', tipo: 'preco', preco: 72.90, foto: 'tacas', aConfirmar: true, // preço do cardápio de Thanksgiving (site A): confirmar se vale
     nome: { pt: 'Taças 1,5 L', en: 'Dessert cups 1.5 L' },
     sub: { pt: 'Cardápio de Thanksgiving · para a família', en: 'Thanksgiving menu · family size' },
     itens: [
-      { id: 'taca-kinder', nome: { pt: 'Kinder Bueno', en: 'Kinder Bueno' }, d: { pt: 'Creme de ninho com avelã, bolo e Kinder Bueno.', en: 'Ninho and hazelnut cream, cake and Kinder Bueno.' } },
-      { id: 'taca-redvelvet', nome: { pt: 'Red velvet com ninho', en: 'Red velvet with Ninho' }, d: { pt: 'Red velvet com creme de ninho cremoso.', en: 'Red velvet with creamy Ninho cream.' } },
+      { id: 'taca-kinder', nome: { pt: 'Kinder Bueno', en: 'Kinder Bueno' }, d: { pt: 'Creme de Ninho com avelã, bolo e Kinder Bueno.', en: 'Ninho and hazelnut cream, cake and Kinder Bueno.' } },
+      { id: 'taca-redvelvet', nome: { pt: 'Red velvet com Ninho', en: 'Red velvet with Ninho' }, d: { pt: 'Red velvet com creme de Ninho.', en: 'Red velvet with creamy Ninho cream.' } },
       { id: 'taca-maracuja', nome: { pt: 'Mousse de maracujá', en: 'Passion fruit mousse' }, d: { pt: 'O azedinho do maracujá com brigadeiro.', en: 'Tangy passion fruit with brigadeiro.' } },
       { id: 'taca-crocante', nome: { pt: 'Crocante', en: 'Crocante' }, d: { pt: 'Creme belga, doce de leite, amendoim e paçoquinha.', en: 'Belgian cream, dulce de leche, peanuts and paçoquinha.' } },
       { id: 'taca-banoffee', nome: { pt: 'Banoffee', en: 'Banoffee' }, d: { pt: 'Creme belga, banana caramelizada e canela.', en: 'Belgian cream, caramelized banana and cinnamon.' } },
-      { id: 'taca-morango', nome: { pt: 'Morango, ninho e brigadeiro', en: 'Strawberry, Ninho and brigadeiro' }, d: { pt: 'Creme belga, morango fresco e chantilly leve.', en: 'Belgian cream, fresh strawberries and light cream.' } },
+      { id: 'taca-morango', nome: { pt: 'Morango, Ninho e brigadeiro', en: 'Strawberry, Ninho and brigadeiro' }, d: { pt: 'Creme belga, morango fresco e chantilly leve.', en: 'Belgian cream, fresh strawberries and light cream.' } },
     ] },
-  { id: 'tortas', tipo: 'preco', preco: 62.90, foto: 'banoffee',
+  { id: 'tortas', tipo: 'preco', preco: 62.90, foto: 'banoffee', aConfirmar: true,
     nome: { pt: 'Tortas', en: 'Pies & cheesecakes' },
     sub: { pt: 'Cardápio de Thanksgiving', en: 'Thanksgiving menu' },
     itens: [
@@ -128,7 +142,7 @@ const t = () => UI[lang];
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const dinheiro = v => '$' + v.toFixed(2);
 const ITEM = {}; CARDAPIO.forEach(c => c.itens.forEach(i => { ITEM[i.id] = { ...i, cat: c }; }));
-const TAMANHOS = CARDAPIO.find(c => c.tipo === 'tamanhos').itens, RECHEIOS = CARDAPIO.find(c => c.tipo === 'recheios').itens;
+const TAMANHOS = CARDAPIO.find(c => c.tipo === 'tamanhos').itens, RECHEIOS = CARDAPIO.filter(c => c.tipo === 'recheios').flatMap(c => c.itens);
 const precoDe = it => it.preco != null ? it.preco : it.cat.preco; // preço do item, ou o da página (taças, tortas)
 const sugerir = n => TAMANHOS.find(x => x.serve[1] >= n) || null;
 
@@ -186,7 +200,7 @@ function medir() {
   modoDuplo = W >= 620;
   const maxH = Math.max(420, Math.min(window.innerHeight - 190, 660));
   pw = Math.floor(Math.min(420, modoDuplo ? W / 2 : W, maxH / 1.38));
-  ph = Math.round(pw * 1.38);
+  ph = Math.round(pw * (modoDuplo ? 1.38 : 1.48)); // uma página por vez (celular): um pouco mais alta
 }
 function montar() {
   montarPaginas(); medir();
@@ -341,8 +355,8 @@ function renderPedido() {
       <div class="pc-campos">
         <label>${u.lOcc}<select data-campo="occ">${opcoes(OCASIOES.map((o, i) => ({ v: i, t: o[lang] })), b.occ, u.occVazio)}</select></label>
         <label>${u.lPpl}<input data-campo="ppl" type="number" inputmode="numeric" min="1" max="500" value="${esc(b.ppl)}"></label>
-        <label>${u.lDate}<input data-campo="date" type="date" value="${esc(b.date)}" min="${minData()}"></label>
-        <label>${u.lTam}<select data-campo="tam">${opcoes(TAMANHOS.map(x => ({ v: x.id, t: x.nome[lang] })), b.tam, u.depois)}</select></label>
+        <label class="pc-largo">${u.lDate}<input data-campo="date" type="date" value="${esc(b.date)}" min="${minData()}"></label>
+        <label class="pc-largo">${u.lTam}<select data-campo="tam">${opcoes(TAMANHOS.map(x => ({ v: x.id, t: x.nome[lang] })), b.tam, u.depois)}</select></label>
         <label class="pc-largo">${u.lRec}<select data-campo="rec">${opcoes(RECHEIOS.map(x => ({ v: x.id, t: x.nome[lang] })), b.rec, u.depois)}</select></label>
       </div>
       <p class="pc-sug" aria-live="polite">${n ? u.sugestao(n, sug ? sug.nome[lang] : '') : ''}</p></div>`;

@@ -270,7 +270,9 @@ function escolher(i) {
       if (!lateral.matches) setTimeout(() => painel.scrollIntoView({ behavior: reduz ? 'auto' : 'smooth', block: 'nearest' }), 120);
     }
   };
-  if (cake) cake.abrir(i, mostrar); else mostrar();
+  // o painel abre já no toque, enquanto a faca corta (antes esperava o corte acabar e a tela ficava vazia)
+  if (cake) cake.abrir(i, null);
+  mostrar();
 }
 const estado = $('#vStatus');
 function anunciar(txt) { estado.textContent = ''; setTimeout(() => { estado.textContent = txt; }, 60); }

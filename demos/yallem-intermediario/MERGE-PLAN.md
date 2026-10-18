@@ -64,3 +64,42 @@ Rodapé fora da contagem.
 ## Ritmo de cores
 
 Topo rosa · vitrine creme · história rosa · ocasiões creme · cardápio sálvia · avaliações creme · dúvidas rosa-claro · visite creme · rodapé marrom. O festão (borda recortada de A) separa os blocos coloridos.
+
+## Critérios de aceite (medidos em 18/10/2026, Chromium headless com WebGL por software)
+
+| # | Critério | Resultado | Medida |
+|---|---|---|---|
+| 1 | Título e botão na primeira tela, sem rolagem horizontal, WhatsApp livre | **passa** | 390x844: título termina em 253 px e botão em 388 px (tela 844). 360x740: 243 e 404 px (tela 740). Sem rolagem horizontal em 320, 360, 390, 414, 768, 1024, 1366, 1920. WhatsApp sem nada por cima em 9 posições de rolagem e com o card de pedido aberto |
+| 2 | Data dentro do card; mensagem sem texto de exemplo; nada pré-escolhido | **passa** | Ocasião, pessoas, data, tamanho e recheio começam vazios. Sem data a mensagem diz "Data: a combinar". Campo de data em largura inteira (a borda direita fica 15 px dentro do card) |
+| 3 | Zero fotos de banco e zero "Foto ilustrativa" | **passa** | 33 arquivos de imagem, todos em `img/` (as 13 fotos de A em vários tamanhos, mais o logo e o QR) |
+| 4 | axe sem violações; Lighthouse mobile A11y ≥ 95 e desempenho ≥ 85 | **passa** | axe-core: 0 violações em desktop e celular, PT e EN. Lighthouse mobile (3 rodadas): desempenho 92/93/93, acessibilidade 100, boas práticas 100. LCP 3,1 s, TBT 0–20 ms, CLS 0 |
+| 5 | WebGL com fallback; páginas fora de vista com inert | **passa** | Sem WebGL: foto do bolo, sem erro no console. Perda de contexto: foto; restauração: volta ao 3D. Livro: 10 de 12 páginas com `inert`, só as 2 à vista acessíveis |
+| 6 | PT e EN completos | **passa** | Varredura de todo texto visível, aria-label, alt e title em EN: nenhum termo em PT. Mensagem do WhatsApp em EN sem PT |
+| 7 | Pedido de ponta a ponta, com recarga | **passa** | Desktop e celular: vitrine → "Quero um assim" → campos → 2 fatias + 1 brownie + recheio → recarregar → 4 itens mantidos → mensagem com data 21/11/2026 e subtotal $31.70 |
+| 8 | Nenhum erro no console | **passa** | 0 erros. Na bateria automatizada o Chrome registrou 3 *avisos* `postMessage` de um iframe de origem nula (o mapa do Google, que o sandbox bloqueia). Não se repetiram em teste isolado, e o site não usa `postMessage` |
+
+Lighthouse desktop: acessibilidade 100, desempenho 69. O bloqueio vem do bolo 3D compilado com WebGL por software (sem GPU no sandbox). Não era critério; em máquina com GPU deve ser outro número, que não foi medido.
+
+## Revisão adversarial (agente separado, sem ver a construção)
+
+Ele achou 20 pontos. Corrigidos:
+- barra do topo afirmava o horário sem aviso (agora tem o selo "a confirmar");
+- preços de taças e tortas, tamanhos e porções sem aviso (agora com selo);
+- FAQ e história com afirmações de B e A sem selo (agora com selo de seção; contato cruzado virou "a confirmar");
+- "e família" e "tudo feito na cozinha da loja" trocados por texto neutro;
+- aviso de ingredientes de exemplo agora vem antes da lista;
+- painel da fatia agora abre no toque (antes a metade direita ficava vazia durante o corte);
+- legenda espelhada nos cards de trás da vitrine;
+- mapa vazio quando o Google não carrega (agora mostra endereço e link);
+- falta de menu no celular (☰ adicionado);
+- selo do logo encostado no botão do WhatsApp no topo;
+- chamada de Thanksgiving no ar o ano todo (agora de 15/10 a 27/11);
+- erros de texto: "Feitos para cada comemoração", "Creme de leite Ninho", "Ninho" com maiúscula, títulos em inglês;
+- `areaServed` sem fonte no JSON-LD;
+- nomes da família, sobrenome e e-mail tirados do código público até ela autorizar.
+
+Não corrigidos, de propósito:
+- **"Cake Shop" ao lado do selo "Cake Design".** O nome do negócio no briefing é Yallem Cake Shop. Trocar para "Cake Design" é decisão dela.
+- **Ingredientes de exemplo na vitrine.** Ficam (são de A), mas o aviso amarelo agora vem antes da lista. Tirar a lista inteira esvaziaria o painel da fatia, que é a graça da vitrine.
+- **Avaliação do Robert em inglês na versão PT.** Fica no original, com a indicação "avaliação original em inglês", como B fazia.
+- **Recheios em duas páginas ("Sabores do Brasil" e "Mais recheios").** Numa página só, o texto cortava no celular.

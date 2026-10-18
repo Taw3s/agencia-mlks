@@ -45,7 +45,6 @@
     "addressCountry": "US"
   },
   "servesCuisine": ["Brazilian", "Desserts"],
-  "areaServed": ["Dracut, MA", "Lowell, MA"],
   "currenciesAccepted": "USD",
   "hasMap": "https://www.google.com/maps/search/?api=1&query=197+Merrimack+Ave+Dracut+MA+01826",
   "knowsLanguage": ["pt-BR", "en"]
@@ -107,6 +106,11 @@ section{padding:80px 0}
 .status.aberto .st-dot{background:#8FD39E;box-shadow:0 0 0 3px rgba(143,211,158,.25)}
 .status a{color:#FBEDE6;text-underline-offset:3px;display:inline-flex;align-items:center;min-height:32px;flex:none}
 #stTxt{overflow:hidden;text-overflow:ellipsis;min-width:0}
+.status .pf{flex:none;background:rgba(255,231,168,.16);color:#FFE7A8;box-shadow:inset 0 0 0 1px rgba(255,231,168,.5);padding:1px 8px;border-radius:99px;font-weight:600}
+.status .pf[hidden]{display:none}
+.st-rota{gap:5px}.st-rota svg{width:16px;height:16px;flex:none}
+@media(max-width:380px){.status{font-size:12.5px;gap:7px;padding:0 8px}.st-dot{display:none}}
+@media(max-width:430px){.st-rota span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}.st-rota{min-width:32px;justify-content:center}}
 @media(max-width:420px){.status{font-size:13px;gap:9px;padding:0 10px}}
 
 /* cabeçalho */
@@ -120,6 +124,20 @@ nav ul{display:none;list-style:none;margin:0;padding:0;gap:22px}
 nav a{text-decoration:none;font-weight:600;font-size:15px;display:inline-flex;align-items:center;min-height:44px}
 nav a:hover{color:var(--framb-d)}
 @media(min-width:1080px){nav ul{display:flex}}
+/* celular e tablet: menu ☰ (o site B tinha) */
+.menu-btn{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;border:0;background:transparent;color:var(--marrom);cursor:pointer;flex:none}
+.menu-btn span,.menu-btn span::before,.menu-btn span::after{display:block;width:22px;height:2px;background:currentColor;border-radius:2px;position:relative;transition:transform .2s}
+.menu-btn span::before,.menu-btn span::after{content:"";position:absolute;left:0}
+.menu-btn span::before{top:-7px}.menu-btn span::after{top:7px}
+.menu-btn[aria-expanded="true"] span{background:transparent}
+.menu-btn[aria-expanded="true"] span::before{transform:translateY(7px) rotate(45deg)}
+.menu-btn[aria-expanded="true"] span::after{transform:translateY(-7px) rotate(-45deg)}
+@media(min-width:1080px){.menu-btn{display:none}}
+@media(max-width:1079px){
+  nav.aberto ul{display:flex;flex-direction:column;position:absolute;left:0;right:0;top:100%;background:var(--creme-2);border-bottom:1px solid var(--line);box-shadow:0 18px 30px -20px rgba(72,39,25,.45);padding:6px 20px 14px;gap:0}
+  nav.aberto a{font:400 22px var(--serif);min-height:52px;width:100%;border-bottom:1px dashed var(--line)}
+}
+@media(max-width:370px){.brand span{display:none}}
 .lang{display:flex;background:var(--rosa-2);border-radius:999px;padding:3px}
 .lang button{all:unset;cursor:pointer;font:600 14px var(--sans);min-width:44px;min-height:40px;display:grid;place-items:center;border-radius:999px;letter-spacing:.06em;padding:0 6px}
 .lang button[aria-pressed="true"]{background:var(--marrom);color:#fff}
@@ -140,7 +158,7 @@ nav a:hover{color:var(--framb-d)}
 .collage{position:relative;width:100%}
 .hero-foto{position:relative;margin:0;border-radius:28px;overflow:hidden;aspect-ratio:4/3;box-shadow:0 26px 50px -30px rgba(72,39,25,.55);background:var(--rosa-2)}
 .hero-foto img{width:100%;height:100%;object-fit:cover;object-position:50% 38%}
-.seal{position:absolute;right:12px;bottom:-22px;width:84px;height:84px;border-radius:50%;box-shadow:0 0 0 5px var(--rosa),0 0 0 6px var(--anel),0 14px 26px -12px rgba(72,39,25,.5);z-index:3}
+.seal{position:absolute;left:14px;bottom:-22px;width:84px;height:84px;border-radius:50%;box-shadow:0 0 0 5px var(--rosa),0 0 0 6px var(--anel),0 14px 26px -12px rgba(72,39,25,.5);z-index:3}
 .seal img{width:100%;height:100%;border-radius:50%}
 .foto{display:none}
 @media(min-width:880px){
@@ -150,7 +168,7 @@ nav a:hover{color:var(--framb-d)}
   .collage{max-width:520px;margin:0 auto;aspect-ratio:520/600}
   .hero-foto{position:absolute;right:3%;top:5%;width:68%;aspect-ratio:3/4;border-radius:999px 999px 26px 26px;z-index:2}
   .hero-foto img{object-position:50% 50%}
-  .seal{right:-26px;bottom:34px;width:110px;height:110px}
+  .seal{left:auto;right:-26px;bottom:34px;width:110px;height:110px}
   .foto{display:block;position:absolute;margin:0;background:#fff;padding:7px;border-radius:18px;box-shadow:0 22px 40px -22px rgba(72,39,25,.55)}
   .foto img{border-radius:12px;width:100%;aspect-ratio:4/5;object-fit:cover}
   .foto-a{left:0;bottom:3%;width:39%;rotate:-6deg;z-index:1}
@@ -167,12 +185,14 @@ nav a:hover{color:var(--framb-d)}
 .vitrine{position:relative;margin-top:18px}
 .palco{position:relative;height:560px;touch-action:pan-y;cursor:grab;outline:none;overflow:hidden;user-select:none;-webkit-user-select:none}
 .palco:active{cursor:grabbing}
+@media(max-width:600px){.palco{height:470px}}
 .palco:focus-visible{box-shadow:inset 0 0 0 2px var(--verde);border-radius:22px}
 .cena{position:absolute;left:50%;top:42%;width:0;height:0;transform-style:preserve-3d}
 .anel,.slot{position:absolute;left:0;top:0;width:0;height:0;transform-style:preserve-3d}
 .rc{position:absolute;left:calc(var(--cw)/-2);top:calc(var(--ch)/-2);width:var(--cw);height:var(--ch);padding:0;border:0;background:none;cursor:pointer;transform-style:preserve-3d;transition:opacity .45s;-webkit-tap-highlight-color:transparent}
 .rf{position:absolute;inset:0;border-radius:16px;overflow:hidden;background:#fff;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;flex-direction:column;box-shadow:0 12px 26px -16px rgba(72,39,25,.6)}
 .rf img{flex:1;min-height:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
+.rf img,.rf .cap{backface-visibility:hidden;-webkit-backface-visibility:hidden}
 .rf .cap{flex:none;font:400 max(12px,calc(var(--cw)*.08))/1.15 var(--serif);padding:.45em .5em .55em;color:var(--marrom);text-align:center}
 .rf--b{transform:rotateY(180deg);background:var(--rosa);align-items:center;justify-content:center}
 .rf--b img{flex:none;width:44%;height:auto;border-radius:50%;opacity:.7}
@@ -196,6 +216,7 @@ nav a:hover{color:var(--framb-d)}
 .vctl button{flex:none;width:48px;height:48px;border-radius:50%;border:1.5px solid var(--marrom);background:transparent;color:var(--marrom);cursor:pointer;display:grid;place-items:center;font-size:22px;line-height:1}
 .vctl button:hover{background:var(--marrom);color:#fff}
 .vctl p{margin:0;font-size:14.5px;color:var(--marrom-2);max-width:30ch;text-align:center}
+@media(max-width:600px){.vctl p{order:-1;flex-basis:100%;max-width:none}}
 .pausa span{width:10px;height:12px;border-inline:3px solid currentColor}
 .pausado .pausa span{width:0;height:0;border-inline:0;border-block:6px solid transparent;border-left:10px solid currentColor;margin-left:3px}
 @media (prefers-reduced-motion:reduce){.pausa{display:none!important}}
@@ -212,7 +233,7 @@ nav a:hover{color:var(--framb-d)}
 .fatia ul{margin:0;padding:0;list-style:none;font-size:15px}
 .fatia li{padding:4px 0 4px 18px;position:relative;border-bottom:1px dashed var(--line)}
 .fatia li::before{content:"";position:absolute;left:2px;top:13px;width:7px;height:7px;border-radius:50%;background:var(--rosa-forte)}
-.fatia .ex{font-size:13px;color:#6B4A00;background:#FFF1C7;border-radius:8px;padding:6px 9px;margin:10px 0 0}
+.fatia .ex{font-size:13.5px;color:#6B4A00;background:#FFF1C7;border-radius:8px;padding:6px 9px;margin:12px 0 0}
 .fatia .btn{margin-top:14px;width:100%}
 .fatia .btn-pedir span[aria-hidden]{font-size:22px;line-height:1}
 @media(min-width:900px){
@@ -238,6 +259,7 @@ nav a:hover{color:var(--framb-d)}
 .citacao figcaption{margin-top:14px;font-size:15px;color:var(--marrom-2)}
 .citacao figcaption a{color:var(--marrom)}
 .hist-txt .fecho{font-weight:600;font-size:19px}
+.hist-txt .hist-pf{font-size:15px}
 .hist-foto{margin:0;max-width:420px;justify-self:center;width:100%}
 .hist-foto .ph{border-radius:999px 999px 26px 26px;overflow:hidden;aspect-ratio:3/4;box-shadow:0 0 0 8px var(--creme),0 0 0 9px var(--anel)}
 .hist-foto img{width:100%;height:100%;object-fit:cover}
@@ -296,6 +318,7 @@ nav a:hover{color:var(--framb-d)}
 .unica .pag--frente::after{background:linear-gradient(90deg,rgba(72,39,25,.09),rgba(72,39,25,0) 5%)}
 .pag--branca{background:var(--rosa-2)}
 .pag--sabor{background:var(--grao),var(--salvia-2)}
+
 .pg-topo{display:flex;align-items:center;gap:.9em;margin-bottom:.9em}
 .pg-topo h3{font:400 2em/1.02 var(--serif);color:var(--marrom)}
 .pg-topo .sub{font:600 .66em/1.35 var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--verde);margin:.45em 0 0}
@@ -434,6 +457,7 @@ html:has(.pedido-card.aberto) .cd-toast{display:none}
 .faq summary::after{content:"+";flex:none;font:400 30px/1 var(--sans);color:var(--verde);transition:transform .25s}
 .faq details[open] summary::after{transform:rotate(45deg)}
 .faq details p{margin:0 0 20px;color:var(--marrom-2);max-width:64ch}
+.faq-aviso{text-align:center;margin:0 0 8px;font-size:15px}
 .licenca{margin:24px 0 0;font-size:14.5px;color:var(--marrom-2)}
 .licenca[hidden]{display:none}
 
@@ -455,7 +479,11 @@ html:has(.pedido-card.aberto) .cd-toast{display:none}
 .entrega-l a{min-height:40px;padding:0 14px;border-radius:999px;border:1px solid var(--line);background:#fff;text-decoration:none}
 .cta{display:flex;flex-wrap:wrap;gap:12px}
 .map{border-radius:var(--r);overflow:hidden;aspect-ratio:4/3;background:var(--rosa-2);box-shadow:0 0 0 1px var(--line)}
-.map iframe{width:100%;height:100%;border:0}
+.map{position:relative}
+.map iframe{position:relative;width:100%;height:100%;border:0;z-index:1}
+.map-fb{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;text-decoration:none;color:var(--marrom);font-size:16px}
+.map-fb svg{width:34px;height:34px;color:var(--framb-d);margin-bottom:6px}
+.map-fb b{font:400 24px var(--serif)}
 .qr{display:none}
 @media(min-width:880px){.qr{display:flex;gap:16px;align-items:center;margin-top:28px;font-size:14.5px;color:var(--marrom-2);max-width:380px}.qr img{width:104px;height:104px;background:#fff;padding:6px;border-radius:10px;box-shadow:0 0 0 1px var(--line)}}
 
@@ -486,7 +514,7 @@ footer .made{margin-top:14px;font-size:13.5px;color:#E9D7CF}
   <symbol id="i-mail" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" d="M3 6h18v12H3zM3 7l9 6 9-6"/></symbol>
 </svg>
 
-<aside class="status" id="status" aria-label="Loja agora" data-i18n-aria="stAria"><span class="st-dot" aria-hidden="true"></span><span id="stTxt"></span><a href="https://www.google.com/maps/dir/?api=1&amp;destination=197+Merrimack+Ave,+Dracut,+MA+01826" target="_blank" rel="noopener" data-i18n="rota">Como chegar</a></aside>
+<aside class="status" id="status" aria-label="Loja agora" data-i18n-aria="stAria"><span class="st-dot" aria-hidden="true"></span><span id="stTxt"></span><span class="pf" id="stPf" hidden></span><a class="st-rota" href="https://www.google.com/maps/dir/?api=1&amp;destination=197+Merrimack+Ave,+Dracut,+MA+01826" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-pin"/></svg><span data-i18n="rota">Como chegar</span></a></aside>
 
 <header>
   <div class="wrap bar">
@@ -494,7 +522,7 @@ footer .made{margin-top:14px;font-size:13.5px;color:#E9D7CF}
       <img src="img/logo.webp" width="52" height="52" alt="">
       <span><b>Yallem</b><small>Cake Shop</small></span>
     </a>
-    <nav aria-label="Principal" data-i18n-aria="navAria"><ul>
+    <nav aria-label="Principal" data-i18n-aria="navAria" id="nav"><ul id="navLista">
       <li><a href="#bolos" data-i18n="nav1">Bolos</a></li>
       <li><a href="#historia" data-i18n="nav2">Nossa história</a></li>
       <li><a href="#cardapio" data-i18n="nav3">Cardápio</a></li>
@@ -506,6 +534,7 @@ footer .made{margin-top:14px;font-size:13.5px;color:#E9D7CF}
       <button type="button" data-lang="en" lang="en" aria-label="EN, English" aria-pressed="false">EN</button>
     </div>
     <a class="btn btn-wa wa" href="https://wa.me/19782277733" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-wa"/></svg>WhatsApp</a>
+    <button type="button" class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="navLista" aria-label="Menu" data-i18n-aria="menu"><span aria-hidden="true"></span></button>
   </div>
 </header>
 
@@ -514,7 +543,7 @@ footer .made{margin-top:14px;font-size:13.5px;color:#E9D7CF}
   <div class="wrap">
     <div class="hero-txt">
       <h1><span data-i18n="h1a">Lindo por fora.</span> <span data-i18n="h1b">Brasileiro por dentro.</span></h1>
-      <p class="sub" data-i18n="sub">Bolos personalizados, brigadeiros e doces brasileiros, feitos pela Yallem e família em Dracut, MA.</p>
+      <p class="sub" data-i18n="sub">Bolos personalizados, brigadeiros e doces brasileiros, feitos pela Yallem em Dracut, MA.</p>
       <div class="cta-topo">
         <a class="btn btn-cacau" href="#cardapio" data-i18n="ctaPedido">Fazer meu pedido</a>
         <a class="sec" id="sec" href="#bolos" data-i18n="cta2">Ver os bolos ↓</a>
@@ -532,8 +561,8 @@ footer .made{margin-top:14px;font-size:13.5px;color:#E9D7CF}
 <section class="bolos" id="bolos">
   <div class="wrap center">
     <p class="kicker" data-i18n="k2">Bolos da Yallem</p>
-    <h2 data-i18n="h2">Feito para toda comemoração</h2>
-    <p class="lead" data-i18n="l2">Bolos de encomenda, docinhos brasileiros e fatias, tudo feito na cozinha da loja em Dracut. Toque num bolo para ver a fatia.</p>
+    <h2 data-i18n="h2">Feitos para cada comemoração</h2>
+    <p class="lead" data-i18n="l2">Bolos de encomenda, docinhos brasileiros e fatias da Yallem. Toque num bolo para ver a fatia.</p>
     <noscript><div class="bento"><figure><img src="img/bolo-livros-600.webp" width="600" height="800" alt="Bolo livros e folha de ouro" loading="lazy"><figcaption>Livros e folha de ouro</figcaption></figure><figure><img src="img/xadrez-600.webp" width="526" height="701" alt="Bolo tabuleiro de xadrez" loading="lazy"><figcaption>Tabuleiro de xadrez</figcaption></figure><figure><img src="img/maracuja-600.webp" width="600" height="800" alt="Bolo maracujá com chocolate" loading="lazy"><figcaption>Maracujá com chocolate</figcaption></figure><figure><img src="img/doce-de-leite-600.webp" width="600" height="800" alt="Bolo doce de leite e coco" loading="lazy"><figcaption>Doce de leite e coco</figcaption></figure></div></noscript>
     <div class="vitrine" id="vitrine">
       <div class="palco" id="palco" tabindex="0" role="group" aria-roledescription="carrossel" aria-label="Vitrine de bolos">
@@ -548,7 +577,7 @@ footer .made{margin-top:14px;font-size:13.5px;color:#E9D7CF}
       <aside class="fatia" id="fatia" hidden>
         <button class="x" type="button" aria-label="Fechar">×</button>
         <div class="top"><img alt="" width="600" height="800"><div><p class="occ"></p><h3 tabindex="-1"></h3><p class="desc"></p></div></div>
-        <h4>Ingredientes</h4><ul></ul><p class="ex"></p>
+        <p class="ex"></p><h4>Ingredientes</h4><ul></ul>
         <button class="btn btn-cacau btn-pedir" type="button"><span aria-hidden="true">+</span> <span>Quero um assim</span></button>
       </aside>
     </div>
@@ -570,6 +599,7 @@ footer .made{margin-top:14px;font-size:13.5px;color:#E9D7CF}
       <p id="hist2"></p>
       <p data-i18n="hist3">Até hoje todo bolo de encomenda começa com uma conversa. Mande suas cores, o tema ou uma foto que você salvou, e a Yallem procura ideias com você até ficar do jeito certo.</p>
       <p class="fecho" data-i18n="fecho">Bem-vindos ao meu mundo doce!</p>
+      <p class="hist-pf"><span class="pf" data-i18n="histPf">história do site B, a confirmar com a Yallem</span></p>
     </div>
     <figure class="hist-foto reveal">
       <div class="ph"><img src="img/doce-de-leite-600.webp" srcset="img/doce-de-leite-600.webp 600w, img/doce-de-leite-1000.webp 1000w" sizes="(min-width:900px) 420px, 90vw" width="600" height="800" alt="Bolo branco com calda de doce de leite escorrendo e beijinhos no topo" data-i18n-alt="altHist" loading="lazy" decoding="async"></div>
@@ -606,7 +636,7 @@ footer .made{margin-top:14px;font-size:13.5px;color:#E9D7CF}
       <figure data-cat="datas"><img src="img/panetone-400.webp" srcset="img/panetone-400.webp 400w, img/panetone-600.webp 600w" sizes="(min-width:820px) 25vw, 50vw" width="600" height="800" alt="Panetone cortado, recheado com creme de chocolate" data-i18n-alt="ga12" loading="lazy" decoding="async"><figcaption><span data-i18n="gn12">Panetone recheado</span><small data-i18n="go12">Natal</small></figcaption></figure>
       <figure data-cat="datas doces"><img src="img/cookies-400.webp" srcset="img/cookies-400.webp 400w, img/cookies-600.webp 600w" sizes="(min-width:820px) 25vw, 50vw" width="600" height="800" alt="Biscoitos amanteigados com confeitos de Natal" data-i18n-alt="ga13" loading="lazy" decoding="async"><figcaption><span data-i18n="gn13">Biscoitos amanteigados</span><small data-i18n="go13">Natal</small></figcaption></figure>
     </div>
-    <p class="tambem" data-i18n="tambem"><b>Também para:</b> casamento, evento da empresa, datas festivas, presente e bolo só porque sim.</p>
+    <p class="tambem" data-i18n="tambem"><b>Também para:</b> casamento, evento da empresa, datas festivas, presente e bolo só porque sim. <span class="pf">a confirmar</span></p>
     <p class="g-ig" id="igBox" hidden><a class="btn btn-ghost ig-link" href="#" target="_blank" rel="noopener" data-i18n="igMais">Ver mais no Instagram</a></p>
   </div>
 </section>
@@ -661,12 +691,13 @@ footer .made{margin-top:14px;font-size:13.5px;color:#E9D7CF}
       <h2 data-i18n="h7">Antes de encomendar</h2>
     </div>
     <div class="faq-l">
+      <p class="faq-aviso"><span class="pf" data-i18n="faqPf">Respostas a confirmar com a Yallem</span></p>
       <details><summary data-i18n="q1">Com quanto tempo de antecedência devo pedir?</summary><p data-i18n="q1r">Peça com <span class="pf">cerca de uma semana (a confirmar)</span> de antecedência. Para Thanksgiving, Natal e fins de semana, peça com mais tempo.</p></details>
       <details><summary data-i18n="q2">Como funciona o sinal?</summary><p data-i18n="q2r">A data fica reservada depois do sinal de <span class="pf">valor a confirmar</span>, pago por <span class="pf">forma de pagamento a confirmar</span>.</p></details>
       <details><summary data-i18n="q3">Posso mudar a data ou cancelar?</summary><p data-i18n="q3r"><span class="pf">Política de mudança e cancelamento a confirmar</span>. Se precisar mudar algo, avise pelo WhatsApp o quanto antes.</p></details>
-      <details><summary data-i18n="q4">Vocês entregam?</summary><p><span data-i18n="q4r">A retirada é na loja, na 197 Merrimack Ave, em Dracut. Entrega na sua festa: pergunte pelo WhatsApp.</span> <span id="q4apps"></span></p></details>
+      <details><summary data-i18n="q4">Vocês entregam?</summary><p><span data-i18n="q4r">A retirada é na loja, na 197 Merrimack Ave, em Dracut. Entrega na sua festa: pergunte pelo WhatsApp. Delivery pelos apps: <span class="pf">a confirmar</span>.</span> <span id="q4apps"></span></p></details>
       <details><summary data-i18n="q5">Posso mandar uma foto de referência?</summary><p data-i18n="q5r">Pode, e ajuda bastante. Mande a foto na conversa do WhatsApp: a Yallem adapta a ideia e explica o que muda no valor.</p></details>
-      <details><summary data-i18n="q6">E se alguém tiver alergia?</summary><p data-i18n="q6r">Os doces usam ingredientes como leite, ovos, trigo, amendoim e castanhas. Avise sobre alergias antes de pedir, para a Yallem dizer o que dá para adaptar. Não é possível garantir a ausência de contato cruzado. <span class="pf">lista completa de alérgenos a confirmar</span></p></details>
+      <details><summary data-i18n="q6">E se alguém tiver alergia?</summary><p data-i18n="q6r">Os doces usam ingredientes como leite, ovos, trigo, amendoim e castanhas. Avise sobre alergias antes de pedir, para a Yallem dizer o que dá para adaptar. <span class="pf">Contato cruzado e lista completa de alérgenos a confirmar</span></p></details>
       <details><summary data-i18n="q7">Como conservar o bolo?</summary><p data-i18n="q7r">Bolos com chantilly e recheios cremosos ficam na geladeira até a hora de servir. Na retirada, a Yallem explica como conservar o seu.</p></details>
       <p class="licenca" id="licenca" hidden></p>
     </div>
@@ -691,7 +722,7 @@ footer .made{margin-top:14px;font-size:13.5px;color:#E9D7CF}
       </div>
       <div class="qr"><img src="img/qr-whatsapp.svg" width="104" height="104" alt="QR code que abre o WhatsApp da Yallem" data-i18n-alt="qrAlt" loading="lazy"><p data-i18n="qrTxt">No computador? Aponte a câmera do celular para abrir o WhatsApp da Yallem.</p></div>
     </div>
-    <div class="map reveal"><iframe loading="lazy" title="Mapa: Yallem Cake Shop, 197 Merrimack Ave, Dracut" data-i18n-title="mapT" src="https://www.google.com/maps?q=197+Merrimack+Ave,+Dracut,+MA+01826&amp;output=embed" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+    <div class="map reveal"><a class="map-fb" href="https://www.google.com/maps/dir/?api=1&amp;destination=197+Merrimack+Ave,+Dracut,+MA+01826" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><svg aria-hidden="true"><use href="#i-pin"/></svg><b>197 Merrimack Ave</b>Dracut, MA 01826</a><iframe loading="lazy" title="Mapa: Yallem Cake Shop, 197 Merrimack Ave, Dracut" data-i18n-title="mapT" src="https://www.google.com/maps?q=197+Merrimack+Ave,+Dracut,+MA+01826&amp;output=embed" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
   </div>
 </section>
 </main>
@@ -725,9 +756,10 @@ const CONFIG={
   // Entrevista citada na história. Link de origem: a confirmar (o site B não trouxe).
   entrevista:{pt:'Yallem, em entrevista à prefeitura de Dracut',en:'Yallem, in an interview with the Town of Dracut',link:null},
   // Dados pessoais: desligados até a Yallem autorizar.
-  mostrarSobrenome:false, sobrenome:'Trupel',          // a confirmar: B escreve "Trupel" na história e "truppel" no e-mail
-  mostrarFamilia:false, marido:'Cristiano', mae:'Mariscela',
-  mostrarEmail:false, email:'yallemtruppel@gmail.com',
+  // Ficam vazios até a Yallem autorizar (o código-fonte é público). Valores do site B estão em FACTS.md.
+  mostrarSobrenome:false, sobrenome:'',
+  mostrarFamilia:false, marido:'', mae:'',
+  mostrarEmail:false, email:'',
   licenca:null      // texto exato da licença, só depois de confirmado com a Board of Health de Dracut
 };
 
@@ -738,25 +770,25 @@ const HORARIO_CONFIRMADO=false;
 
 // Chamada secundária do topo por estação (horário de Dracut). Troque textos e datas a cada estação.
 const SAZONAIS=[
-  {de:'2026-01-01',ate:'2026-11-27',pagina:'tacas',pt:'Thanksgiving: taças e tortas',en:'Thanksgiving: dessert cups & pies'},
+  {de:'2026-10-15',ate:'2026-11-27',pagina:'tacas',pt:'Thanksgiving: taças e tortas',en:'Thanksgiving: dessert cups & pies'},
   {de:'2026-11-27',ate:'2026-12-25',pagina:'presentes',pt:'Natal: panetone e brigadeiros',en:'Christmas: panettone & brigadeiros'}
 ];
 
 const T={en:{
- skip:'Skip to content',navAria:'Main',stAria:'Shop right now',nav1:'Cakes',nav2:'Our story',nav3:'Menu',nav4:'FAQ',nav5:'Visit',rota:'Get directions',rota2:'Get directions',
- h1a:'Beautiful outside.',h1b:'Brazilian inside.',sub:'Custom cakes, brigadeiros and Brazilian sweets, made by Yallem and her family in Dracut, MA.',ctaPedido:'Place my order',cta2:'See the cakes ↓',
+ skip:'Skip to content',navAria:'Main',menu:'Menu',stAria:'Shop right now',nav1:'Cakes',nav2:'Our story',nav3:'Menu',nav4:'FAQ',nav5:'Visit',rota:'Get directions',rota2:'Get directions',
+ h1a:'Beautiful outside.',h1b:'Brazilian inside.',sub:'Custom cakes, brigadeiros and Brazilian sweets, made by Yallem in Dracut, MA.',ctaPedido:'Place my order',cta2:'See the cakes ↓',
  altA:'White cake with a crown of strawberries, blueberries, blackberries and cherries and a message written in gold',altHero:'White birthday cake with the number 25, piped cream border and pink and white flowers',altB:'White cake with pink and nude book spines with names in gold and roses',
- k2:'Yallem’s cakes',h2:'Made for every celebration',l2:'Custom cakes, Brazilian sweets and slices, all made in the shop’s kitchen in Dracut. Tap a cake to see the slice.',pausa:'Pause the showcase',pausaOn:'Play the showcase',
+ k2:'Yallem’s cakes',h2:'Made for every celebration',l2:'Custom cakes, Brazilian sweets and slices by Yallem. Tap a cake to see the slice.',pausa:'Pause the showcase',pausaOn:'Play the showcase',
  k3:'Our story',h3:'Meet Yallem',h3s:'It started with an ugly cake.',quote:'“They liked it, but it was an ugly cake. Still, they said it was so delicious that I should sell it.”',
- hist3:'To this day, every custom cake starts with a conversation. Send your colors, the theme or a photo you saved, and Yallem works on ideas with you until it’s just right.',fecho:'Welcome to my sweet world!',
+ hist3:'To this day, every custom cake starts with a conversation. Send your colors, the theme or a photo you saved, and Yallem works on ideas with you until it’s just right.',fecho:'Welcome to my sweet world!',histPf:'story from site B, to be confirmed with Yallem',
  altHist:'White cake with a dulce de leche drip and coconut truffles on top',histCapT:'Today: flavor and care',histCap:'Dulce de leche and coconut, one of Yallem’s cakes',
  k4:'Occasions',h4:'A cake for every occasion',gFiltro:'Filter by occasion',gf0:'All',gf1:'Birthday',gf2:'Baby showers and gender reveals',gf3:'Themed',gf4:'Special dates',gf5:'Dessert cups and sweets',
  ga1:'White cake with a crown of red berries and a gold message',gn1:'Red berry garden',go1:'Gender reveal',ga2:'Yellow passion fruit cake with chocolate drip and brigadeiros',gn2:'Passion fruit and chocolate',go2:'Birthday',ga3:'Black and white checkered cake with chess pieces on top',gn3:'Chessboard',go3:'Themed',ga4:'Cake with book spines, names in gold and roses',gn4:'Books and gold leaf',go4:'Baby shower',ga5:'Dessert cups with cream, brigadeiros, strawberries and peanuts',gn5:'Dessert cups',go5:'Dessert cups',ga6:'White cake with dulce de leche drip and coconut truffles',gn6:'Dulce de leche and coconut',go6:'Birthday',ga7:'Cake with little bees and blue flowers',gn7:'Mommy to Bee',go7:'Baby shower',ga8:'Thanksgiving cakes with autumn leaves and pumpkins',gn8:'Thanksgiving table',go8:'Special dates',ga9:'White cake with the number 25 and flowers',gn9:'Delicate florals',go9:'Birthday',ga10:'Box of Christmas gourmet brigadeiros',gn10:'Brigadeiro box',go10:'Gift',ga11:'Banoffee cup with caramelized banana',gn11:'Banoffee',go11:'Dessert cups',ga12:'Panettone cut in half, filled with chocolate cream',gn12:'Filled panettone',go12:'Christmas',ga13:'Butter cookies with Christmas sprinkles',gn13:'Butter cookies',go13:'Christmas',
- tambem:'<b>Also for:</b> weddings, company events, holidays, gifts and cakes just because.',igMais:'See more on Instagram',
+ tambem:'<b>Also for:</b> weddings, company events, holidays, gifts and cakes just because. <span class="pf">to be confirmed</span>',igMais:'See more on Instagram',
  k5:'Menu and orders',h5:'Browse and build your order',ps1t:'Send your idea',ps1:'In the book below or from the showcase: occasion, date, number of guests and colors. It all becomes one message.',ps2t:'We create it together',ps2:'Yallem suggests flavors, tiers and decoration and sends the quote. Your date is held with a deposit of <span class="pf">amount to be confirmed</span>.',ps3t:'Pickup or delivery',ps3:'Pick it up at the shop in Dracut or ask about delivery to your party.',
  antec:'Order <span class="pf">about a week (to be confirmed)</span> in advance. Prefer to talk? Call or text <a href="tel:+19782277733">(978) 227-7733</a>.',
- k6:'Reviews',h6:'Those who tasted it, tell',av1:'Tried one of Yallem’s cakes? Tell people how it was on Google.',avBtn:'Review on Google',
- k7:'Questions',h7:'Before you order',q1:'How far in advance should I order?',q1r:'Order <span class="pf">about a week (to be confirmed)</span> in advance. For Thanksgiving, Christmas and weekends, order earlier.',q2:'How does the deposit work?',q2r:'Your date is held after a deposit of <span class="pf">amount to be confirmed</span>, paid by <span class="pf">payment method to be confirmed</span>.',q3:'Can I change the date or cancel?',q3r:'<span class="pf">Change and cancellation policy to be confirmed</span>. If you need to change something, message Yallem on WhatsApp as soon as possible.',q4:'Do you deliver?',q4r:'Pickup is at the shop, 197 Merrimack Ave, Dracut. Delivery to your party: ask on WhatsApp.',q5:'Can I send a reference photo?',q5r:'Yes, and it helps a lot. Send the photo in the WhatsApp chat: Yallem adapts the idea and explains how it affects the price.',q6:'What about allergies?',q6r:'The sweets use ingredients such as milk, eggs, wheat, peanuts and tree nuts. Tell Yallem about any allergy before ordering so she can say what can be adapted. Cross-contact cannot be ruled out. <span class="pf">full allergen list to be confirmed</span>',q7:'How should I store the cake?',q7r:'Cakes with whipped cream and creamy fillings stay in the fridge until serving time. At pickup, Yallem explains how to store yours.',
+ k6:'Reviews',h6:'What customers say',av1:'Tried one of Yallem’s cakes? Tell people how it was on Google.',avBtn:'Review on Google',
+ k7:'Questions',h7:'Before you order',q1:'How far in advance should I order?',q1r:'Order <span class="pf">about a week (to be confirmed)</span> in advance. For Thanksgiving, Christmas and weekends, order earlier.',q2:'How does the deposit work?',q2r:'Your date is held after a deposit of <span class="pf">amount to be confirmed</span>, paid by <span class="pf">payment method to be confirmed</span>.',q3:'Can I change the date or cancel?',q3r:'<span class="pf">Change and cancellation policy to be confirmed</span>. If you need to change something, message Yallem on WhatsApp as soon as possible.',q4:'Do you deliver?',q4r:'Pickup is at the shop, 197 Merrimack Ave, Dracut. Delivery to your party: ask on WhatsApp. Delivery apps: <span class="pf">to be confirmed</span>.',q5:'Can I send a reference photo?',q5r:'Yes, and it helps a lot. Send the photo in the WhatsApp chat: Yallem adapts the idea and explains how it affects the price.',q6:'What about allergies?',q6r:'The sweets use ingredients such as milk, eggs, wheat, peanuts and tree nuts. Tell Yallem about any allergy before ordering so she can say what can be adapted. <span class="pf">Cross-contact and full allergen list to be confirmed</span>',faqPf:'Answers to be confirmed with Yallem',q7:'How should I store the cake?',q7r:'Cakes with whipped cream and creamy fillings stay in the fridge until serving time. At pickup, Yallem explains how to store yours.',
  k8:'Visit the shop',h8:'Come taste it',iAddr:'Address',iHours:'Hours',hrsPf:'hours to be confirmed',iPhone:'Phone and WhatsApp',iDeliv:'Delivery apps',call:'Call',qrAlt:'QR code that opens Yallem’s WhatsApp',qrTxt:'On a computer? Point your phone camera here to open Yallem’s WhatsApp.',mapT:'Map: Yallem Cake Shop, 197 Merrimack Ave, Dracut',
  made:'Website by Paradoxum',fab:'Chat on WhatsApp'
 }};
@@ -796,7 +828,7 @@ function montarHistoria(){
   const base=en
     ?'So she kept the flavor and stepped up the look. Orders grew in her home kitchen in Lowell, until in November 2023 she opened her own shop on Merrimack Avenue, in Dracut. '
     :'Então ela manteve o sabor e caprichou na aparência. As encomendas cresceram na cozinha de casa, em Lowell, até que em novembro de 2023 ela abriu a própria loja na Merrimack Avenue, em Dracut. ';
-  const fam=CONFIG.mostrarFamilia
+  const fam=CONFIG.mostrarFamilia&&CONFIG.marido&&CONFIG.mae
     ?(en?`Her husband, ${CONFIG.marido}, did much of the renovation. Her mother, ${CONFIG.mae}, is part of the team.`:`O marido, ${CONFIG.marido}, fez boa parte da reforma. A mãe, ${CONFIG.mae}, faz parte da equipe.`)
     :(en?'Her family helped renovate the shop and is part of the team.':'A família ajudou na reforma da loja e faz parte da equipe.');
   document.getElementById('hist2').textContent=base+fam;
@@ -861,9 +893,10 @@ function atualizarAberto(){
   else{
     let k=0,d=dia; if(hj&&h<hj[0]) k=0; else { for(k=1;k<=7;k++){d=(dia+k)%7;if(HORARIO[d])break} }
     const ab=HORARIO[d][0], quando=k===0?(en?'today':'hoje'):k===1?(en?'tomorrow':'amanhã'):(en?'on '+DIAS.en[d]:DIAS.pt[d]);
-    txt=en?`Closed · opens ${quando} at ${hFmt(ab,1)}`:`Fechado · abre ${quando} às ${hFmt(ab)}`;
+    txt=en?`Closed · opens ${quando} ${hFmt(ab,1)}`:`Fechado · abre ${quando} ${hFmt(ab)}`;
   }
   document.getElementById('stTxt').textContent=txt;
+  const pf=document.getElementById('stPf'); pf.hidden=HORARIO_CONFIRMADO; pf.textContent=en?'unconfirmed':'a confirmar';
   bar.classList.toggle('aberto',aberto); bar.hidden=false;
   // tabela no Visite
   const grupos=[[1,5],[6,6],[0,0]], nomes=en?{1:'Mon to Fri',6:'Saturday',0:'Sunday'}:{1:'Segunda a sexta',6:'Sábado',0:'Domingo'};
@@ -881,6 +914,13 @@ function chamadaSecundaria(){
 }
 
 document.querySelectorAll('[data-lang]').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang)));
+// ---------- Menu ☰ ----------
+const nav=document.getElementById('nav'), menuBtn=document.getElementById('menuBtn');
+function menu(abrir,focar){ nav.classList.toggle('aberto',abrir); menuBtn.setAttribute('aria-expanded',String(abrir)); if(!abrir&&focar) menuBtn.focus(); }
+menuBtn.addEventListener('click',()=>menu(!nav.classList.contains('aberto')));
+nav.addEventListener('click',e=>{ if(e.target.closest('a')) menu(false); });
+document.addEventListener('keydown',e=>{ if(e.key==='Escape'&&nav.classList.contains('aberto')) menu(false,true); });
+document.addEventListener('click',e=>{ if(nav.classList.contains('aberto')&&!e.target.closest('#nav,#menuBtn')) menu(false); });
 document.addEventListener('yc-lang',()=>{montarHistoria();montarConfig();atualizarAberto();chamadaSecundaria();
   pausa.setAttribute('aria-label',(lang==='en'?T.en:PT)[document.documentElement.classList.contains('pausado')?'pausaOn':'pausa']);});
 let saved=null;try{saved=localStorage.getItem('yc-lang')}catch(e){}

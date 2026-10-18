@@ -22,7 +22,8 @@ Junta o site A (vitrine 3D, cardápio em livro, card "Seu pedido") com a marca e
 | O quê | Arquivo | Onde |
 |---|---|---|
 | Horário e o selo "a confirmar" | `index.html` | `HORARIO` e `HORARIO_CONFIRMADO` |
-| Nomes da família, sobrenome, e-mail | `index.html` | `CONFIG.mostrarFamilia`, `CONFIG.mostrarSobrenome`, `CONFIG.mostrarEmail` (todos `false`) |
+| Nomes da família, sobrenome, e-mail | `index.html` | preencher `CONFIG.marido`, `CONFIG.mae`, `CONFIG.sobrenome`, `CONFIG.email` (vazios no código, porque o código é público) e ligar `mostrarFamilia`, `mostrarSobrenome`, `mostrarEmail`. Os valores que o site B usava estão em `FACTS.md` |
+| Selos "a confirmar" do FAQ e da história | `index.html` | procurar `faqPf` e `histPf` e apagar o parágrafo depois de confirmar |
 | Link da entrevista | `index.html` | `CONFIG.entrevista.link` |
 | Avaliações | `index.html` | `CONFIG.depoimentos` (com `fonte` e `link`, o aviso "fonte a confirmar" some) |
 | Apps de entrega | `index.html` | `CONFIG.delivery`: `[{nome:'DoorDash', url:'…'}]`. Vazio = não aparece em lugar nenhum |
@@ -36,6 +37,10 @@ Junta o site A (vitrine 3D, cardápio em livro, card "Seu pedido") com a marca e
 - No card "Seu pedido" nada vem marcado. O que a pessoa não preencher sai como "a combinar" ou fica fora da mensagem.
 - O botão do WhatsApp nunca some: com o pedido aberto no celular, ele sobe para cima do card.
 - O pedido fica guardado com outro nome (`yc-c-pedido`), para não misturar com a A se as duas estiverem no mesmo domínio.
+- No celular há menu ☰ (como no B). A barra do topo mostra "aberto/fechado" com o selo "a confirmar" até o horário ser confirmado.
+- Se o mapa do Google não carregar, aparece o endereço com o link "Como chegar" no lugar de uma caixa vazia.
+
+**Defeito encontrado na A (não corrigido lá, corrigido na C):** a página "Recheios" do livro da A corta até 67 px de texto no celular (360 px) e 90 px em 320 px. Na C os recheios estão em duas páginas e nenhuma página corta, em 7 larguras.
 
 ## 1. O que pedir para a Yallem (checklist)
 
